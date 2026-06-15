@@ -1,0 +1,425 @@
+{
+  "schema_version": "1.0",
+  "id": "weather-dashboard-a1b2",
+  "version": 3,
+  "fidelity_stage": "mockup",
+  "knowledge_pack_ref": {
+    "library_name": "mock-internal-ui",
+    "library_version": "1.0.0"
+  },
+  "source": {
+    "request": "Build a weather dashboard that shows current conditions and a 5-day forecast for a user-selected location. Should support both desktop and mobile, and work in light and dark mode.",
+    "context_artifacts": [
+      {
+        "kind": "meeting_transcript",
+        "ref": "artifacts/kickoff-meeting-2026-05-12.txt"
+      },
+      {
+        "kind": "url",
+        "ref": "https://openweathermap.org/api"
+      }
+    ]
+  },
+  "intent": {
+    "goal": "Provide users with a clear, at-a-glance view of current weather conditions and a 5-day forecast for any location they choose, accessible on both desktop and mobile devices.",
+    "personas": [
+      {
+        "name": "Casual User",
+        "needs": "Quickly check today's weather and the next few days before planning outdoor activities. Wants a clean, simple interface without information overload."
+      },
+      {
+        "name": "Power User",
+        "needs": "Monitor detailed weather metrics (humidity, wind speed, UV index, pressure) across multiple saved locations. Prefers dense information layout with trend data."
+      }
+    ],
+    "success_criteria": [
+      "User can search for and select a location within 3 interactions",
+      "Current conditions and 5-day forecast are visible above the fold on desktop (1280px wide)",
+      "All core functionality is operable via keyboard alone with visible focus indicators"
+    ],
+    "constraints": {
+      "platforms": ["web"],
+      "devices": ["desktop", "mobile"],
+      "a11y_target": "WCAG 2.2 AA",
+      "brand": "Internal design system; use mock-internal-ui token palette"
+    },
+    "non_goals": [
+      "Radar or satellite map views are out of scope for v1",
+      "Push notifications and alerts are deferred to a future iteration"
+    ]
+  },
+  "information_architecture": {
+    "screens": [
+      {
+        "id": "dashboard",
+        "name": "Main Dashboard",
+        "purpose": "Display current conditions, hourly snapshot, and 5-day forecast for the active location"
+      },
+      {
+        "id": "location-search",
+        "name": "Location Search",
+        "purpose": "Allow users to search for and select a new location by city name or ZIP code"
+      }
+    ],
+    "navigation": [
+      {
+        "from": "dashboard",
+        "to": "location-search",
+        "trigger": "User clicks the location bar search icon or current location name"
+      },
+      {
+        "from": "location-search",
+        "to": "dashboard",
+        "trigger": "User selects a result from the search list or presses Escape to cancel"
+      }
+    ],
+    "flows": [
+      {
+        "name": "Change Location",
+        "steps": [
+          "User is on dashboard",
+          "User activates location bar",
+          "Location search screen slides in",
+          "User types city name or ZIP",
+          "Results list populates",
+          "User selects a result",
+          "Dashboard refreshes with new location data"
+        ]
+      },
+      {
+        "name": "First Load",
+        "steps": [
+          "App loads with empty state (no saved location)",
+          "Location search screen is shown immediately",
+          "User searches and selects a location",
+          "Dashboard displays weather data for selected location"
+        ]
+      }
+    ]
+  },
+  "data_model": {
+    "entities": [
+      {
+        "name": "Location",
+        "fields": [
+          "id: string",
+          "name: string",
+          "region: string",
+          "country: string",
+          "lat: number",
+          "lon: number",
+          "timezone: string"
+        ]
+      },
+      {
+        "name": "WeatherReading",
+        "fields": [
+          "locationId: string",
+          "timestamp: ISO8601",
+          "tempC: number",
+          "tempF: number",
+          "feelsLikeC: number",
+          "feelsLikeF: number",
+          "condition: string",
+          "conditionIcon: string",
+          "humidity: number",
+          "windKph: number",
+          "windDir: string",
+          "uvIndex: number",
+          "pressureMb: number",
+          "visibilityKm: number",
+          "forecast: ForecastDay[]"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Mock Weather API",
+        "kind": "mock",
+        "contract": "data/mock-weather-api.json"
+      }
+    ],
+    "sample_data_ref": "data/sample-weather-london.json"
+  },
+  "composition": [
+    {
+      "screen_id": "dashboard",
+      "regions": [
+        {
+          "name": "header",
+          "responsive": "Full width; collapses to icon-only nav on mobile (< 640px)"
+        },
+        {
+          "name": "location-bar",
+          "responsive": "Full width sticky bar below header; shows city name and search icon"
+        },
+        {
+          "name": "current-conditions",
+          "responsive": "Hero region; 2-column on desktop (icon + stats), stacked on mobile"
+        },
+        {
+          "name": "forecast-strip",
+          "responsive": "Horizontal scrolling row of 5 day cards; full width"
+        },
+        {
+          "name": "detail-cards",
+          "responsive": "3-column grid on desktop (lg+), 2-column on tablet (md), 1-column on mobile"
+        }
+      ],
+      "breakpoints": ["sm:640px", "md:768px", "lg:1024px", "xl:1280px"]
+    },
+    {
+      "screen_id": "location-search",
+      "regions": [
+        {
+          "name": "search-input",
+          "responsive": "Full width with prominent input; auto-focused on mount"
+        },
+        {
+          "name": "results-list",
+          "responsive": "Full width scrollable list; max-height 60vh with overflow-y:auto"
+        }
+      ],
+      "breakpoints": ["sm:640px", "md:768px"]
+    }
+  ],
+  "component_bindings": [
+    {
+      "screen_id": "dashboard",
+      "need": "Overall page shell with top navigation and theme support",
+      "component": "AppShell",
+      "variant": "default",
+      "state_set": ["default"],
+      "props": {
+        "theme": "system",
+        "nav": true
+      }
+    },
+    {
+      "screen_id": "dashboard",
+      "need": "Current temperature display with feels-like stat",
+      "component": "Stat",
+      "variant": "default",
+      "state_set": ["default", "loading"],
+      "props": {
+        "label": "Temperature",
+        "unit": "°C",
+        "value": "18"
+      }
+    },
+    {
+      "screen_id": "dashboard",
+      "need": "Humidity metric display",
+      "component": "Stat",
+      "variant": "default",
+      "state_set": ["default", "loading"],
+      "props": {
+        "label": "Humidity",
+        "unit": "%"
+      }
+    },
+    {
+      "screen_id": "dashboard",
+      "need": "Wind speed metric with trend indicator",
+      "component": "Stat",
+      "variant": "trend-up",
+      "state_set": ["default", "loading"],
+      "props": {
+        "label": "Wind",
+        "unit": "km/h",
+        "trend": "up"
+      }
+    },
+    {
+      "screen_id": "dashboard",
+      "need": "UV index metric",
+      "component": "Stat",
+      "variant": "default",
+      "state_set": ["default", "loading"],
+      "props": {
+        "label": "UV Index"
+      }
+    },
+    {
+      "screen_id": "dashboard",
+      "need": "Container for current conditions region",
+      "component": "Card",
+      "variant": "elevated",
+      "state_set": ["default"],
+      "props": {
+        "padding": "lg",
+        "elevated": true
+      }
+    },
+    {
+      "screen_id": "dashboard",
+      "need": "5-day forecast chart visualization",
+      "component": "ChartPlaceholder",
+      "variant": "default",
+      "state_set": ["loading", "empty", "populated"],
+      "props": {
+        "type": "bar",
+        "title": "5-Day Forecast",
+        "height": 180
+      }
+    },
+    {
+      "screen_id": "dashboard",
+      "need": "Container for each forecast day card in the strip",
+      "component": "Card",
+      "variant": "outlined",
+      "state_set": ["default", "loading"],
+      "props": {
+        "padding": "sm"
+      }
+    },
+    {
+      "screen_id": "dashboard",
+      "need": "Container for detail metric cards grid",
+      "component": "Card",
+      "variant": "default",
+      "state_set": ["default"],
+      "props": {
+        "padding": "md"
+      }
+    },
+    {
+      "screen_id": "location-search",
+      "need": "Search input for city name or ZIP code",
+      "component": "Input",
+      "variant": "default",
+      "state_set": ["default", "focus", "error"],
+      "props": {
+        "placeholder": "Search city or ZIP code…",
+        "label": "Location search",
+        "type": "search"
+      }
+    },
+    {
+      "screen_id": "location-search",
+      "need": "Cancel / close location search",
+      "component": "Button",
+      "variant": "ghost",
+      "state_set": ["default", "hover", "focus"],
+      "props": {
+        "label": "Cancel",
+        "variant": "ghost"
+      }
+    },
+    {
+      "screen_id": "location-search",
+      "need": "Each location result row in the list",
+      "component": "Card",
+      "variant": "default",
+      "state_set": ["default", "hover", "focus"],
+      "props": {
+        "padding": "sm"
+      }
+    },
+    {
+      "screen_id": "location-search",
+      "need": "Confirm selection of a location from results",
+      "component": "Button",
+      "variant": "primary",
+      "state_set": ["default", "hover", "focus", "active"],
+      "props": {
+        "label": "Select",
+        "variant": "primary",
+        "size": "sm"
+      }
+    }
+  ],
+  "theming": {
+    "token_overrides": {
+      "color-primary-500": "#0ea5e9",
+      "color-primary-600": "#0284c7"
+    },
+    "mode": "both"
+  },
+  "interaction_behavior": [
+    {
+      "screen_id": "dashboard",
+      "states": ["loading", "empty", "error", "success"],
+      "validation": [],
+      "transitions": [
+        "On location change: fade out current data, show skeleton loaders, fade in new data on success",
+        "On error: replace content area with inline error message and retry button",
+        "Forecast strip: horizontal scroll on mobile; arrow key navigation on desktop"
+      ]
+    },
+    {
+      "screen_id": "location-search",
+      "states": ["empty", "loading", "error", "success"],
+      "validation": [
+        "Input must be at least 2 characters before triggering search",
+        "Show inline error if API returns no results for the query"
+      ],
+      "transitions": [
+        "Slide-in overlay from top on open; slide-out on close/cancel",
+        "Results list fades in after 300ms debounce from last keystroke",
+        "Selecting a result immediately navigates back to dashboard with skeleton state"
+      ]
+    }
+  ],
+  "accessibility": {
+    "wcag_target": "WCAG 2.2 AA",
+    "keyboard_model": "Tab to all interactive elements; Enter/Space activate buttons; Escape closes location search overlay; Arrow keys navigate forecast strip; results list uses roving tabindex",
+    "focus_order": [
+      "AppShell top-bar skip-link",
+      "AppShell nav items",
+      "Location bar search trigger",
+      "Current conditions (read-only stats, no tab stop)",
+      "Forecast strip (first card focused, arrow keys move between cards)",
+      "Detail cards (read-only, no tab stop)"
+    ]
+  },
+  "assets": {
+    "wireframes": [
+      "design/wireframes/dashboard-desktop.svg",
+      "design/wireframes/dashboard-mobile.svg",
+      "design/wireframes/location-search.svg"
+    ],
+    "mockups": [
+      "design/mockups/dashboard-light.html",
+      "design/mockups/dashboard-dark.html",
+      "design/mockups/location-search-light.html"
+    ]
+  },
+  "elicitation_log": [
+    {
+      "stage": "draft",
+      "question": "Should the dashboard default to the user's geolocation on first load, or require explicit search?",
+      "answer": "Require explicit search for v1 to avoid permission prompts; geolocation can be added in v2.",
+      "status": "answered",
+      "timestamp": "2026-05-12T10:15:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "What unit system should be used — metric, imperial, or user-selectable?",
+      "answer": "Assumed metric (°C, km/h) for v1 since the primary audience is EU-based; unit toggle deferred to backlog.",
+      "status": "assumed",
+      "timestamp": "2026-05-12T10:22:00Z"
+    },
+    {
+      "stage": "wireframe",
+      "question": "How many days should the forecast strip show — 5 or 7?",
+      "answer": "Inferred 5-day from the original request wording; stakeholder confirmation pending.",
+      "status": "inferred",
+      "timestamp": "2026-05-19T14:05:00Z"
+    },
+    {
+      "stage": "wireframe",
+      "question": "Should users be able to save multiple locations for quick switching?",
+      "answer": "Saved locations list is explicitly out of scope per product owner in kickoff meeting.",
+      "status": "answered",
+      "timestamp": "2026-05-19T14:30:00Z"
+    },
+    {
+      "stage": "mockup",
+      "question": "Does the detail-cards grid need a pressure or visibility metric, or just temp/humidity/wind/UV?",
+      "answer": "Which additional metrics to surface in detail cards has not been confirmed; defaulting to humidity, wind, UV index, and pressure as the four cards.",
+      "status": "open",
+      "timestamp": "2026-06-02T09:45:00Z"
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://company.example/schemas/concept-spec.schema.json",
+  "title": "UX Concept Spec",
+  "type": "object",
+  "required": ["schema_version", "id", "version", "fidelity_stage", "intent"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "id": { "type": "string", "description": "concept-id, slug + short hash" },
+    "version": { "type": "integer", "minimum": 1 },
+    "fidelity_stage": {
+      "type": "string",
+      "enum": ["draft", "wireframe", "mockup", "interactive_prototype", "buildable", "built"]
+    },
+    "knowledge_pack_ref": {
+      "type": "object",
+      "properties": {
+        "library_name": { "type": "string" },
+        "library_version": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "description": "Origin of this concept",
+      "properties": {
+        "request": { "type": "string" },
+        "context_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": { "type": "string", "enum": ["meeting_transcript", "doc", "image", "url", "other"] },
+              "ref": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "intent": {
+      "type": "object",
+      "required": ["goal"],
+      "properties": {
+        "goal": { "type": "string" },
+        "personas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "needs": { "type": "string" }
+            }
+          }
+        },
+        "success_criteria": { "type": "array", "items": { "type": "string" } },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "platforms": { "type": "array", "items": { "type": "string" } },
+            "devices": { "type": "array", "items": { "type": "string" } },
+            "a11y_target": { "type": "string", "default": "WCAG 2.2 AA" },
+            "brand": { "type": "string" }
+          }
+        },
+        "non_goals": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "information_architecture": {
+      "type": "object",
+      "properties": {
+        "screens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "purpose": { "type": "string" }
+            }
+          }
+        },
+        "navigation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "trigger": { "type": "string" }
+            }
+          }
+        },
+        "flows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "steps": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "data_model": {
+      "type": "object",
+      "properties": {
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "fields": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "kind": { "type": "string", "enum": ["api", "mock", "static"] },
+              "contract": { "type": "string" }
+            }
+          }
+        },
+        "sample_data_ref": { "type": "string" }
+      }
+    },
+    "composition": {
+      "type": "array",
+      "description": "Per-screen regions and responsive behavior",
+      "items": {
+        "type": "object",
+        "properties": {
+          "screen_id": { "type": "string" },
+          "regions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "responsive": { "type": "string" }
+              }
+            }
+          },
+          "breakpoints": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "component_bindings": {
+      "type": "array",
+      "description": "THE linchpin: each UI need -> a canonical library component",
+      "items": {
+        "type": "object",
+        "required": ["screen_id", "need", "component"],
+        "properties": {
+          "screen_id": { "type": "string" },
+          "need": { "type": "string" },
+          "component": { "type": "string", "description": "canonical name from Knowledge Pack" },
+          "variant": { "type": "string" },
+          "state_set": { "type": "array", "items": { "type": "string" } },
+          "props": { "type": "object" },
+          "gap": {
+            "type": "boolean",
+            "default": false,
+            "description": "true if no library component covers this need"
+          }
+        }
+      }
+    },
+    "theming": {
+      "type": "object",
+      "properties": {
+        "token_overrides": { "type": "object" },
+        "mode": { "type": "string", "enum": ["light", "dark", "both"] }
+      }
+    },
+    "interaction_behavior": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "screen_id": { "type": "string" },
+          "states": {
+            "type": "array",
+            "items": { "type": "string", "description": "empty/loading/error/success/..." }
+          },
+          "validation": { "type": "array", "items": { "type": "string" } },
+          "transitions": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "properties": {
+        "wcag_target": { "type": "string", "default": "WCAG 2.2 AA" },
+        "keyboard_model": { "type": "string" },
+        "focus_order": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "properties": {
+        "wireframes": { "type": "array", "items": { "type": "string" } },
+        "mockups": { "type": "array", "items": { "type": "string" } },
+        "prototype": {
+          "type": "object",
+          "properties": {
+            "path": { "type": "string" },
+            "run_cmd": { "type": "string" }
+          }
+        },
+        "build": {
+          "type": "object",
+          "properties": {
+            "path": { "type": "string" },
+            "run_cmd": { "type": "string" },
+            "images": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "build_directives": {
+      "type": "object",
+      "description": "Builder-owned; ignored by designer/prototyper",
+      "properties": {
+        "architecture": {
+          "type": "string",
+          "enum": ["micro_frontend_mf2", "single_app"],
+          "default": "micro_frontend_mf2"
+        },
+        "framework_target": { "type": "string" },
+        "deploy_target": { "type": "string", "default": "local_host_docker_compose" },
+        "test_strategy": {
+          "type": "object",
+          "properties": {
+            "e2e": { "type": "boolean", "default": true },
+            "visual_regression": { "type": "boolean", "default": true },
+            "a11y": { "type": "boolean", "default": true }
+          }
+        },
+        "acceptance_tests": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "elicitation_log": {
+      "type": "array",
+      "description": "Provenance ledger; compounds across stages",
+      "items": {
+        "type": "object",
+        "required": ["question", "status"],
+        "properties": {
+          "stage": { "type": "string" },
+          "question": { "type": "string" },
+          "answer": { "type": "string" },
+          "status": { "type": "string", "enum": ["answered", "inferred", "assumed", "open"] },
+          "timestamp": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "sdaad": {
+      "type": "object",
+      "description": "RESERVED for future SDAAD integration; do not populate now"
+    }
+  }
+}

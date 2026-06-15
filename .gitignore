@@ -1,0 +1,12 @@
+workspaces/
+internal_ui_stack/
+node_modules/
+dist/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+.DS_Store
