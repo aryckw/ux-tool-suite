@@ -1,0 +1,1404 @@
+{
+  "$schema": "https://company.example/schemas/knowledge-pack.schema.json",
+  "meta": {
+    "library_name": "chakra-ui",
+    "library_version": "3.36.0",
+    "source_commit": "main",
+    "generated_at": "2026-06-16T00:00:00Z",
+    "extractor_version": "0.1.0",
+    "coverage_confidence": 0.82
+  },
+  "tech_stack": {
+    "framework": {
+      "name": "react",
+      "version": ">=18"
+    },
+    "language": "ts",
+    "bundler": "tsup",
+    "package_manager": "pnpm",
+    "node_version": ">=20.0.0",
+    "styling_system": "css-vars",
+    "peer_dependencies": [
+      "@emotion/react@>=11",
+      "react@>=18",
+      "react-dom@>=18"
+    ],
+    "build_commands": {
+      "dev": "pnpm dev",
+      "build": "pnpm build",
+      "test": "pnpm test"
+    },
+    "supported_targets": ["web", "ssr"]
+  },
+  "design_tokens": {
+    "source": {
+      "file": "packages/react/src/theme/tokens/",
+      "format": "css-custom-properties"
+    },
+    "color": {
+      "light": {
+        "black": "#09090B",
+        "white": "#FFFFFF",
+        "gray-50": "#fafafa",
+        "gray-100": "#f4f4f5",
+        "gray-200": "#e4e4e7",
+        "gray-300": "#d4d4d8",
+        "gray-400": "#a1a1aa",
+        "gray-500": "#71717a",
+        "gray-600": "#52525b",
+        "gray-700": "#3f3f46",
+        "gray-800": "#27272a",
+        "gray-900": "#18181b",
+        "gray-950": "#111111",
+        "red-50": "#fef2f2",
+        "red-500": "#ef4444",
+        "red-950": "#1f0808",
+        "orange-50": "#fff7ed",
+        "orange-500": "#f97316",
+        "orange-950": "#220a04",
+        "yellow-50": "#fefce8",
+        "yellow-500": "#eab308",
+        "yellow-950": "#281304",
+        "green-50": "#f0fdf4",
+        "green-500": "#22c55e",
+        "green-950": "#03190c",
+        "teal-50": "#f0fdfa",
+        "teal-500": "#14b8a6",
+        "blue-50": "#eff6ff",
+        "blue-500": "#3b82f6",
+        "blue-950": "#0c142e",
+        "purple-50": "#faf5ff",
+        "purple-500": "#a855f7",
+        "pink-50": "#fdf2f8",
+        "pink-500": "#ec4899",
+        "bg-DEFAULT": "white",
+        "bg-subtle": "gray.50",
+        "bg-muted": "gray.100",
+        "bg-emphasized": "gray.200",
+        "bg-inverted": "black",
+        "bg-panel": "white",
+        "bg-error": "red.50",
+        "bg-warning": "orange.50",
+        "bg-success": "green.50",
+        "bg-info": "blue.50",
+        "fg-DEFAULT": "black",
+        "fg-muted": "gray.600",
+        "fg-subtle": "gray.400",
+        "fg-inverted": "gray.50",
+        "border-DEFAULT": "gray.200",
+        "border-muted": "gray.100",
+        "border-emphasized": "gray.300"
+      },
+      "dark": {
+        "bg-DEFAULT": "black",
+        "bg-subtle": "gray.950",
+        "bg-muted": "gray.900",
+        "bg-emphasized": "gray.800",
+        "bg-inverted": "white",
+        "bg-panel": "gray.950",
+        "fg-DEFAULT": "gray.50",
+        "fg-muted": "gray.400",
+        "fg-subtle": "gray.500",
+        "fg-inverted": "black",
+        "border-DEFAULT": "gray.800",
+        "border-muted": "gray.900",
+        "border-emphasized": "gray.700"
+      }
+    },
+    "typography": {
+      "font-family-heading": "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
+      "font-family-body": "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif",
+      "font-family-mono": "SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace",
+      "font-size-2xs": "0.625rem",
+      "font-size-xs": "0.75rem",
+      "font-size-sm": "0.875rem",
+      "font-size-md": "1rem",
+      "font-size-lg": "1.125rem",
+      "font-size-xl": "1.25rem",
+      "font-size-2xl": "1.5rem",
+      "font-size-3xl": "1.875rem",
+      "font-size-4xl": "2.25rem",
+      "font-size-5xl": "3rem",
+      "font-size-6xl": "3.75rem",
+      "font-size-7xl": "4.5rem",
+      "font-size-8xl": "6rem",
+      "font-size-9xl": "8rem",
+      "font-weight-thin": "100",
+      "font-weight-extralight": "200",
+      "font-weight-light": "300",
+      "font-weight-normal": "400",
+      "font-weight-medium": "500",
+      "font-weight-semibold": "600",
+      "font-weight-bold": "700",
+      "font-weight-extrabold": "800",
+      "font-weight-black": "900"
+    },
+    "spacing": {
+      "space-0.5": "0.125rem",
+      "space-1": "0.25rem",
+      "space-1.5": "0.375rem",
+      "space-2": "0.5rem",
+      "space-2.5": "0.625rem",
+      "space-3": "0.75rem",
+      "space-3.5": "0.875rem",
+      "space-4": "1rem",
+      "space-4.5": "1.125rem",
+      "space-5": "1.25rem",
+      "space-6": "1.5rem",
+      "space-7": "1.75rem",
+      "space-8": "2rem",
+      "space-9": "2.25rem",
+      "space-10": "2.5rem",
+      "space-11": "2.75rem",
+      "space-12": "3rem",
+      "space-14": "3.5rem",
+      "space-16": "4rem",
+      "space-20": "5rem",
+      "space-24": "6rem",
+      "space-28": "7rem",
+      "space-32": "8rem"
+    },
+    "radius": {
+      "radius-none": "0",
+      "radius-2xs": "0.0625rem",
+      "radius-xs": "0.125rem",
+      "radius-sm": "0.25rem",
+      "radius-md": "0.375rem",
+      "radius-lg": "0.5rem",
+      "radius-xl": "0.75rem",
+      "radius-2xl": "1rem",
+      "radius-3xl": "1.5rem",
+      "radius-4xl": "2rem",
+      "radius-full": "9999px"
+    },
+    "shadow": {
+      "shadow-xs": "0 1px 2px 0 rgba(0,0,0,0.05)",
+      "shadow-sm": "0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)",
+      "shadow-md": "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)",
+      "shadow-lg": "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)",
+      "shadow-xl": "0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)",
+      "shadow-2xl": "0 25px 50px -12px rgba(0,0,0,0.25)",
+      "shadow-inset": "inset 0 2px 4px 0 rgba(0,0,0,0.05)"
+    },
+    "zindex": {
+      "z-hide": "-1",
+      "z-base": "0",
+      "z-docked": "10",
+      "z-dropdown": "1000",
+      "z-sticky": "1100",
+      "z-banner": "1200",
+      "z-overlay": "1300",
+      "z-modal": "1400",
+      "z-popover": "1500",
+      "z-skipNav": "1600",
+      "z-toast": "1700",
+      "z-tooltip": "1800",
+      "z-max": "2147483647"
+    },
+    "breakpoints": {
+      "sm": "480px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    },
+    "motion": {
+      "duration-fastest": "50ms",
+      "duration-faster": "100ms",
+      "duration-fast": "150ms",
+      "duration-normal": "200ms",
+      "duration-slow": "300ms",
+      "duration-slower": "400ms",
+      "duration-slowest": "500ms",
+      "easing-default": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "easing-in": "cubic-bezier(0.4, 0, 1, 1)",
+      "easing-out": "cubic-bezier(0, 0, 0.2, 1)"
+    }
+  },
+  "design_principles": {
+    "principles": [
+      "Accessible by default: every component ships WCAG AA compliant with correct ARIA roles and keyboard support",
+      "Composable and themeable: use slot recipes and CSS custom properties for deep customization without overrides",
+      "Dark mode support: semantic color tokens automatically adapt via colorMode context",
+      "Consistent spacing and sizing: a unified scale of xs/sm/md/lg/xl/2xl applies to all components",
+      "Headless primitives: built on Ark UI for behavior; Chakra adds the design layer on top"
+    ],
+    "voice_tone": "friendly and developer-focused",
+    "density": "comfortable",
+    "layout_grids": [
+      "12-column SimpleGrid for dashboards",
+      "Stack/VStack/HStack for vertical/horizontal layouts",
+      "Grid with templateColumns for custom layouts"
+    ],
+    "brand_constraints": "Use colorPalette prop (not colorScheme from v2) to apply brand colors; default palette is gray",
+    "do": [
+      "Use colorPalette prop to set a component's color family (e.g. colorPalette='blue')",
+      "Wrap app in <Provider> from @chakra-ui/react for theming and color mode support",
+      "Use semantic tokens (bg, fg, border) rather than hardcoded color values",
+      "Compose compound components using the namespace pattern (e.g. <Card.Root>, <Card.Body>)"
+    ],
+    "dont": [
+      "Don't use colorScheme (v2 API) — it no longer exists in v3; use colorPalette instead",
+      "Don't import from sub-packages — all exports are from @chakra-ui/react in v3",
+      "Don't override CSS with !important — extend the theme via defineConfig instead",
+      "Don't use Chakra v2 component APIs — v3 is a breaking rewrite with Ark UI underneath"
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "aliases": ["IconButton", "ButtonGroup", "CloseButton"],
+      "category": "action",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Button",
+        "path": "packages/react/src/components/button/button.tsx"
+      },
+      "anatomy": {
+        "parts": ["root", "spinner", "label", "icon"]
+      },
+      "slots": [],
+      "props": [
+        { "name": "variant", "type": "string", "required": false, "default": "solid", "enum": ["solid", "subtle", "surface", "outline", "ghost", "plain"], "description": "Visual style variant" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"], "description": "Button size controlling height, padding and font size" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette to use from design tokens (e.g. 'blue', 'red', 'green')" },
+        { "name": "loading", "type": "boolean", "required": false, "default": false, "description": "Shows loading spinner, disables interaction, sets aria-busy" },
+        { "name": "loadingText", "type": "ReactNode", "required": false, "description": "Text displayed alongside spinner during loading state" },
+        { "name": "spinner", "type": "ReactNode", "required": false, "description": "Custom spinner element to render during loading" },
+        { "name": "spinnerPlacement", "type": "string", "required": false, "default": "start", "enum": ["start", "end"], "description": "Position of spinner relative to loading text" },
+        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables button interaction" },
+        { "name": "unstyled", "type": "boolean", "required": false, "default": false, "description": "Removes all default styles" },
+        { "name": "children", "type": "ReactNode", "required": false, "description": "Button label and/or icon content" },
+        { "name": "asChild", "type": "boolean", "required": false, "default": false, "description": "Render as child element (polymorphic)" }
+      ],
+      "variants": ["solid", "subtle", "surface", "outline", "ghost", "plain"],
+      "states": ["default", "hover", "focus", "active", "disabled", "loading"],
+      "behaviors": [
+        { "trigger": "click", "result": "Fires onClick handler; no-op when disabled or loading" },
+        { "trigger": "loading=true", "result": "Replaces content with spinner; sets aria-busy=true; prevents click events" },
+        { "trigger": "disabled=true", "result": "Sets aria-disabled, prevents pointer events and keyboard activation" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter", "action": "Activates the button" },
+        { "key": "Space", "action": "Activates the button" },
+        { "key": "Tab", "action": "Moves focus to next focusable element" }
+      ],
+      "accessibility": {
+        "role": "button",
+        "aria": ["aria-disabled (when disabled)", "aria-busy (when loading)", "aria-label (for IconButton without visible text)"],
+        "focus_management": "Receives focus via Tab; visible focus ring rendered via CSS outline with 2px offset",
+        "wcag_notes": "SC 4.1.2 requires accessible name; SC 1.4.11 requires non-text contrast for focus ring; loading state must be announced"
+      },
+      "composition": {
+        "composed_of": ["Loader"],
+        "commonly_used_with": ["Card", "Input", "Modal", "Alert", "ButtonGroup"]
+      },
+      "tokens_used": [
+        "colorPalette.solid",
+        "colorPalette.subtle",
+        "colorPalette.fg",
+        "radius-md",
+        "font-size-sm",
+        "font-weight-medium",
+        "space-3",
+        "space-4",
+        "duration-normal"
+      ],
+      "examples": [
+        {
+          "title": "Solid Button (default)",
+          "code": "import { Button } from '@chakra-ui/react'\n\n<Button colorPalette='blue'>Save Changes</Button>"
+        },
+        {
+          "title": "Loading Button",
+          "code": "import { Button } from '@chakra-ui/react'\n\n<Button loading loadingText='Saving...' colorPalette='blue'>Save</Button>"
+        },
+        {
+          "title": "Button Variants",
+          "code": "import { Button, HStack } from '@chakra-ui/react'\n\n<HStack>\n  <Button variant='solid'>Solid</Button>\n  <Button variant='outline'>Outline</Button>\n  <Button variant='ghost'>Ghost</Button>\n  <Button variant='subtle'>Subtle</Button>\n</HStack>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/button/button.tsx",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/button.ts"
+      ]
+    },
+    {
+      "name": "Input",
+      "aliases": ["InputGroup", "InputAddon", "InputElement"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Input",
+        "path": "packages/react/src/components/input/input.tsx"
+      },
+      "anatomy": {
+        "parts": ["root", "field", "addon-left", "addon-right", "element-left", "element-right"]
+      },
+      "slots": [],
+      "props": [
+        { "name": "variant", "type": "string", "required": false, "default": "outline", "enum": ["outline", "subtle", "flushed"], "description": "Visual style of the input border" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"], "description": "Input height and padding size" },
+        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables the input field" },
+        { "name": "readOnly", "type": "boolean", "required": false, "default": false, "description": "Makes the input read-only" },
+        { "name": "invalid", "type": "boolean", "required": false, "default": false, "description": "Marks the input as invalid, applying error styling" },
+        { "name": "placeholder", "type": "string", "required": false, "description": "Placeholder text displayed when empty" },
+        { "name": "type", "type": "string", "required": false, "default": "text", "description": "HTML input type attribute" },
+        { "name": "unstyled", "type": "boolean", "required": false, "default": false, "description": "Removes all default styles" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for focus ring and active states" }
+      ],
+      "variants": ["outline", "subtle", "flushed"],
+      "states": ["default", "focus", "hover", "disabled", "readOnly", "invalid", "error"],
+      "behaviors": [
+        { "trigger": "invalid=true", "result": "Applies error border color, sets aria-invalid=true" },
+        { "trigger": "disabled=true", "result": "Prevents interaction, reduces opacity, sets aria-disabled" },
+        { "trigger": "focus", "result": "Shows focus ring using colorPalette.focusRing token" }
+      ],
+      "keyboard_map": [
+        { "key": "Tab", "action": "Moves focus into/out of the input" },
+        { "key": "Escape", "action": "Blurs input when supported by parent (e.g. search fields)" }
+      ],
+      "accessibility": {
+        "role": "textbox",
+        "aria": ["aria-invalid (when invalid)", "aria-disabled (when disabled)", "aria-label or aria-labelledby (required)", "aria-describedby (for helper/error text)"],
+        "focus_management": "Receives focus via Tab; visible focus ring; error state announced when combined with Field component",
+        "wcag_notes": "SC 1.3.1 and SC 4.1.2 require programmatic label; use Field component to associate label; SC 3.3.1 requires error identification"
+      },
+      "composition": {
+        "composed_of": ["Field"],
+        "commonly_used_with": ["Field", "Button", "InputGroup", "FormControl"]
+      },
+      "tokens_used": [
+        "bg-DEFAULT",
+        "border-DEFAULT",
+        "colorPalette.focusRing",
+        "radius-md",
+        "font-size-md",
+        "space-3"
+      ],
+      "examples": [
+        {
+          "title": "Basic Input with Label",
+          "code": "import { Field, Input } from '@chakra-ui/react'\n\n<Field label='Email'>\n  <Input placeholder='Enter your email' type='email' />\n</Field>"
+        },
+        {
+          "title": "Invalid Input",
+          "code": "import { Field, Input } from '@chakra-ui/react'\n\n<Field label='Username' invalid errorText='Username is already taken'>\n  <Input placeholder='username' invalid />\n</Field>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/input/input.tsx",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/input.ts"
+      ]
+    },
+    {
+      "name": "Card",
+      "aliases": ["CardRoot", "CardBody", "CardHeader", "CardFooter"],
+      "category": "layout",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Card",
+        "path": "packages/react/src/components/card/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "header", "body", "footer", "title", "description"]
+      },
+      "slots": ["header", "body", "footer", "title", "description"],
+      "props": [
+        { "name": "variant", "type": "string", "required": false, "default": "outline", "enum": ["elevated", "outline", "subtle"], "description": "Visual style of the card surface" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["sm", "md", "lg"], "description": "Card padding and title size" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette used for card accents" }
+      ],
+      "variants": ["elevated", "outline", "subtle"],
+      "states": ["default"],
+      "behaviors": [
+        { "trigger": "variant=elevated", "result": "Applies panel background with box-shadow (md)" },
+        { "trigger": "variant=outline", "result": "Applies panel background with 1px border" },
+        { "trigger": "variant=subtle", "result": "Applies muted background color with no border" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "region (when aria-label provided) or generic",
+        "aria": ["aria-label (recommended when used as landmark region)", "aria-labelledby (alternative)"],
+        "focus_management": "Not focusable by default; interactive children manage their own focus",
+        "wcag_notes": "If used as a landmark, provide accessible name per SC 1.3.6; SC 1.4.3 applies to text within cards"
+      },
+      "composition": {
+        "composed_of": ["CardRoot", "CardHeader", "CardBody", "CardFooter", "CardTitle", "CardDescription"],
+        "commonly_used_with": ["Button", "Badge", "Avatar", "Stat"]
+      },
+      "tokens_used": [
+        "bg-panel",
+        "border-DEFAULT",
+        "shadow-md",
+        "radius-md",
+        "space-4",
+        "space-6",
+        "space-7"
+      ],
+      "examples": [
+        {
+          "title": "Basic Card",
+          "code": "import { Card } from '@chakra-ui/react'\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title>Card Title</Card.Title>\n    <Card.Description>Card description text</Card.Description>\n  </Card.Header>\n  <Card.Body>Main content here</Card.Body>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>"
+        },
+        {
+          "title": "Elevated Card",
+          "code": "import { Card } from '@chakra-ui/react'\n\n<Card.Root variant='elevated' size='lg'>\n  <Card.Body>Elevated content</Card.Body>\n</Card.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/card/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/card.ts"
+      ]
+    },
+    {
+      "name": "Badge",
+      "aliases": ["BadgePropsProvider"],
+      "category": "data-display",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Badge",
+        "path": "packages/react/src/components/badge/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root"]
+      },
+      "slots": [],
+      "props": [
+        { "name": "variant", "type": "string", "required": false, "default": "subtle", "enum": ["solid", "subtle", "outline", "surface", "plain"], "description": "Visual style of the badge" },
+        { "name": "size", "type": "string", "required": false, "default": "sm", "enum": ["xs", "sm", "md", "lg"], "description": "Badge size" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for the badge" },
+        { "name": "children", "type": "ReactNode", "required": false, "description": "Badge label content" }
+      ],
+      "variants": ["solid", "subtle", "outline", "surface", "plain"],
+      "states": ["default"],
+      "behaviors": [],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "status or generic (depends on context)",
+        "aria": ["aria-label (when badge conveys non-text meaning)"],
+        "focus_management": "Not focusable",
+        "wcag_notes": "SC 1.4.1 color must not be the sole means of conveying information; pair badges with text labels"
+      },
+      "composition": {
+        "composed_of": [],
+        "commonly_used_with": ["Avatar", "Card", "MenuItem", "TableRow"]
+      },
+      "tokens_used": [
+        "colorPalette.subtle",
+        "colorPalette.fg",
+        "colorPalette.solid",
+        "radius-md",
+        "font-size-xs",
+        "font-weight-medium",
+        "space-1",
+        "space-2"
+      ],
+      "examples": [
+        {
+          "title": "Status Badges",
+          "code": "import { Badge, HStack } from '@chakra-ui/react'\n\n<HStack>\n  <Badge colorPalette='green'>Active</Badge>\n  <Badge colorPalette='red' variant='solid'>Error</Badge>\n  <Badge colorPalette='orange' variant='outline'>Warning</Badge>\n</HStack>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/badge/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/badge.ts"
+      ]
+    },
+    {
+      "name": "Alert",
+      "aliases": ["AlertRoot", "AlertTitle", "AlertDescription", "AlertIndicator"],
+      "category": "feedback",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Alert",
+        "path": "packages/react/src/components/alert/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "indicator", "content", "title", "description"]
+      },
+      "slots": ["indicator", "content", "title", "description"],
+      "props": [
+        { "name": "status", "type": "string", "required": false, "default": "info", "enum": ["info", "warning", "success", "error", "neutral"], "description": "Semantic status that sets color palette and default icon" },
+        { "name": "variant", "type": "string", "required": false, "default": "subtle", "enum": ["subtle", "surface", "outline", "solid"], "description": "Visual style of the alert" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["sm", "md", "lg"], "description": "Alert size (padding and text)" },
+        { "name": "inline", "type": "boolean", "required": false, "default": false, "description": "Display content horizontally when true" }
+      ],
+      "variants": ["subtle", "surface", "outline", "solid"],
+      "states": ["default"],
+      "behaviors": [
+        { "trigger": "status=error", "result": "Sets red colorPalette, displays error icon in indicator slot" },
+        { "trigger": "status=success", "result": "Sets green colorPalette, displays check icon in indicator slot" },
+        { "trigger": "status=warning", "result": "Sets orange colorPalette, displays warning icon in indicator slot" },
+        { "trigger": "status=info", "result": "Sets blue colorPalette, displays info icon in indicator slot" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "alert",
+        "aria": ["role=alert (for urgent messages)", "role=status (for non-urgent notifications)"],
+        "focus_management": "Static; not focusable. Use role=alert for live announcement of dynamic messages",
+        "wcag_notes": "SC 4.1.3: status messages must be programmatically determinable; role=alert is automatically a live region"
+      },
+      "composition": {
+        "composed_of": ["AlertRoot", "AlertIndicator", "AlertContent", "AlertTitle", "AlertDescription"],
+        "commonly_used_with": ["Button", "Dialog", "Field"]
+      },
+      "tokens_used": [
+        "colorPalette.subtle",
+        "colorPalette.fg",
+        "colorPalette.solid",
+        "bg-error",
+        "bg-warning",
+        "bg-success",
+        "bg-info"
+      ],
+      "examples": [
+        {
+          "title": "Success Alert",
+          "code": "import { Alert } from '@chakra-ui/react'\n\n<Alert.Root status='success'>\n  <Alert.Indicator />\n  <Alert.Content>\n    <Alert.Title>Success!</Alert.Title>\n    <Alert.Description>Your changes have been saved.</Alert.Description>\n  </Alert.Content>\n</Alert.Root>"
+        },
+        {
+          "title": "Error Alert with Variant",
+          "code": "import { Alert } from '@chakra-ui/react'\n\n<Alert.Root status='error' variant='solid'>\n  <Alert.Indicator />\n  <Alert.Content>\n    <Alert.Title>Error</Alert.Title>\n    <Alert.Description>Something went wrong. Please try again.</Alert.Description>\n  </Alert.Content>\n</Alert.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/alert/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/alert.ts"
+      ]
+    },
+    {
+      "name": "Dialog",
+      "aliases": ["Modal", "DialogRoot", "DialogContent", "DialogHeader", "DialogBody", "DialogFooter"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Dialog",
+        "path": "packages/react/src/components/dialog/index.ts"
+      },
+      "anatomy": {
+        "parts": ["backdrop", "positioner", "content", "header", "closeTrigger", "body", "footer", "title", "description", "actionTrigger"]
+      },
+      "slots": ["backdrop", "positioner", "content", "header", "closeTrigger", "body", "footer", "title", "description"],
+      "props": [
+        { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
+        { "name": "defaultOpen", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial open state" },
+        { "name": "onOpenChange", "type": "(details: DialogOpenChangeDetails) => void", "required": false, "description": "Callback when open state changes" },
+        { "name": "modal", "type": "boolean", "required": false, "default": true, "description": "Whether dialog is modal (blocks background interaction)" },
+        { "name": "closeOnInteractOutside", "type": "boolean", "required": false, "default": true, "description": "Whether clicking outside closes the dialog" },
+        { "name": "closeOnEscape", "type": "boolean", "required": false, "default": true, "description": "Whether pressing Escape closes the dialog" },
+        { "name": "trapFocus", "type": "boolean", "required": false, "default": true, "description": "Whether to trap focus inside the dialog" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg", "xl", "full"], "description": "Dialog size" }
+      ],
+      "variants": ["default"],
+      "states": ["open", "closed"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Opens dialog, traps focus within content, shows backdrop" },
+        { "trigger": "Escape key", "result": "Closes dialog when closeOnEscape=true" },
+        { "trigger": "click outside", "result": "Closes dialog when closeOnInteractOutside=true" },
+        { "trigger": "dialog closes", "result": "Returns focus to the trigger element that opened the dialog" }
+      ],
+      "keyboard_map": [
+        { "key": "Escape", "action": "Closes the dialog" },
+        { "key": "Tab", "action": "Cycles focus through focusable elements inside the dialog" },
+        { "key": "Shift+Tab", "action": "Cycles focus backwards through focusable elements" }
+      ],
+      "accessibility": {
+        "role": "dialog",
+        "aria": ["aria-modal=true", "aria-labelledby (points to DialogTitle)", "aria-describedby (points to DialogDescription)"],
+        "focus_management": "Focus is trapped inside the dialog when open; returns to trigger element on close; first focusable element receives focus on open",
+        "wcag_notes": "SC 2.1.2 no keyboard trap except for modal dialogs (intentional); SC 2.4.3 focus order must be logical; role=dialog requires accessible name"
+      },
+      "composition": {
+        "composed_of": ["DialogRoot", "DialogTrigger", "DialogBackdrop", "DialogPositioner", "DialogContent", "DialogHeader", "DialogTitle", "DialogDescription", "DialogBody", "DialogFooter", "DialogCloseTrigger"],
+        "commonly_used_with": ["Button", "Alert", "Form"]
+      },
+      "tokens_used": [
+        "z-modal",
+        "z-overlay",
+        "bg-panel",
+        "bg-DEFAULT",
+        "border-DEFAULT",
+        "shadow-lg",
+        "radius-md",
+        "space-4",
+        "space-6",
+        "duration-normal"
+      ],
+      "examples": [
+        {
+          "title": "Basic Dialog",
+          "code": "import { Button, Dialog } from '@chakra-ui/react'\n\n<Dialog.Root>\n  <Dialog.Trigger asChild>\n    <Button>Open Dialog</Button>\n  </Dialog.Trigger>\n  <Dialog.Backdrop />\n  <Dialog.Positioner>\n    <Dialog.Content>\n      <Dialog.Header>\n        <Dialog.Title>Dialog Title</Dialog.Title>\n      </Dialog.Header>\n      <Dialog.Body>\n        <p>Dialog body content</p>\n      </Dialog.Body>\n      <Dialog.Footer>\n        <Dialog.ActionTrigger asChild>\n          <Button variant='outline'>Cancel</Button>\n        </Dialog.ActionTrigger>\n        <Button colorPalette='blue'>Confirm</Button>\n      </Dialog.Footer>\n      <Dialog.CloseTrigger />\n    </Dialog.Content>\n  </Dialog.Positioner>\n</Dialog.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/dialog/index.ts"
+      ]
+    },
+    {
+      "name": "Drawer",
+      "aliases": ["DrawerRoot", "DrawerContent", "DrawerHeader", "DrawerBody", "DrawerFooter"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Drawer",
+        "path": "packages/react/src/components/drawer/index.ts"
+      },
+      "anatomy": {
+        "parts": ["backdrop", "positioner", "content", "header", "closeTrigger", "body", "footer", "title", "description"]
+      },
+      "slots": ["backdrop", "positioner", "content", "header", "body", "footer", "title", "description"],
+      "props": [
+        { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
+        { "name": "defaultOpen", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial open state" },
+        { "name": "onOpenChange", "type": "(details: DrawerOpenChangeDetails) => void", "required": false, "description": "Callback when open state changes" },
+        { "name": "placement", "type": "string", "required": false, "default": "end", "enum": ["start", "end", "top", "bottom"], "description": "Side from which the drawer slides in" },
+        { "name": "size", "type": "string", "required": false, "default": "sm", "enum": ["xs", "sm", "md", "lg", "xl", "full"], "description": "Width (or height for top/bottom) of the drawer" },
+        { "name": "closeOnInteractOutside", "type": "boolean", "required": false, "default": true, "description": "Whether clicking outside closes the drawer" },
+        { "name": "closeOnEscape", "type": "boolean", "required": false, "default": true, "description": "Whether pressing Escape closes the drawer" }
+      ],
+      "variants": ["default"],
+      "states": ["open", "closed"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Drawer slides in from placement side with animation" },
+        { "trigger": "Escape key", "result": "Closes drawer" },
+        { "trigger": "click outside", "result": "Closes drawer when closeOnInteractOutside=true" },
+        { "trigger": "drawer closes", "result": "Focus returns to trigger element; slide-out animation plays" }
+      ],
+      "keyboard_map": [
+        { "key": "Escape", "action": "Closes the drawer" },
+        { "key": "Tab", "action": "Cycles focus through focusable elements within the drawer" },
+        { "key": "Shift+Tab", "action": "Cycles focus backwards" }
+      ],
+      "accessibility": {
+        "role": "dialog",
+        "aria": ["aria-modal=true", "aria-labelledby (points to DrawerTitle)", "aria-describedby (points to DrawerDescription)"],
+        "focus_management": "Focus trapped inside when open; returns to trigger on close",
+        "wcag_notes": "Same accessibility requirements as Dialog (built on same Ark UI primitive); SC 2.1.2 and SC 2.4.3 apply"
+      },
+      "composition": {
+        "composed_of": ["DrawerRoot", "DrawerTrigger", "DrawerBackdrop", "DrawerPositioner", "DrawerContent", "DrawerHeader", "DrawerTitle", "DrawerBody", "DrawerFooter", "DrawerCloseTrigger"],
+        "commonly_used_with": ["Button", "Menu", "Navigation"]
+      },
+      "tokens_used": [
+        "z-modal",
+        "z-overlay",
+        "bg-panel",
+        "shadow-lg",
+        "space-4",
+        "space-6",
+        "duration-normal"
+      ],
+      "examples": [
+        {
+          "title": "End Drawer (default)",
+          "code": "import { Button, Drawer } from '@chakra-ui/react'\n\n<Drawer.Root>\n  <Drawer.Trigger asChild>\n    <Button>Open Drawer</Button>\n  </Drawer.Trigger>\n  <Drawer.Backdrop />\n  <Drawer.Positioner>\n    <Drawer.Content>\n      <Drawer.Header>\n        <Drawer.Title>Navigation</Drawer.Title>\n      </Drawer.Header>\n      <Drawer.Body>Drawer content</Drawer.Body>\n      <Drawer.Footer>\n        <Button variant='outline'>Close</Button>\n      </Drawer.Footer>\n      <Drawer.CloseTrigger />\n    </Drawer.Content>\n  </Drawer.Positioner>\n</Drawer.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/drawer/index.ts"
+      ]
+    },
+    {
+      "name": "Menu",
+      "aliases": ["MenuRoot", "MenuContent", "MenuItem", "MenuTrigger"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Menu",
+        "path": "packages/react/src/components/menu/index.ts"
+      },
+      "anatomy": {
+        "parts": ["content", "item", "itemText", "itemIndicator", "itemGroupLabel", "indicator", "itemCommand", "separator", "arrow", "arrowTip"]
+      },
+      "slots": ["content", "item", "itemText", "itemIndicator", "itemGroupLabel", "indicator", "itemCommand", "separator"],
+      "props": [
+        { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
+        { "name": "defaultOpen", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial open state" },
+        { "name": "onOpenChange", "type": "(details: MenuOpenChangeDetails) => void", "required": false, "description": "Callback when open state changes" },
+        { "name": "onSelect", "type": "(details: MenuSelectionDetails) => void", "required": false, "description": "Callback when menu item is selected" },
+        { "name": "closeOnSelect", "type": "boolean", "required": false, "default": true, "description": "Whether to close menu on item selection" },
+        { "name": "variant", "type": "string", "required": false, "default": "subtle", "enum": ["subtle", "solid"], "description": "Visual style for highlighted items" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["sm", "md"], "description": "Menu item size" }
+      ],
+      "variants": ["subtle", "solid"],
+      "states": ["open", "closed", "item-highlighted", "item-disabled"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Opens menu, positions content near trigger" },
+        { "trigger": "item clicked", "result": "Fires onSelect with item value; closes menu when closeOnSelect=true" },
+        { "trigger": "Escape key", "result": "Closes menu; returns focus to trigger" },
+        { "trigger": "mouse leaves content", "result": "Clears item highlight" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter / Space", "action": "Opens menu when trigger is focused; selects highlighted item" },
+        { "key": "ArrowDown", "action": "Highlights next menu item; opens menu from trigger" },
+        { "key": "ArrowUp", "action": "Highlights previous menu item" },
+        { "key": "Home", "action": "Highlights first menu item" },
+        { "key": "End", "action": "Highlights last menu item" },
+        { "key": "Escape", "action": "Closes the menu" },
+        { "key": "Tab", "action": "Closes the menu" },
+        { "key": "typeahead", "action": "Highlights first item matching typed characters" }
+      ],
+      "accessibility": {
+        "role": "menu",
+        "aria": ["role=menu (content)", "role=menuitem (items)", "role=menuitemcheckbox (CheckboxItem)", "role=menuitemradio (RadioItem)", "aria-expanded (on trigger)", "aria-haspopup=menu (on trigger)"],
+        "focus_management": "Focus moves to menu content on open; returns to trigger on close; arrow keys navigate items",
+        "wcag_notes": "SC 2.1.1 all functionality via keyboard; ARIA Authoring Practices menu button pattern"
+      },
+      "composition": {
+        "composed_of": ["MenuRoot", "MenuTrigger", "MenuContent", "MenuItem", "MenuSeparator", "MenuCheckboxItem", "MenuRadioItem", "MenuItemGroup"],
+        "commonly_used_with": ["Button", "IconButton", "Toolbar"]
+      },
+      "tokens_used": [
+        "bg-panel",
+        "bg-emphasized",
+        "colorPalette.solid",
+        "border-DEFAULT",
+        "shadow-md",
+        "radius-md",
+        "space-1",
+        "space-1.5",
+        "z-dropdown"
+      ],
+      "examples": [
+        {
+          "title": "Basic Menu",
+          "code": "import { Button, Menu } from '@chakra-ui/react'\n\n<Menu.Root>\n  <Menu.Trigger asChild>\n    <Button variant='outline'>Actions</Button>\n  </Menu.Trigger>\n  <Menu.Content>\n    <Menu.Item value='edit'>Edit</Menu.Item>\n    <Menu.Item value='duplicate'>Duplicate</Menu.Item>\n    <Menu.Separator />\n    <Menu.Item value='delete' color='red'>Delete</Menu.Item>\n  </Menu.Content>\n</Menu.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/menu/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/menu.ts"
+      ]
+    },
+    {
+      "name": "Select",
+      "aliases": ["SelectRoot", "SelectTrigger", "SelectContent", "SelectItem", "NativeSelect"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Select",
+        "path": "packages/react/src/components/select/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "trigger", "indicatorGroup", "indicator", "content", "item", "control", "itemText", "itemGroup", "itemGroupLabel", "label", "valueText", "clearTrigger"]
+      },
+      "slots": ["root", "trigger", "control", "content", "item", "itemGroup", "itemGroupLabel", "label", "clearTrigger"],
+      "props": [
+        { "name": "collection", "type": "ListCollection", "required": true, "description": "Data collection for select options" },
+        { "name": "value", "type": "string[]", "required": false, "description": "Controlled selected values" },
+        { "name": "defaultValue", "type": "string[]", "required": false, "description": "Uncontrolled default selected values" },
+        { "name": "onValueChange", "type": "(details: SelectValueChangeDetails) => void", "required": false, "description": "Callback on selection change" },
+        { "name": "multiple", "type": "boolean", "required": false, "default": false, "description": "Allows selecting multiple values" },
+        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables the select" },
+        { "name": "invalid", "type": "boolean", "required": false, "default": false, "description": "Marks select as invalid" },
+        { "name": "variant", "type": "string", "required": false, "default": "outline", "enum": ["outline", "subtle", "ghost"], "description": "Visual style of the trigger" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg"], "description": "Size of the trigger" },
+        { "name": "placeholder", "type": "string", "required": false, "description": "Placeholder text when no value is selected" }
+      ],
+      "variants": ["outline", "subtle", "ghost"],
+      "states": ["default", "open", "closed", "disabled", "invalid"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Opens dropdown listbox" },
+        { "trigger": "item selected", "result": "Updates value, closes dropdown (single select), fires onValueChange" },
+        { "trigger": "Escape key", "result": "Closes dropdown" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter / Space", "action": "Opens select; selects highlighted item" },
+        { "key": "ArrowDown", "action": "Opens select; moves highlight to next item" },
+        { "key": "ArrowUp", "action": "Moves highlight to previous item" },
+        { "key": "Home", "action": "Highlights first item" },
+        { "key": "End", "action": "Highlights last item" },
+        { "key": "Escape", "action": "Closes the dropdown" },
+        { "key": "typeahead", "action": "Jumps to item matching typed characters" }
+      ],
+      "accessibility": {
+        "role": "combobox",
+        "aria": ["role=combobox (trigger)", "role=listbox (content)", "role=option (items)", "aria-expanded", "aria-haspopup=listbox", "aria-activedescendant"],
+        "focus_management": "Focus stays on trigger; active item tracked via aria-activedescendant",
+        "wcag_notes": "SC 4.1.2 name, role, value; ARIA combobox pattern; use Field component for label association"
+      },
+      "composition": {
+        "composed_of": ["SelectRoot", "SelectControl", "SelectLabel", "SelectTrigger", "SelectValueText", "SelectIndicatorGroup", "SelectContent", "SelectItem", "SelectItemText", "SelectItemIndicator"],
+        "commonly_used_with": ["Field", "Button", "Form"]
+      },
+      "tokens_used": [
+        "bg-panel",
+        "border-DEFAULT",
+        "colorPalette.focusRing",
+        "radius-md",
+        "space-2",
+        "space-3",
+        "z-dropdown"
+      ],
+      "examples": [
+        {
+          "title": "Basic Select",
+          "code": "import { createListCollection } from '@chakra-ui/react'\nimport { Select } from '@chakra-ui/react'\n\nconst frameworks = createListCollection({\n  items: [\n    { label: 'React', value: 'react' },\n    { label: 'Vue', value: 'vue' },\n    { label: 'Svelte', value: 'svelte' },\n  ],\n})\n\n<Select.Root collection={frameworks}>\n  <Select.Label>Framework</Select.Label>\n  <Select.Control>\n    <Select.Trigger>\n      <Select.ValueText placeholder='Select framework' />\n    </Select.Trigger>\n  </Select.Control>\n  <Select.Content>\n    {frameworks.items.map((item) => (\n      <Select.Item key={item.value} item={item}>\n        <Select.ItemText>{item.label}</Select.ItemText>\n      </Select.Item>\n    ))}\n  </Select.Content>\n</Select.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/select/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/select.ts"
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "aliases": ["CheckboxRoot", "CheckboxControl", "CheckboxLabel", "CheckboxGroup"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Checkbox",
+        "path": "packages/react/src/components/checkbox/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "control", "indicator", "label", "hiddenInput"]
+      },
+      "slots": ["root", "control", "indicator", "label"],
+      "props": [
+        { "name": "checked", "type": "boolean | 'indeterminate'", "required": false, "description": "Controlled checked state; 'indeterminate' for partial selection" },
+        { "name": "defaultChecked", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial checked state" },
+        { "name": "onCheckedChange", "type": "(details: CheckboxCheckedChangeDetails) => void", "required": false, "description": "Callback on checked state change" },
+        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables the checkbox" },
+        { "name": "readOnly", "type": "boolean", "required": false, "default": false, "description": "Makes checkbox read-only" },
+        { "name": "invalid", "type": "boolean", "required": false, "default": false, "description": "Marks checkbox as invalid" },
+        { "name": "required", "type": "boolean", "required": false, "default": false, "description": "Marks checkbox as required" },
+        { "name": "variant", "type": "string", "required": false, "default": "solid", "enum": ["outline", "solid", "subtle"], "description": "Visual style of the checkbox control" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg"], "description": "Checkbox size" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for checked state" }
+      ],
+      "variants": ["outline", "solid", "subtle"],
+      "states": ["default", "checked", "unchecked", "indeterminate", "hover", "focus", "disabled", "invalid"],
+      "behaviors": [
+        { "trigger": "click / Space", "result": "Toggles checked state; fires onCheckedChange" },
+        { "trigger": "checked='indeterminate'", "result": "Shows minus icon; clicking cycles to checked" },
+        { "trigger": "disabled=true", "result": "Prevents interaction; reduces opacity" }
+      ],
+      "keyboard_map": [
+        { "key": "Space", "action": "Toggles checkbox checked state" },
+        { "key": "Tab", "action": "Moves focus to/from checkbox" }
+      ],
+      "accessibility": {
+        "role": "checkbox",
+        "aria": ["aria-checked (true | false | mixed for indeterminate)", "aria-disabled", "aria-invalid", "aria-required"],
+        "focus_management": "Receives focus via Tab; visible focus ring applied to control element",
+        "wcag_notes": "SC 4.1.2 requires name, role, value; hidden native input preserves form compatibility; SC 1.4.11 for non-text contrast of control"
+      },
+      "composition": {
+        "composed_of": ["CheckboxRoot", "CheckboxControl", "CheckboxIndicator", "CheckboxLabel", "CheckboxHiddenInput"],
+        "commonly_used_with": ["CheckboxGroup", "Field", "Form", "Table"]
+      },
+      "tokens_used": [
+        "colorPalette.solid",
+        "colorPalette.subtle",
+        "border-DEFAULT",
+        "radius-sm",
+        "space-2",
+        "space-3"
+      ],
+      "examples": [
+        {
+          "title": "Basic Checkbox",
+          "code": "import { Checkbox } from '@chakra-ui/react'\n\n<Checkbox.Root defaultChecked colorPalette='blue'>\n  <Checkbox.HiddenInput />\n  <Checkbox.Control>\n    <Checkbox.Indicator />\n  </Checkbox.Control>\n  <Checkbox.Label>Accept terms and conditions</Checkbox.Label>\n</Checkbox.Root>"
+        },
+        {
+          "title": "Indeterminate Checkbox",
+          "code": "import { Checkbox } from '@chakra-ui/react'\n\n<Checkbox.Root checked='indeterminate'>\n  <Checkbox.HiddenInput />\n  <Checkbox.Control>\n    <Checkbox.Indicator />\n  </Checkbox.Control>\n  <Checkbox.Label>Select all</Checkbox.Label>\n</Checkbox.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/checkbox/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/checkbox.ts"
+      ]
+    },
+    {
+      "name": "RadioGroup",
+      "aliases": ["RadioGroupRoot", "RadioGroupItem", "RadioGroupItemControl", "Radio"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "RadioGroup",
+        "path": "packages/react/src/components/radio-group/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "label", "item", "itemControl", "itemText", "itemIndicator", "itemHiddenInput"]
+      },
+      "slots": ["item", "itemControl", "itemText", "itemIndicator"],
+      "props": [
+        { "name": "value", "type": "string", "required": false, "description": "Controlled selected value" },
+        { "name": "defaultValue", "type": "string", "required": false, "description": "Uncontrolled initial selected value" },
+        { "name": "onValueChange", "type": "(details: RadioGroupValueChangeDetails) => void", "required": false, "description": "Callback on value change" },
+        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables all radio items in the group" },
+        { "name": "readOnly", "type": "boolean", "required": false, "default": false, "description": "Makes radio group read-only" },
+        { "name": "orientation", "type": "string", "required": false, "default": "vertical", "enum": ["horizontal", "vertical"], "description": "Layout direction of radio items" },
+        { "name": "variant", "type": "string", "required": false, "default": "solid", "enum": ["outline", "subtle", "solid"], "description": "Visual style of radio controls" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg"], "description": "Radio item size" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for selected state" }
+      ],
+      "variants": ["outline", "subtle", "solid"],
+      "states": ["default", "selected", "unselected", "hover", "focus", "disabled"],
+      "behaviors": [
+        { "trigger": "item clicked / Space", "result": "Selects item; fires onValueChange; deselects previously selected item" },
+        { "trigger": "Arrow keys", "result": "Navigates between radio items and selects them" }
+      ],
+      "keyboard_map": [
+        { "key": "ArrowDown / ArrowRight", "action": "Selects next radio item in group" },
+        { "key": "ArrowUp / ArrowLeft", "action": "Selects previous radio item in group" },
+        { "key": "Space", "action": "Selects currently focused radio item" },
+        { "key": "Tab", "action": "Moves focus to/from the radio group (selected item or first)" }
+      ],
+      "accessibility": {
+        "role": "radiogroup",
+        "aria": ["role=radiogroup (root)", "role=radio (items)", "aria-checked", "aria-disabled", "aria-required"],
+        "focus_management": "Tab moves focus to the group; arrow keys move between items; selected item is focused first",
+        "wcag_notes": "SC 4.1.2 requires name for each radio; SC 1.3.1 group label required via aria-labelledby or aria-label on root"
+      },
+      "composition": {
+        "composed_of": ["RadioGroupRoot", "RadioGroupLabel", "RadioGroupItem", "RadioGroupItemControl", "RadioGroupItemIndicator", "RadioGroupItemText", "RadioGroupItemHiddenInput"],
+        "commonly_used_with": ["Field", "Fieldset", "Form"]
+      },
+      "tokens_used": [
+        "colorPalette.solid",
+        "colorPalette.subtle",
+        "border-DEFAULT",
+        "radius-full",
+        "space-2",
+        "space-3"
+      ],
+      "examples": [
+        {
+          "title": "Basic Radio Group",
+          "code": "import { RadioGroup } from '@chakra-ui/react'\n\n<RadioGroup.Root defaultValue='react' colorPalette='blue'>\n  <RadioGroup.Label>Favorite Framework</RadioGroup.Label>\n  {['React', 'Vue', 'Svelte'].map((item) => (\n    <RadioGroup.Item key={item} value={item.toLowerCase()}>\n      <RadioGroup.ItemHiddenInput />\n      <RadioGroup.ItemControl>\n        <RadioGroup.ItemIndicator />\n      </RadioGroup.ItemControl>\n      <RadioGroup.ItemText>{item}</RadioGroup.ItemText>\n    </RadioGroup.Item>\n  ))}\n</RadioGroup.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/radio-group/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/radio-group.ts"
+      ]
+    },
+    {
+      "name": "Switch",
+      "aliases": ["SwitchRoot", "SwitchControl", "SwitchThumb", "SwitchLabel"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Switch",
+        "path": "packages/react/src/components/switch/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "label", "control", "thumb", "indicator", "hiddenInput"]
+      },
+      "slots": ["root", "label", "control", "thumb", "indicator"],
+      "props": [
+        { "name": "checked", "type": "boolean", "required": false, "description": "Controlled checked state" },
+        { "name": "defaultChecked", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial checked state" },
+        { "name": "onCheckedChange", "type": "(details: SwitchCheckedChangeDetails) => void", "required": false, "description": "Callback on state change" },
+        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables the switch" },
+        { "name": "readOnly", "type": "boolean", "required": false, "default": false, "description": "Makes switch read-only" },
+        { "name": "invalid", "type": "boolean", "required": false, "default": false, "description": "Marks switch as invalid" },
+        { "name": "variant", "type": "string", "required": false, "default": "solid", "enum": ["solid", "raised"], "description": "Visual style of the switch track" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg"], "description": "Switch size" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for the active/checked state" }
+      ],
+      "variants": ["solid", "raised"],
+      "states": ["default", "checked", "unchecked", "hover", "focus", "disabled"],
+      "behaviors": [
+        { "trigger": "click / Space", "result": "Toggles checked state; fires onCheckedChange" },
+        { "trigger": "checked=true", "result": "Thumb slides to end position; track shows active color" }
+      ],
+      "keyboard_map": [
+        { "key": "Space", "action": "Toggles the switch state" },
+        { "key": "Tab", "action": "Moves focus to/from the switch" }
+      ],
+      "accessibility": {
+        "role": "switch",
+        "aria": ["role=switch", "aria-checked (true | false)", "aria-disabled", "aria-label or aria-labelledby"],
+        "focus_management": "Receives focus via Tab; visible focus ring on control element",
+        "wcag_notes": "SC 4.1.2 requires name; role=switch extends checkbox semantics for on/off toggles"
+      },
+      "composition": {
+        "composed_of": ["SwitchRoot", "SwitchControl", "SwitchThumb", "SwitchLabel", "SwitchHiddenInput"],
+        "commonly_used_with": ["Field", "Form", "Settings panels"]
+      },
+      "tokens_used": [
+        "colorPalette.solid",
+        "bg-muted",
+        "radius-full",
+        "space-1",
+        "space-2",
+        "duration-normal"
+      ],
+      "examples": [
+        {
+          "title": "Basic Switch",
+          "code": "import { Switch } from '@chakra-ui/react'\n\n<Switch.Root defaultChecked colorPalette='blue'>\n  <Switch.HiddenInput />\n  <Switch.Control>\n    <Switch.Thumb />\n  </Switch.Control>\n  <Switch.Label>Enable notifications</Switch.Label>\n</Switch.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/switch/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/switch.ts"
+      ]
+    },
+    {
+      "name": "Tabs",
+      "aliases": ["TabsRoot", "TabsList", "TabsTrigger", "TabsContent"],
+      "category": "navigation",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Tabs",
+        "path": "packages/react/src/components/tabs/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "list", "trigger", "content", "contentGroup", "indicator"]
+      },
+      "slots": ["root", "list", "trigger", "content", "indicator"],
+      "props": [
+        { "name": "value", "type": "string", "required": false, "description": "Controlled active tab value" },
+        { "name": "defaultValue", "type": "string", "required": false, "description": "Uncontrolled initial active tab value" },
+        { "name": "onValueChange", "type": "(details: TabsValueChangeDetails) => void", "required": false, "description": "Callback when active tab changes" },
+        { "name": "orientation", "type": "string", "required": false, "default": "horizontal", "enum": ["horizontal", "vertical"], "description": "Layout orientation of the tab list" },
+        { "name": "variant", "type": "string", "required": false, "default": "line", "enum": ["line", "subtle", "enclosed", "outline", "plain"], "description": "Visual style of the tab list" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["sm", "md", "lg"], "description": "Tab trigger height and padding" },
+        { "name": "fitted", "type": "boolean", "required": false, "default": false, "description": "Whether tabs stretch to fill available width" },
+        { "name": "justify", "type": "string", "required": false, "default": "start", "enum": ["start", "center", "end"], "description": "Alignment of tab triggers in the list" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for active tab indicator" }
+      ],
+      "variants": ["line", "subtle", "enclosed", "outline", "plain"],
+      "states": ["default", "active", "inactive", "hover", "focus", "disabled"],
+      "behaviors": [
+        { "trigger": "tab trigger clicked", "result": "Activates tab; shows corresponding content panel; fires onValueChange" },
+        { "trigger": "Arrow keys on tab list", "result": "Moves focus between tab triggers" }
+      ],
+      "keyboard_map": [
+        { "key": "ArrowLeft / ArrowRight (horizontal)", "action": "Moves focus between tab triggers" },
+        { "key": "ArrowUp / ArrowDown (vertical)", "action": "Moves focus between tab triggers in vertical orientation" },
+        { "key": "Home", "action": "Focuses first tab trigger" },
+        { "key": "End", "action": "Focuses last tab trigger" },
+        { "key": "Enter / Space", "action": "Activates the focused tab" },
+        { "key": "Tab", "action": "Moves focus from tab list to tab panel content" }
+      ],
+      "accessibility": {
+        "role": "tablist",
+        "aria": ["role=tablist (list)", "role=tab (triggers)", "role=tabpanel (content)", "aria-selected (active trigger)", "aria-controls (trigger points to panel)", "aria-labelledby (panel points to trigger)"],
+        "focus_management": "Tab navigates into tab list; arrow keys move between triggers; Tab moves to panel content",
+        "wcag_notes": "ARIA Tabs pattern; SC 4.1.2 requires correct roles; SC 2.1.1 requires keyboard operability"
+      },
+      "composition": {
+        "composed_of": ["TabsRoot", "TabsList", "TabsTrigger", "TabsContent", "TabsIndicator"],
+        "commonly_used_with": ["Card", "Dialog", "Page layout"]
+      },
+      "tokens_used": [
+        "colorPalette.solid",
+        "colorPalette.fg",
+        "border-DEFAULT",
+        "bg-muted",
+        "radius-md",
+        "space-4",
+        "duration-normal"
+      ],
+      "examples": [
+        {
+          "title": "Basic Tabs",
+          "code": "import { Tabs } from '@chakra-ui/react'\n\n<Tabs.Root defaultValue='overview' colorPalette='blue'>\n  <Tabs.List>\n    <Tabs.Trigger value='overview'>Overview</Tabs.Trigger>\n    <Tabs.Trigger value='details'>Details</Tabs.Trigger>\n    <Tabs.Trigger value='settings'>Settings</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value='overview'>Overview content</Tabs.Content>\n  <Tabs.Content value='details'>Details content</Tabs.Content>\n  <Tabs.Content value='settings'>Settings content</Tabs.Content>\n</Tabs.Root>"
+        },
+        {
+          "title": "Enclosed Tabs Variant",
+          "code": "import { Tabs } from '@chakra-ui/react'\n\n<Tabs.Root defaultValue='tab1' variant='enclosed' size='sm'>\n  <Tabs.List>\n    <Tabs.Trigger value='tab1'>Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value='tab2'>Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value='tab1'>Content 1</Tabs.Content>\n  <Tabs.Content value='tab2'>Content 2</Tabs.Content>\n</Tabs.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/tabs/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/tabs.ts"
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "aliases": ["TooltipRoot", "TooltipContent", "TooltipTrigger"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Tooltip",
+        "path": "packages/react/src/components/tooltip/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "trigger", "positioner", "content", "arrow", "arrowTip"]
+      },
+      "slots": ["content", "arrow", "arrowTip"],
+      "props": [
+        { "name": "content", "type": "ReactNode", "required": true, "description": "Tooltip content to display" },
+        { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
+        { "name": "defaultOpen", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial open state" },
+        { "name": "onOpenChange", "type": "(details: TooltipOpenChangeDetails) => void", "required": false, "description": "Callback when open state changes" },
+        { "name": "placement", "type": "string", "required": false, "default": "bottom", "enum": ["top", "bottom", "left", "right", "top-start", "top-end", "bottom-start", "bottom-end"], "description": "Preferred placement of the tooltip" },
+        { "name": "showDelay", "type": "number", "required": false, "default": 1000, "description": "Delay in ms before showing tooltip" },
+        { "name": "hideDelay", "type": "number", "required": false, "default": 500, "description": "Delay in ms before hiding tooltip" },
+        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables tooltip display" },
+        { "name": "closeOnClick", "type": "boolean", "required": false, "default": true, "description": "Whether tooltip closes when trigger is clicked" }
+      ],
+      "variants": [],
+      "states": ["hidden", "visible"],
+      "behaviors": [
+        { "trigger": "hover on trigger", "result": "Shows tooltip after showDelay ms" },
+        { "trigger": "focus on trigger", "result": "Shows tooltip immediately" },
+        { "trigger": "mouse leaves trigger", "result": "Hides tooltip after hideDelay ms" },
+        { "trigger": "blur on trigger", "result": "Hides tooltip immediately" },
+        { "trigger": "Escape key", "result": "Hides tooltip immediately" }
+      ],
+      "keyboard_map": [
+        { "key": "Escape", "action": "Dismisses the tooltip" },
+        { "key": "Tab (to trigger)", "action": "Shows tooltip on focus" },
+        { "key": "Tab (away)", "action": "Hides tooltip on blur" }
+      ],
+      "accessibility": {
+        "role": "tooltip",
+        "aria": ["role=tooltip (content)", "aria-describedby (trigger points to tooltip)"],
+        "focus_management": "Tooltip itself is not focusable; appears on trigger focus/hover",
+        "wcag_notes": "SC 1.4.13 requires tooltip to persist on hover, be dismissible with Escape, and not obscure other content; role=tooltip announces via screen reader"
+      },
+      "composition": {
+        "composed_of": ["TooltipRoot", "TooltipTrigger", "TooltipPositioner", "TooltipContent", "TooltipArrow", "TooltipArrowTip"],
+        "commonly_used_with": ["IconButton", "Button", "Badge"]
+      },
+      "tokens_used": [
+        "bg-inverted",
+        "fg-inverted",
+        "radius-md",
+        "shadow-md",
+        "z-tooltip",
+        "font-size-xs",
+        "space-2",
+        "space-3",
+        "duration-fast"
+      ],
+      "examples": [
+        {
+          "title": "Basic Tooltip",
+          "code": "import { Button, Tooltip } from '@chakra-ui/react'\n\n<Tooltip.Root>\n  <Tooltip.Trigger asChild>\n    <Button variant='ghost'>Hover me</Button>\n  </Tooltip.Trigger>\n  <Tooltip.Positioner>\n    <Tooltip.Content>\n      This is a helpful tooltip\n      <Tooltip.Arrow>\n        <Tooltip.ArrowTip />\n      </Tooltip.Arrow>\n    </Tooltip.Content>\n  </Tooltip.Positioner>\n</Tooltip.Root>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/tooltip/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/tooltip.ts"
+      ]
+    },
+    {
+      "name": "Avatar",
+      "aliases": ["AvatarRoot", "AvatarImage", "AvatarFallback", "AvatarGroup"],
+      "category": "data-display",
+      "status": "stable",
+      "import": {
+        "package": "@chakra-ui/react",
+        "export": "Avatar",
+        "path": "packages/react/src/components/avatar/index.ts"
+      },
+      "anatomy": {
+        "parts": ["root", "image", "fallback", "icon"]
+      },
+      "slots": ["root", "image", "fallback"],
+      "props": [
+        { "name": "src", "type": "string", "required": false, "description": "Image source URL" },
+        { "name": "name", "type": "string", "required": false, "description": "User name used to generate initials fallback" },
+        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["full", "2xs", "xs", "sm", "md", "lg", "xl", "2xl"], "description": "Avatar size" },
+        { "name": "variant", "type": "string", "required": false, "default": "subtle", "enum": ["solid", "subtle", "outline"], "description": "Visual style of the avatar" },
+        { "name": "shape", "type": "string", "required": false, "default": "full", "enum": ["square", "rounded", "full"], "description": "Shape of the avatar (corner radius)" },
+        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for fallback background" },
+        { "name": "borderless", "type": "boolean", "required": false, "default": false, "description": "Removes the border ring from the avatar" }
+      ],
+      "variants": ["solid", "subtle", "outline"],
+      "states": ["default", "image-loading", "image-error", "fallback"],
+      "behaviors": [
+        { "trigger": "src image loads successfully", "result": "Displays image, hides fallback" },
+        { "trigger": "src image fails to load or src not provided", "result": "Shows fallback: initials from name prop or generic icon" },
+        { "trigger": "AvatarGroup wrapping", "result": "Avatars stack with overlap; surplus count shown as +N badge" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "img",
+        "aria": ["aria-label (describes who/what the avatar represents)", "alt attribute on inner img element"],
+        "focus_management": "Not focusable by default; wrap in Button or Link if interactive",
+        "wcag_notes": "SC 1.1.1 non-text content; provide descriptive aria-label or alt; SC 1.4.3 contrast applies to text initials in fallback"
+      },
+      "composition": {
+        "composed_of": ["AvatarRoot", "AvatarImage", "AvatarFallback", "AvatarIcon"],
+        "commonly_used_with": ["AvatarGroup", "Badge", "Card", "Menu"]
+      },
+      "tokens_used": [
+        "colorPalette.subtle",
+        "colorPalette.fg",
+        "colorPalette.solid",
+        "border-DEFAULT",
+        "radius-full",
+        "radius-md",
+        "font-size-sm",
+        "font-weight-semibold"
+      ],
+      "examples": [
+        {
+          "title": "Avatar with Image",
+          "code": "import { Avatar } from '@chakra-ui/react'\n\n<Avatar.Root size='md'>\n  <Avatar.Image src='https://example.com/avatar.jpg' />\n  <Avatar.Fallback name='Jane Doe' />\n</Avatar.Root>"
+        },
+        {
+          "title": "Avatar Group",
+          "code": "import { Avatar } from '@chakra-ui/react'\n\n<Avatar.Group size='sm'>\n  <Avatar.Root>\n    <Avatar.Fallback name='Alice' />\n  </Avatar.Root>\n  <Avatar.Root>\n    <Avatar.Fallback name='Bob' />\n  </Avatar.Root>\n  <Avatar.Root>\n    <Avatar.Fallback name='Carol' />\n  </Avatar.Root>\n</Avatar.Group>"
+        }
+      ],
+      "source_refs": [
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/components/avatar/index.ts",
+        "https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/theme/recipes/avatar.ts"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "form-with-validation",
+      "description": "A validated form pattern using Field, Input, Select, Checkbox, and Button. Wrap each input in a Field component to associate labels and error messages. Use the invalid prop to show error states. Submit with a Button in loading state during async operations.",
+      "components": ["Field", "Input", "Select", "Checkbox", "Button", "Alert"]
+    },
+    {
+      "name": "data-table-with-actions",
+      "description": "A data list pattern using Card as a container, Badge for status indicators, Avatar for user columns, Menu for row-level actions, and Button for bulk actions. Alert shows operation feedback above the table.",
+      "components": ["Card", "Badge", "Avatar", "Menu", "Button", "Alert", "Tabs"]
+    },
+    {
+      "name": "modal-confirmation-dialog",
+      "description": "A confirmation dialog pattern using Dialog with a destructive action. The trigger is a ghost Button (or danger variant). Dialog.Body describes the irreversible action. Footer has a cancel ActionTrigger and a confirm Button with colorPalette='red'.",
+      "components": ["Dialog", "Button", "Alert"]
+    }
+  ],
+  "app_shell": {
+    "routing_lib": "react-router-dom",
+    "theme_provider": "Provider from @chakra-ui/react",
+    "layout_primitives": ["Box", "Stack", "VStack", "HStack", "Grid", "SimpleGrid", "Flex", "Container"],
+    "recommended_structure": "Wrap the application root in <Provider> from @chakra-ui/react to enable theming, color mode, and design token resolution. Use react-router-dom for client-side routing. Place route-level components inside the main content area. Use <ColorModeProvider> for dark mode toggling. Layout with Container (max-width), Grid/SimpleGrid for multi-column, Stack for vertical lists."
+  },
+  "capabilities": [
+    "accessible component library (WCAG AA)",
+    "dark mode via color mode context",
+    "design token system (CSS custom properties)",
+    "composable compound components via namespace pattern",
+    "form controls with validation state",
+    "overlay components (Dialog, Drawer, Menu, Tooltip, Popover)",
+    "navigation components (Tabs, Breadcrumb, Menu)",
+    "data display (Avatar, Badge, Card, Stat, Table)",
+    "layout primitives (Box, Stack, Grid, Container)",
+    "feedback components (Alert, Spinner, Progress, Toast)",
+    "theming via defineConfig and slot recipes",
+    "Ark UI headless primitives for interaction logic"
+  ],
+  "gaps": [
+    "data grid / data table (no built-in virtualized table)",
+    "rich text editor",
+    "map components",
+    "gantt / timeline chart",
+    "image gallery / lightbox",
+    "markdown renderer",
+    "audio/video players",
+    "complex date range picker (DatePicker exists but is complex to configure)"
+  ],
+  "coverage_report": [
+    {
+      "component": "Button",
+      "extracted": true,
+      "confidence": 0.9,
+      "missing": ["all HTML button attributes documentation", "ButtonGroup gap/orientation props"]
+    },
+    {
+      "component": "Input",
+      "extracted": true,
+      "confidence": 0.85,
+      "missing": ["InputGroup addon/element composition props", "specific aria attributes from Ark Field.Input"]
+    },
+    {
+      "component": "Card",
+      "extracted": true,
+      "confidence": 0.88,
+      "missing": ["as prop / polymorphism details"]
+    },
+    {
+      "component": "Badge",
+      "extracted": true,
+      "confidence": 0.85,
+      "missing": ["specific size dimension values in pixels"]
+    },
+    {
+      "component": "Alert",
+      "extracted": true,
+      "confidence": 0.9,
+      "missing": ["custom icon slot details"]
+    },
+    {
+      "component": "Dialog",
+      "extracted": true,
+      "confidence": 0.85,
+      "missing": ["size dimension values", "scrollBehavior prop", "motionPreset prop"]
+    },
+    {
+      "component": "Drawer",
+      "extracted": true,
+      "confidence": 0.82,
+      "missing": ["exact size pixel values per placement", "motionPreset prop"]
+    },
+    {
+      "component": "Menu",
+      "extracted": true,
+      "confidence": 0.88,
+      "missing": ["MenuContextTrigger usage", "nested submenu via MenuTriggerItem"]
+    },
+    {
+      "component": "Select",
+      "extracted": true,
+      "confidence": 0.85,
+      "missing": ["createListCollection API details", "async data loading pattern"]
+    },
+    {
+      "component": "Checkbox",
+      "extracted": true,
+      "confidence": 0.88,
+      "missing": ["CheckboxGroup controlled value API"]
+    },
+    {
+      "component": "RadioGroup",
+      "extracted": true,
+      "confidence": 0.87,
+      "missing": ["exact slot recipe slot details from source"]
+    },
+    {
+      "component": "Switch",
+      "extracted": true,
+      "confidence": 0.87,
+      "missing": ["SwitchThumbIndicator usage details"]
+    },
+    {
+      "component": "Tabs",
+      "extracted": true,
+      "confidence": 0.9,
+      "missing": ["TabsContentGroup lazy loading behavior", "lazyMount and unmountOnExit props"]
+    },
+    {
+      "component": "Tooltip",
+      "extracted": true,
+      "confidence": 0.82,
+      "missing": ["exact default showDelay/hideDelay values from source", "openDelay/closeDelay alias naming"]
+    },
+    {
+      "component": "Avatar",
+      "extracted": true,
+      "confidence": 0.88,
+      "missing": ["AvatarGroup max and spacing props", "AvatarStatusChangeDetails event details"]
+    }
+  ]
+}
