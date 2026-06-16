@@ -28,7 +28,10 @@
       "build": "pnpm build",
       "test": "pnpm test"
     },
-    "supported_targets": ["web", "ssr"]
+    "supported_targets": [
+      "web",
+      "ssr"
+    ]
   },
   "design_tokens": {
     "source": {
@@ -221,7 +224,8 @@
       "Composable and themeable: use slot recipes and CSS custom properties for deep customization without overrides",
       "Dark mode support: semantic color tokens automatically adapt via colorMode context",
       "Consistent spacing and sizing: a unified scale of xs/sm/md/lg/xl/2xl applies to all components",
-      "Headless primitives: built on Ark UI for behavior; Chakra adds the design layer on top"
+      "Headless primitives: built on Ark UI for behavior; Chakra adds the design layer on top",
+      "v3 breaking change: ChakraProvider requires value={defaultSystem} prop; import defaultSystem from @chakra-ui/react"
     ],
     "voice_tone": "friendly and developer-focused",
     "density": "comfortable",
@@ -238,16 +242,20 @@
       "Compose compound components using the namespace pattern (e.g. <Card.Root>, <Card.Body>)"
     ],
     "dont": [
-      "Don't use colorScheme (v2 API) — it no longer exists in v3; use colorPalette instead",
-      "Don't import from sub-packages — all exports are from @chakra-ui/react in v3",
-      "Don't override CSS with !important — extend the theme via defineConfig instead",
-      "Don't use Chakra v2 component APIs — v3 is a breaking rewrite with Ark UI underneath"
+      "Don't use colorScheme (v2 API) \u2014 it no longer exists in v3; use colorPalette instead",
+      "Don't import from sub-packages \u2014 all exports are from @chakra-ui/react in v3",
+      "Don't override CSS with !important \u2014 extend the theme via defineConfig instead",
+      "Don't use Chakra v2 component APIs \u2014 v3 is a breaking rewrite with Ark UI underneath"
     ]
   },
   "components": [
     {
       "name": "Button",
-      "aliases": ["IconButton", "ButtonGroup", "CloseButton"],
+      "aliases": [
+        "IconButton",
+        "ButtonGroup",
+        "CloseButton"
+      ],
       "category": "action",
       "status": "stable",
       "import": {
@@ -256,43 +264,176 @@
         "path": "packages/react/src/components/button/button.tsx"
       },
       "anatomy": {
-        "parts": ["root", "spinner", "label", "icon"]
+        "parts": [
+          "root",
+          "spinner",
+          "label",
+          "icon"
+        ]
       },
       "slots": [],
       "props": [
-        { "name": "variant", "type": "string", "required": false, "default": "solid", "enum": ["solid", "subtle", "surface", "outline", "ghost", "plain"], "description": "Visual style variant" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"], "description": "Button size controlling height, padding and font size" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette to use from design tokens (e.g. 'blue', 'red', 'green')" },
-        { "name": "loading", "type": "boolean", "required": false, "default": false, "description": "Shows loading spinner, disables interaction, sets aria-busy" },
-        { "name": "loadingText", "type": "ReactNode", "required": false, "description": "Text displayed alongside spinner during loading state" },
-        { "name": "spinner", "type": "ReactNode", "required": false, "description": "Custom spinner element to render during loading" },
-        { "name": "spinnerPlacement", "type": "string", "required": false, "default": "start", "enum": ["start", "end"], "description": "Position of spinner relative to loading text" },
-        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables button interaction" },
-        { "name": "unstyled", "type": "boolean", "required": false, "default": false, "description": "Removes all default styles" },
-        { "name": "children", "type": "ReactNode", "required": false, "description": "Button label and/or icon content" },
-        { "name": "asChild", "type": "boolean", "required": false, "default": false, "description": "Render as child element (polymorphic)" }
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "solid",
+          "enum": [
+            "solid",
+            "subtle",
+            "surface",
+            "outline",
+            "ghost",
+            "plain"
+          ],
+          "description": "Visual style variant"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "2xs",
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ],
+          "description": "Button size controlling height, padding and font size"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette to use from design tokens (e.g. 'blue', 'red', 'green')"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Shows loading spinner, disables interaction, sets aria-busy"
+        },
+        {
+          "name": "loadingText",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Text displayed alongside spinner during loading state"
+        },
+        {
+          "name": "spinner",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom spinner element to render during loading"
+        },
+        {
+          "name": "spinnerPlacement",
+          "type": "string",
+          "required": false,
+          "default": "start",
+          "enum": [
+            "start",
+            "end"
+          ],
+          "description": "Position of spinner relative to loading text"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables button interaction"
+        },
+        {
+          "name": "unstyled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Removes all default styles"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Button label and/or icon content"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Render as child element (polymorphic)"
+        }
       ],
-      "variants": ["solid", "subtle", "surface", "outline", "ghost", "plain"],
-      "states": ["default", "hover", "focus", "active", "disabled", "loading"],
+      "variants": [
+        "solid",
+        "subtle",
+        "surface",
+        "outline",
+        "ghost",
+        "plain"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "active",
+        "disabled",
+        "loading"
+      ],
       "behaviors": [
-        { "trigger": "click", "result": "Fires onClick handler; no-op when disabled or loading" },
-        { "trigger": "loading=true", "result": "Replaces content with spinner; sets aria-busy=true; prevents click events" },
-        { "trigger": "disabled=true", "result": "Sets aria-disabled, prevents pointer events and keyboard activation" }
+        {
+          "trigger": "click",
+          "result": "Fires onClick handler; no-op when disabled or loading"
+        },
+        {
+          "trigger": "loading=true",
+          "result": "Replaces content with spinner; sets aria-busy=true; prevents click events"
+        },
+        {
+          "trigger": "disabled=true",
+          "result": "Sets aria-disabled, prevents pointer events and keyboard activation"
+        }
       ],
       "keyboard_map": [
-        { "key": "Enter", "action": "Activates the button" },
-        { "key": "Space", "action": "Activates the button" },
-        { "key": "Tab", "action": "Moves focus to next focusable element" }
+        {
+          "key": "Enter",
+          "action": "Activates the button"
+        },
+        {
+          "key": "Space",
+          "action": "Activates the button"
+        },
+        {
+          "key": "Tab",
+          "action": "Moves focus to next focusable element"
+        }
       ],
       "accessibility": {
         "role": "button",
-        "aria": ["aria-disabled (when disabled)", "aria-busy (when loading)", "aria-label (for IconButton without visible text)"],
+        "aria": [
+          "aria-disabled (when disabled)",
+          "aria-busy (when loading)",
+          "aria-label (for IconButton without visible text)"
+        ],
         "focus_management": "Receives focus via Tab; visible focus ring rendered via CSS outline with 2px offset",
         "wcag_notes": "SC 4.1.2 requires accessible name; SC 1.4.11 requires non-text contrast for focus ring; loading state must be announced"
       },
       "composition": {
-        "composed_of": ["Loader"],
-        "commonly_used_with": ["Card", "Input", "Modal", "Alert", "ButtonGroup"]
+        "composed_of": [
+          "Loader"
+        ],
+        "commonly_used_with": [
+          "Card",
+          "Input",
+          "Modal",
+          "Alert",
+          "ButtonGroup"
+        ]
       },
       "tokens_used": [
         "colorPalette.solid",
@@ -326,7 +467,11 @@
     },
     {
       "name": "Input",
-      "aliases": ["InputGroup", "InputAddon", "InputElement"],
+      "aliases": [
+        "InputGroup",
+        "InputAddon",
+        "InputElement"
+      ],
       "category": "form",
       "status": "stable",
       "import": {
@@ -335,40 +480,153 @@
         "path": "packages/react/src/components/input/input.tsx"
       },
       "anatomy": {
-        "parts": ["root", "field", "addon-left", "addon-right", "element-left", "element-right"]
+        "parts": [
+          "root",
+          "field",
+          "addon-left",
+          "addon-right",
+          "element-left",
+          "element-right"
+        ]
       },
       "slots": [],
       "props": [
-        { "name": "variant", "type": "string", "required": false, "default": "outline", "enum": ["outline", "subtle", "flushed"], "description": "Visual style of the input border" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"], "description": "Input height and padding size" },
-        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables the input field" },
-        { "name": "readOnly", "type": "boolean", "required": false, "default": false, "description": "Makes the input read-only" },
-        { "name": "invalid", "type": "boolean", "required": false, "default": false, "description": "Marks the input as invalid, applying error styling" },
-        { "name": "placeholder", "type": "string", "required": false, "description": "Placeholder text displayed when empty" },
-        { "name": "type", "type": "string", "required": false, "default": "text", "description": "HTML input type attribute" },
-        { "name": "unstyled", "type": "boolean", "required": false, "default": false, "description": "Removes all default styles" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for focus ring and active states" }
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "outline",
+          "enum": [
+            "outline",
+            "subtle",
+            "flushed"
+          ],
+          "description": "Visual style of the input border"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "2xs",
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ],
+          "description": "Input height and padding size"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the input field"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Makes the input read-only"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Marks the input as invalid, applying error styling"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text displayed when empty"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "default": "text",
+          "description": "HTML input type attribute"
+        },
+        {
+          "name": "unstyled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Removes all default styles"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette for focus ring and active states"
+        }
       ],
-      "variants": ["outline", "subtle", "flushed"],
-      "states": ["default", "focus", "hover", "disabled", "readOnly", "invalid", "error"],
+      "variants": [
+        "outline",
+        "subtle",
+        "flushed"
+      ],
+      "states": [
+        "default",
+        "focus",
+        "hover",
+        "disabled",
+        "readOnly",
+        "invalid",
+        "error"
+      ],
       "behaviors": [
-        { "trigger": "invalid=true", "result": "Applies error border color, sets aria-invalid=true" },
-        { "trigger": "disabled=true", "result": "Prevents interaction, reduces opacity, sets aria-disabled" },
-        { "trigger": "focus", "result": "Shows focus ring using colorPalette.focusRing token" }
+        {
+          "trigger": "invalid=true",
+          "result": "Applies error border color, sets aria-invalid=true"
+        },
+        {
+          "trigger": "disabled=true",
+          "result": "Prevents interaction, reduces opacity, sets aria-disabled"
+        },
+        {
+          "trigger": "focus",
+          "result": "Shows focus ring using colorPalette.focusRing token"
+        }
       ],
       "keyboard_map": [
-        { "key": "Tab", "action": "Moves focus into/out of the input" },
-        { "key": "Escape", "action": "Blurs input when supported by parent (e.g. search fields)" }
+        {
+          "key": "Tab",
+          "action": "Moves focus into/out of the input"
+        },
+        {
+          "key": "Escape",
+          "action": "Blurs input when supported by parent (e.g. search fields)"
+        }
       ],
       "accessibility": {
         "role": "textbox",
-        "aria": ["aria-invalid (when invalid)", "aria-disabled (when disabled)", "aria-label or aria-labelledby (required)", "aria-describedby (for helper/error text)"],
+        "aria": [
+          "aria-invalid (when invalid)",
+          "aria-disabled (when disabled)",
+          "aria-label or aria-labelledby (required)",
+          "aria-describedby (for helper/error text)"
+        ],
         "focus_management": "Receives focus via Tab; visible focus ring; error state announced when combined with Field component",
         "wcag_notes": "SC 1.3.1 and SC 4.1.2 require programmatic label; use Field component to associate label; SC 3.3.1 requires error identification"
       },
       "composition": {
-        "composed_of": ["Field"],
-        "commonly_used_with": ["Field", "Button", "InputGroup", "FormControl"]
+        "composed_of": [
+          "Field"
+        ],
+        "commonly_used_with": [
+          "Field",
+          "Button",
+          "InputGroup",
+          "FormControl"
+        ]
       },
       "tokens_used": [
         "bg-DEFAULT",
@@ -395,7 +653,12 @@
     },
     {
       "name": "Card",
-      "aliases": ["CardRoot", "CardBody", "CardHeader", "CardFooter"],
+      "aliases": [
+        "CardRoot",
+        "CardBody",
+        "CardHeader",
+        "CardFooter"
+      ],
       "category": "layout",
       "status": "stable",
       "import": {
@@ -404,31 +667,102 @@
         "path": "packages/react/src/components/card/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "header", "body", "footer", "title", "description"]
+        "parts": [
+          "root",
+          "header",
+          "body",
+          "footer",
+          "title",
+          "description"
+        ]
       },
-      "slots": ["header", "body", "footer", "title", "description"],
-      "props": [
-        { "name": "variant", "type": "string", "required": false, "default": "outline", "enum": ["elevated", "outline", "subtle"], "description": "Visual style of the card surface" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["sm", "md", "lg"], "description": "Card padding and title size" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette used for card accents" }
+      "slots": [
+        "header",
+        "body",
+        "footer",
+        "title",
+        "description"
       ],
-      "variants": ["elevated", "outline", "subtle"],
-      "states": ["default"],
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "outline",
+          "enum": [
+            "elevated",
+            "outline",
+            "subtle"
+          ],
+          "description": "Visual style of the card surface"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Card padding and title size"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette used for card accents"
+        }
+      ],
+      "variants": [
+        "elevated",
+        "outline",
+        "subtle"
+      ],
+      "states": [
+        "default"
+      ],
       "behaviors": [
-        { "trigger": "variant=elevated", "result": "Applies panel background with box-shadow (md)" },
-        { "trigger": "variant=outline", "result": "Applies panel background with 1px border" },
-        { "trigger": "variant=subtle", "result": "Applies muted background color with no border" }
+        {
+          "trigger": "variant=elevated",
+          "result": "Applies panel background with box-shadow (md)"
+        },
+        {
+          "trigger": "variant=outline",
+          "result": "Applies panel background with 1px border"
+        },
+        {
+          "trigger": "variant=subtle",
+          "result": "Applies muted background color with no border"
+        }
       ],
       "keyboard_map": [],
       "accessibility": {
         "role": "region (when aria-label provided) or generic",
-        "aria": ["aria-label (recommended when used as landmark region)", "aria-labelledby (alternative)"],
+        "aria": [
+          "aria-label (recommended when used as landmark region)",
+          "aria-labelledby (alternative)"
+        ],
         "focus_management": "Not focusable by default; interactive children manage their own focus",
         "wcag_notes": "If used as a landmark, provide accessible name per SC 1.3.6; SC 1.4.3 applies to text within cards"
       },
       "composition": {
-        "composed_of": ["CardRoot", "CardHeader", "CardBody", "CardFooter", "CardTitle", "CardDescription"],
-        "commonly_used_with": ["Button", "Badge", "Avatar", "Stat"]
+        "composed_of": [
+          "CardRoot",
+          "CardHeader",
+          "CardBody",
+          "CardFooter",
+          "CardTitle",
+          "CardDescription"
+        ],
+        "commonly_used_with": [
+          "Button",
+          "Badge",
+          "Avatar",
+          "Stat"
+        ]
       },
       "tokens_used": [
         "bg-panel",
@@ -456,7 +790,9 @@
     },
     {
       "name": "Badge",
-      "aliases": ["BadgePropsProvider"],
+      "aliases": [
+        "BadgePropsProvider"
+      ],
       "category": "data-display",
       "status": "stable",
       "import": {
@@ -465,28 +801,81 @@
         "path": "packages/react/src/components/badge/index.ts"
       },
       "anatomy": {
-        "parts": ["root"]
+        "parts": [
+          "root"
+        ]
       },
       "slots": [],
       "props": [
-        { "name": "variant", "type": "string", "required": false, "default": "subtle", "enum": ["solid", "subtle", "outline", "surface", "plain"], "description": "Visual style of the badge" },
-        { "name": "size", "type": "string", "required": false, "default": "sm", "enum": ["xs", "sm", "md", "lg"], "description": "Badge size" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for the badge" },
-        { "name": "children", "type": "ReactNode", "required": false, "description": "Badge label content" }
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "subtle",
+          "enum": [
+            "solid",
+            "subtle",
+            "outline",
+            "surface",
+            "plain"
+          ],
+          "description": "Visual style of the badge"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "sm",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Badge size"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette for the badge"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Badge label content"
+        }
       ],
-      "variants": ["solid", "subtle", "outline", "surface", "plain"],
-      "states": ["default"],
+      "variants": [
+        "solid",
+        "subtle",
+        "outline",
+        "surface",
+        "plain"
+      ],
+      "states": [
+        "default"
+      ],
       "behaviors": [],
       "keyboard_map": [],
       "accessibility": {
         "role": "status or generic (depends on context)",
-        "aria": ["aria-label (when badge conveys non-text meaning)"],
+        "aria": [
+          "aria-label (when badge conveys non-text meaning)"
+        ],
         "focus_management": "Not focusable",
         "wcag_notes": "SC 1.4.1 color must not be the sole means of conveying information; pair badges with text labels"
       },
       "composition": {
         "composed_of": [],
-        "commonly_used_with": ["Avatar", "Card", "MenuItem", "TableRow"]
+        "commonly_used_with": [
+          "Avatar",
+          "Card",
+          "MenuItem",
+          "TableRow"
+        ]
       },
       "tokens_used": [
         "colorPalette.subtle",
@@ -511,7 +900,12 @@
     },
     {
       "name": "Alert",
-      "aliases": ["AlertRoot", "AlertTitle", "AlertDescription", "AlertIndicator"],
+      "aliases": [
+        "AlertRoot",
+        "AlertTitle",
+        "AlertDescription",
+        "AlertIndicator"
+      ],
       "category": "feedback",
       "status": "stable",
       "import": {
@@ -520,33 +914,118 @@
         "path": "packages/react/src/components/alert/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "indicator", "content", "title", "description"]
+        "parts": [
+          "root",
+          "indicator",
+          "content",
+          "title",
+          "description"
+        ]
       },
-      "slots": ["indicator", "content", "title", "description"],
-      "props": [
-        { "name": "status", "type": "string", "required": false, "default": "info", "enum": ["info", "warning", "success", "error", "neutral"], "description": "Semantic status that sets color palette and default icon" },
-        { "name": "variant", "type": "string", "required": false, "default": "subtle", "enum": ["subtle", "surface", "outline", "solid"], "description": "Visual style of the alert" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["sm", "md", "lg"], "description": "Alert size (padding and text)" },
-        { "name": "inline", "type": "boolean", "required": false, "default": false, "description": "Display content horizontally when true" }
+      "slots": [
+        "indicator",
+        "content",
+        "title",
+        "description"
       ],
-      "variants": ["subtle", "surface", "outline", "solid"],
-      "states": ["default"],
+      "props": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "default": "info",
+          "enum": [
+            "info",
+            "warning",
+            "success",
+            "error",
+            "neutral"
+          ],
+          "description": "Semantic status that sets color palette and default icon"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "subtle",
+          "enum": [
+            "subtle",
+            "surface",
+            "outline",
+            "solid"
+          ],
+          "description": "Visual style of the alert"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Alert size (padding and text)"
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Display content horizontally when true"
+        }
+      ],
+      "variants": [
+        "subtle",
+        "surface",
+        "outline",
+        "solid"
+      ],
+      "states": [
+        "default"
+      ],
       "behaviors": [
-        { "trigger": "status=error", "result": "Sets red colorPalette, displays error icon in indicator slot" },
-        { "trigger": "status=success", "result": "Sets green colorPalette, displays check icon in indicator slot" },
-        { "trigger": "status=warning", "result": "Sets orange colorPalette, displays warning icon in indicator slot" },
-        { "trigger": "status=info", "result": "Sets blue colorPalette, displays info icon in indicator slot" }
+        {
+          "trigger": "status=error",
+          "result": "Sets red colorPalette, displays error icon in indicator slot"
+        },
+        {
+          "trigger": "status=success",
+          "result": "Sets green colorPalette, displays check icon in indicator slot"
+        },
+        {
+          "trigger": "status=warning",
+          "result": "Sets orange colorPalette, displays warning icon in indicator slot"
+        },
+        {
+          "trigger": "status=info",
+          "result": "Sets blue colorPalette, displays info icon in indicator slot"
+        }
       ],
       "keyboard_map": [],
       "accessibility": {
         "role": "alert",
-        "aria": ["role=alert (for urgent messages)", "role=status (for non-urgent notifications)"],
+        "aria": [
+          "role=alert (for urgent messages)",
+          "role=status (for non-urgent notifications)"
+        ],
         "focus_management": "Static; not focusable. Use role=alert for live announcement of dynamic messages",
         "wcag_notes": "SC 4.1.3: status messages must be programmatically determinable; role=alert is automatically a live region"
       },
       "composition": {
-        "composed_of": ["AlertRoot", "AlertIndicator", "AlertContent", "AlertTitle", "AlertDescription"],
-        "commonly_used_with": ["Button", "Dialog", "Field"]
+        "composed_of": [
+          "AlertRoot",
+          "AlertIndicator",
+          "AlertContent",
+          "AlertTitle",
+          "AlertDescription"
+        ],
+        "commonly_used_with": [
+          "Button",
+          "Dialog",
+          "Field"
+        ]
       },
       "tokens_used": [
         "colorPalette.subtle",
@@ -574,7 +1053,14 @@
     },
     {
       "name": "Dialog",
-      "aliases": ["Modal", "DialogRoot", "DialogContent", "DialogHeader", "DialogBody", "DialogFooter"],
+      "aliases": [
+        "Modal",
+        "DialogRoot",
+        "DialogContent",
+        "DialogHeader",
+        "DialogBody",
+        "DialogFooter"
+      ],
       "category": "overlay",
       "status": "stable",
       "import": {
@@ -583,41 +1069,162 @@
         "path": "packages/react/src/components/dialog/index.ts"
       },
       "anatomy": {
-        "parts": ["backdrop", "positioner", "content", "header", "closeTrigger", "body", "footer", "title", "description", "actionTrigger"]
+        "parts": [
+          "backdrop",
+          "positioner",
+          "content",
+          "header",
+          "closeTrigger",
+          "body",
+          "footer",
+          "title",
+          "description",
+          "actionTrigger"
+        ]
       },
-      "slots": ["backdrop", "positioner", "content", "header", "closeTrigger", "body", "footer", "title", "description"],
-      "props": [
-        { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
-        { "name": "defaultOpen", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial open state" },
-        { "name": "onOpenChange", "type": "(details: DialogOpenChangeDetails) => void", "required": false, "description": "Callback when open state changes" },
-        { "name": "modal", "type": "boolean", "required": false, "default": true, "description": "Whether dialog is modal (blocks background interaction)" },
-        { "name": "closeOnInteractOutside", "type": "boolean", "required": false, "default": true, "description": "Whether clicking outside closes the dialog" },
-        { "name": "closeOnEscape", "type": "boolean", "required": false, "default": true, "description": "Whether pressing Escape closes the dialog" },
-        { "name": "trapFocus", "type": "boolean", "required": false, "default": true, "description": "Whether to trap focus inside the dialog" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg", "xl", "full"], "description": "Dialog size" }
+      "slots": [
+        "backdrop",
+        "positioner",
+        "content",
+        "header",
+        "closeTrigger",
+        "body",
+        "footer",
+        "title",
+        "description"
       ],
-      "variants": ["default"],
-      "states": ["open", "closed"],
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(details: DialogOpenChangeDetails) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        },
+        {
+          "name": "modal",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether dialog is modal (blocks background interaction)"
+        },
+        {
+          "name": "closeOnInteractOutside",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether clicking outside closes the dialog"
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether pressing Escape closes the dialog"
+        },
+        {
+          "name": "trapFocus",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to trap focus inside the dialog"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ],
+          "description": "Dialog size"
+        }
+      ],
+      "variants": [
+        "default"
+      ],
+      "states": [
+        "open",
+        "closed"
+      ],
       "behaviors": [
-        { "trigger": "trigger clicked", "result": "Opens dialog, traps focus within content, shows backdrop" },
-        { "trigger": "Escape key", "result": "Closes dialog when closeOnEscape=true" },
-        { "trigger": "click outside", "result": "Closes dialog when closeOnInteractOutside=true" },
-        { "trigger": "dialog closes", "result": "Returns focus to the trigger element that opened the dialog" }
+        {
+          "trigger": "trigger clicked",
+          "result": "Opens dialog, traps focus within content, shows backdrop"
+        },
+        {
+          "trigger": "Escape key",
+          "result": "Closes dialog when closeOnEscape=true"
+        },
+        {
+          "trigger": "click outside",
+          "result": "Closes dialog when closeOnInteractOutside=true"
+        },
+        {
+          "trigger": "dialog closes",
+          "result": "Returns focus to the trigger element that opened the dialog"
+        }
       ],
       "keyboard_map": [
-        { "key": "Escape", "action": "Closes the dialog" },
-        { "key": "Tab", "action": "Cycles focus through focusable elements inside the dialog" },
-        { "key": "Shift+Tab", "action": "Cycles focus backwards through focusable elements" }
+        {
+          "key": "Escape",
+          "action": "Closes the dialog"
+        },
+        {
+          "key": "Tab",
+          "action": "Cycles focus through focusable elements inside the dialog"
+        },
+        {
+          "key": "Shift+Tab",
+          "action": "Cycles focus backwards through focusable elements"
+        }
       ],
       "accessibility": {
         "role": "dialog",
-        "aria": ["aria-modal=true", "aria-labelledby (points to DialogTitle)", "aria-describedby (points to DialogDescription)"],
+        "aria": [
+          "aria-modal=true",
+          "aria-labelledby (points to DialogTitle)",
+          "aria-describedby (points to DialogDescription)"
+        ],
         "focus_management": "Focus is trapped inside the dialog when open; returns to trigger element on close; first focusable element receives focus on open",
         "wcag_notes": "SC 2.1.2 no keyboard trap except for modal dialogs (intentional); SC 2.4.3 focus order must be logical; role=dialog requires accessible name"
       },
       "composition": {
-        "composed_of": ["DialogRoot", "DialogTrigger", "DialogBackdrop", "DialogPositioner", "DialogContent", "DialogHeader", "DialogTitle", "DialogDescription", "DialogBody", "DialogFooter", "DialogCloseTrigger"],
-        "commonly_used_with": ["Button", "Alert", "Form"]
+        "composed_of": [
+          "DialogRoot",
+          "DialogTrigger",
+          "DialogBackdrop",
+          "DialogPositioner",
+          "DialogContent",
+          "DialogHeader",
+          "DialogTitle",
+          "DialogDescription",
+          "DialogBody",
+          "DialogFooter",
+          "DialogCloseTrigger"
+        ],
+        "commonly_used_with": [
+          "Button",
+          "Alert",
+          "Form"
+        ]
       },
       "tokens_used": [
         "z-modal",
@@ -643,7 +1250,13 @@
     },
     {
       "name": "Drawer",
-      "aliases": ["DrawerRoot", "DrawerContent", "DrawerHeader", "DrawerBody", "DrawerFooter"],
+      "aliases": [
+        "DrawerRoot",
+        "DrawerContent",
+        "DrawerHeader",
+        "DrawerBody",
+        "DrawerFooter"
+      ],
       "category": "overlay",
       "status": "stable",
       "import": {
@@ -652,40 +1265,158 @@
         "path": "packages/react/src/components/drawer/index.ts"
       },
       "anatomy": {
-        "parts": ["backdrop", "positioner", "content", "header", "closeTrigger", "body", "footer", "title", "description"]
+        "parts": [
+          "backdrop",
+          "positioner",
+          "content",
+          "header",
+          "closeTrigger",
+          "body",
+          "footer",
+          "title",
+          "description"
+        ]
       },
-      "slots": ["backdrop", "positioner", "content", "header", "body", "footer", "title", "description"],
-      "props": [
-        { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
-        { "name": "defaultOpen", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial open state" },
-        { "name": "onOpenChange", "type": "(details: DrawerOpenChangeDetails) => void", "required": false, "description": "Callback when open state changes" },
-        { "name": "placement", "type": "string", "required": false, "default": "end", "enum": ["start", "end", "top", "bottom"], "description": "Side from which the drawer slides in" },
-        { "name": "size", "type": "string", "required": false, "default": "sm", "enum": ["xs", "sm", "md", "lg", "xl", "full"], "description": "Width (or height for top/bottom) of the drawer" },
-        { "name": "closeOnInteractOutside", "type": "boolean", "required": false, "default": true, "description": "Whether clicking outside closes the drawer" },
-        { "name": "closeOnEscape", "type": "boolean", "required": false, "default": true, "description": "Whether pressing Escape closes the drawer" }
+      "slots": [
+        "backdrop",
+        "positioner",
+        "content",
+        "header",
+        "body",
+        "footer",
+        "title",
+        "description"
       ],
-      "variants": ["default"],
-      "states": ["open", "closed"],
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(details: DrawerOpenChangeDetails) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        },
+        {
+          "name": "placement",
+          "type": "string",
+          "required": false,
+          "default": "end",
+          "enum": [
+            "start",
+            "end",
+            "top",
+            "bottom"
+          ],
+          "description": "Side from which the drawer slides in"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "sm",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ],
+          "description": "Width (or height for top/bottom) of the drawer"
+        },
+        {
+          "name": "closeOnInteractOutside",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether clicking outside closes the drawer"
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether pressing Escape closes the drawer"
+        }
+      ],
+      "variants": [
+        "default"
+      ],
+      "states": [
+        "open",
+        "closed"
+      ],
       "behaviors": [
-        { "trigger": "trigger clicked", "result": "Drawer slides in from placement side with animation" },
-        { "trigger": "Escape key", "result": "Closes drawer" },
-        { "trigger": "click outside", "result": "Closes drawer when closeOnInteractOutside=true" },
-        { "trigger": "drawer closes", "result": "Focus returns to trigger element; slide-out animation plays" }
+        {
+          "trigger": "trigger clicked",
+          "result": "Drawer slides in from placement side with animation"
+        },
+        {
+          "trigger": "Escape key",
+          "result": "Closes drawer"
+        },
+        {
+          "trigger": "click outside",
+          "result": "Closes drawer when closeOnInteractOutside=true"
+        },
+        {
+          "trigger": "drawer closes",
+          "result": "Focus returns to trigger element; slide-out animation plays"
+        }
       ],
       "keyboard_map": [
-        { "key": "Escape", "action": "Closes the drawer" },
-        { "key": "Tab", "action": "Cycles focus through focusable elements within the drawer" },
-        { "key": "Shift+Tab", "action": "Cycles focus backwards" }
+        {
+          "key": "Escape",
+          "action": "Closes the drawer"
+        },
+        {
+          "key": "Tab",
+          "action": "Cycles focus through focusable elements within the drawer"
+        },
+        {
+          "key": "Shift+Tab",
+          "action": "Cycles focus backwards"
+        }
       ],
       "accessibility": {
         "role": "dialog",
-        "aria": ["aria-modal=true", "aria-labelledby (points to DrawerTitle)", "aria-describedby (points to DrawerDescription)"],
+        "aria": [
+          "aria-modal=true",
+          "aria-labelledby (points to DrawerTitle)",
+          "aria-describedby (points to DrawerDescription)"
+        ],
         "focus_management": "Focus trapped inside when open; returns to trigger on close",
         "wcag_notes": "Same accessibility requirements as Dialog (built on same Ark UI primitive); SC 2.1.2 and SC 2.4.3 apply"
       },
       "composition": {
-        "composed_of": ["DrawerRoot", "DrawerTrigger", "DrawerBackdrop", "DrawerPositioner", "DrawerContent", "DrawerHeader", "DrawerTitle", "DrawerBody", "DrawerFooter", "DrawerCloseTrigger"],
-        "commonly_used_with": ["Button", "Menu", "Navigation"]
+        "composed_of": [
+          "DrawerRoot",
+          "DrawerTrigger",
+          "DrawerBackdrop",
+          "DrawerPositioner",
+          "DrawerContent",
+          "DrawerHeader",
+          "DrawerTitle",
+          "DrawerBody",
+          "DrawerFooter",
+          "DrawerCloseTrigger"
+        ],
+        "commonly_used_with": [
+          "Button",
+          "Menu",
+          "Navigation"
+        ]
       },
       "tokens_used": [
         "z-modal",
@@ -708,7 +1439,12 @@
     },
     {
       "name": "Menu",
-      "aliases": ["MenuRoot", "MenuContent", "MenuItem", "MenuTrigger"],
+      "aliases": [
+        "MenuRoot",
+        "MenuContent",
+        "MenuItem",
+        "MenuTrigger"
+      ],
       "category": "overlay",
       "status": "stable",
       "import": {
@@ -717,45 +1453,176 @@
         "path": "packages/react/src/components/menu/index.ts"
       },
       "anatomy": {
-        "parts": ["content", "item", "itemText", "itemIndicator", "itemGroupLabel", "indicator", "itemCommand", "separator", "arrow", "arrowTip"]
+        "parts": [
+          "content",
+          "item",
+          "itemText",
+          "itemIndicator",
+          "itemGroupLabel",
+          "indicator",
+          "itemCommand",
+          "separator",
+          "arrow",
+          "arrowTip"
+        ]
       },
-      "slots": ["content", "item", "itemText", "itemIndicator", "itemGroupLabel", "indicator", "itemCommand", "separator"],
-      "props": [
-        { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
-        { "name": "defaultOpen", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial open state" },
-        { "name": "onOpenChange", "type": "(details: MenuOpenChangeDetails) => void", "required": false, "description": "Callback when open state changes" },
-        { "name": "onSelect", "type": "(details: MenuSelectionDetails) => void", "required": false, "description": "Callback when menu item is selected" },
-        { "name": "closeOnSelect", "type": "boolean", "required": false, "default": true, "description": "Whether to close menu on item selection" },
-        { "name": "variant", "type": "string", "required": false, "default": "subtle", "enum": ["subtle", "solid"], "description": "Visual style for highlighted items" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["sm", "md"], "description": "Menu item size" }
+      "slots": [
+        "content",
+        "item",
+        "itemText",
+        "itemIndicator",
+        "itemGroupLabel",
+        "indicator",
+        "itemCommand",
+        "separator"
       ],
-      "variants": ["subtle", "solid"],
-      "states": ["open", "closed", "item-highlighted", "item-disabled"],
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(details: MenuOpenChangeDetails) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        },
+        {
+          "name": "onSelect",
+          "type": "(details: MenuSelectionDetails) => void",
+          "required": false,
+          "description": "Callback when menu item is selected"
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to close menu on item selection"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "subtle",
+          "enum": [
+            "subtle",
+            "solid"
+          ],
+          "description": "Visual style for highlighted items"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "sm",
+            "md"
+          ],
+          "description": "Menu item size"
+        }
+      ],
+      "variants": [
+        "subtle",
+        "solid"
+      ],
+      "states": [
+        "open",
+        "closed",
+        "item-highlighted",
+        "item-disabled"
+      ],
       "behaviors": [
-        { "trigger": "trigger clicked", "result": "Opens menu, positions content near trigger" },
-        { "trigger": "item clicked", "result": "Fires onSelect with item value; closes menu when closeOnSelect=true" },
-        { "trigger": "Escape key", "result": "Closes menu; returns focus to trigger" },
-        { "trigger": "mouse leaves content", "result": "Clears item highlight" }
+        {
+          "trigger": "trigger clicked",
+          "result": "Opens menu, positions content near trigger"
+        },
+        {
+          "trigger": "item clicked",
+          "result": "Fires onSelect with item value; closes menu when closeOnSelect=true"
+        },
+        {
+          "trigger": "Escape key",
+          "result": "Closes menu; returns focus to trigger"
+        },
+        {
+          "trigger": "mouse leaves content",
+          "result": "Clears item highlight"
+        }
       ],
       "keyboard_map": [
-        { "key": "Enter / Space", "action": "Opens menu when trigger is focused; selects highlighted item" },
-        { "key": "ArrowDown", "action": "Highlights next menu item; opens menu from trigger" },
-        { "key": "ArrowUp", "action": "Highlights previous menu item" },
-        { "key": "Home", "action": "Highlights first menu item" },
-        { "key": "End", "action": "Highlights last menu item" },
-        { "key": "Escape", "action": "Closes the menu" },
-        { "key": "Tab", "action": "Closes the menu" },
-        { "key": "typeahead", "action": "Highlights first item matching typed characters" }
+        {
+          "key": "Enter / Space",
+          "action": "Opens menu when trigger is focused; selects highlighted item"
+        },
+        {
+          "key": "ArrowDown",
+          "action": "Highlights next menu item; opens menu from trigger"
+        },
+        {
+          "key": "ArrowUp",
+          "action": "Highlights previous menu item"
+        },
+        {
+          "key": "Home",
+          "action": "Highlights first menu item"
+        },
+        {
+          "key": "End",
+          "action": "Highlights last menu item"
+        },
+        {
+          "key": "Escape",
+          "action": "Closes the menu"
+        },
+        {
+          "key": "Tab",
+          "action": "Closes the menu"
+        },
+        {
+          "key": "typeahead",
+          "action": "Highlights first item matching typed characters"
+        }
       ],
       "accessibility": {
         "role": "menu",
-        "aria": ["role=menu (content)", "role=menuitem (items)", "role=menuitemcheckbox (CheckboxItem)", "role=menuitemradio (RadioItem)", "aria-expanded (on trigger)", "aria-haspopup=menu (on trigger)"],
+        "aria": [
+          "role=menu (content)",
+          "role=menuitem (items)",
+          "role=menuitemcheckbox (CheckboxItem)",
+          "role=menuitemradio (RadioItem)",
+          "aria-expanded (on trigger)",
+          "aria-haspopup=menu (on trigger)"
+        ],
         "focus_management": "Focus moves to menu content on open; returns to trigger on close; arrow keys navigate items",
         "wcag_notes": "SC 2.1.1 all functionality via keyboard; ARIA Authoring Practices menu button pattern"
       },
       "composition": {
-        "composed_of": ["MenuRoot", "MenuTrigger", "MenuContent", "MenuItem", "MenuSeparator", "MenuCheckboxItem", "MenuRadioItem", "MenuItemGroup"],
-        "commonly_used_with": ["Button", "IconButton", "Toolbar"]
+        "composed_of": [
+          "MenuRoot",
+          "MenuTrigger",
+          "MenuContent",
+          "MenuItem",
+          "MenuSeparator",
+          "MenuCheckboxItem",
+          "MenuRadioItem",
+          "MenuItemGroup"
+        ],
+        "commonly_used_with": [
+          "Button",
+          "IconButton",
+          "Toolbar"
+        ]
       },
       "tokens_used": [
         "bg-panel",
@@ -781,7 +1648,13 @@
     },
     {
       "name": "Select",
-      "aliases": ["SelectRoot", "SelectTrigger", "SelectContent", "SelectItem", "NativeSelect"],
+      "aliases": [
+        "SelectRoot",
+        "SelectTrigger",
+        "SelectContent",
+        "SelectItem",
+        "NativeSelect"
+      ],
       "category": "form",
       "status": "stable",
       "import": {
@@ -790,46 +1663,198 @@
         "path": "packages/react/src/components/select/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "trigger", "indicatorGroup", "indicator", "content", "item", "control", "itemText", "itemGroup", "itemGroupLabel", "label", "valueText", "clearTrigger"]
+        "parts": [
+          "root",
+          "trigger",
+          "indicatorGroup",
+          "indicator",
+          "content",
+          "item",
+          "control",
+          "itemText",
+          "itemGroup",
+          "itemGroupLabel",
+          "label",
+          "valueText",
+          "clearTrigger"
+        ]
       },
-      "slots": ["root", "trigger", "control", "content", "item", "itemGroup", "itemGroupLabel", "label", "clearTrigger"],
-      "props": [
-        { "name": "collection", "type": "ListCollection", "required": true, "description": "Data collection for select options" },
-        { "name": "value", "type": "string[]", "required": false, "description": "Controlled selected values" },
-        { "name": "defaultValue", "type": "string[]", "required": false, "description": "Uncontrolled default selected values" },
-        { "name": "onValueChange", "type": "(details: SelectValueChangeDetails) => void", "required": false, "description": "Callback on selection change" },
-        { "name": "multiple", "type": "boolean", "required": false, "default": false, "description": "Allows selecting multiple values" },
-        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables the select" },
-        { "name": "invalid", "type": "boolean", "required": false, "default": false, "description": "Marks select as invalid" },
-        { "name": "variant", "type": "string", "required": false, "default": "outline", "enum": ["outline", "subtle", "ghost"], "description": "Visual style of the trigger" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg"], "description": "Size of the trigger" },
-        { "name": "placeholder", "type": "string", "required": false, "description": "Placeholder text when no value is selected" }
+      "slots": [
+        "root",
+        "trigger",
+        "control",
+        "content",
+        "item",
+        "itemGroup",
+        "itemGroupLabel",
+        "label",
+        "clearTrigger"
       ],
-      "variants": ["outline", "subtle", "ghost"],
-      "states": ["default", "open", "closed", "disabled", "invalid"],
+      "props": [
+        {
+          "name": "collection",
+          "type": "ListCollection",
+          "required": true,
+          "description": "Data collection for select options"
+        },
+        {
+          "name": "value",
+          "type": "string[]",
+          "required": false,
+          "description": "Controlled selected values"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string[]",
+          "required": false,
+          "description": "Uncontrolled default selected values"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(details: SelectValueChangeDetails) => void",
+          "required": false,
+          "description": "Callback on selection change"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Allows selecting multiple values"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the select"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Marks select as invalid"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "outline",
+          "enum": [
+            "outline",
+            "subtle",
+            "ghost"
+          ],
+          "description": "Visual style of the trigger"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Size of the trigger"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text when no value is selected"
+        }
+      ],
+      "variants": [
+        "outline",
+        "subtle",
+        "ghost"
+      ],
+      "states": [
+        "default",
+        "open",
+        "closed",
+        "disabled",
+        "invalid"
+      ],
       "behaviors": [
-        { "trigger": "trigger clicked", "result": "Opens dropdown listbox" },
-        { "trigger": "item selected", "result": "Updates value, closes dropdown (single select), fires onValueChange" },
-        { "trigger": "Escape key", "result": "Closes dropdown" }
+        {
+          "trigger": "trigger clicked",
+          "result": "Opens dropdown listbox"
+        },
+        {
+          "trigger": "item selected",
+          "result": "Updates value, closes dropdown (single select), fires onValueChange"
+        },
+        {
+          "trigger": "Escape key",
+          "result": "Closes dropdown"
+        }
       ],
       "keyboard_map": [
-        { "key": "Enter / Space", "action": "Opens select; selects highlighted item" },
-        { "key": "ArrowDown", "action": "Opens select; moves highlight to next item" },
-        { "key": "ArrowUp", "action": "Moves highlight to previous item" },
-        { "key": "Home", "action": "Highlights first item" },
-        { "key": "End", "action": "Highlights last item" },
-        { "key": "Escape", "action": "Closes the dropdown" },
-        { "key": "typeahead", "action": "Jumps to item matching typed characters" }
+        {
+          "key": "Enter / Space",
+          "action": "Opens select; selects highlighted item"
+        },
+        {
+          "key": "ArrowDown",
+          "action": "Opens select; moves highlight to next item"
+        },
+        {
+          "key": "ArrowUp",
+          "action": "Moves highlight to previous item"
+        },
+        {
+          "key": "Home",
+          "action": "Highlights first item"
+        },
+        {
+          "key": "End",
+          "action": "Highlights last item"
+        },
+        {
+          "key": "Escape",
+          "action": "Closes the dropdown"
+        },
+        {
+          "key": "typeahead",
+          "action": "Jumps to item matching typed characters"
+        }
       ],
       "accessibility": {
         "role": "combobox",
-        "aria": ["role=combobox (trigger)", "role=listbox (content)", "role=option (items)", "aria-expanded", "aria-haspopup=listbox", "aria-activedescendant"],
+        "aria": [
+          "role=combobox (trigger)",
+          "role=listbox (content)",
+          "role=option (items)",
+          "aria-expanded",
+          "aria-haspopup=listbox",
+          "aria-activedescendant"
+        ],
         "focus_management": "Focus stays on trigger; active item tracked via aria-activedescendant",
         "wcag_notes": "SC 4.1.2 name, role, value; ARIA combobox pattern; use Field component for label association"
       },
       "composition": {
-        "composed_of": ["SelectRoot", "SelectControl", "SelectLabel", "SelectTrigger", "SelectValueText", "SelectIndicatorGroup", "SelectContent", "SelectItem", "SelectItemText", "SelectItemIndicator"],
-        "commonly_used_with": ["Field", "Button", "Form"]
+        "composed_of": [
+          "SelectRoot",
+          "SelectControl",
+          "SelectLabel",
+          "SelectTrigger",
+          "SelectValueText",
+          "SelectIndicatorGroup",
+          "SelectContent",
+          "SelectItem",
+          "SelectItemText",
+          "SelectItemIndicator"
+        ],
+        "commonly_used_with": [
+          "Field",
+          "Button",
+          "Form"
+        ]
       },
       "tokens_used": [
         "bg-panel",
@@ -853,7 +1878,12 @@
     },
     {
       "name": "Checkbox",
-      "aliases": ["CheckboxRoot", "CheckboxControl", "CheckboxLabel", "CheckboxGroup"],
+      "aliases": [
+        "CheckboxRoot",
+        "CheckboxControl",
+        "CheckboxLabel",
+        "CheckboxGroup"
+      ],
       "category": "form",
       "status": "stable",
       "import": {
@@ -862,41 +1892,165 @@
         "path": "packages/react/src/components/checkbox/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "control", "indicator", "label", "hiddenInput"]
+        "parts": [
+          "root",
+          "control",
+          "indicator",
+          "label",
+          "hiddenInput"
+        ]
       },
-      "slots": ["root", "control", "indicator", "label"],
-      "props": [
-        { "name": "checked", "type": "boolean | 'indeterminate'", "required": false, "description": "Controlled checked state; 'indeterminate' for partial selection" },
-        { "name": "defaultChecked", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial checked state" },
-        { "name": "onCheckedChange", "type": "(details: CheckboxCheckedChangeDetails) => void", "required": false, "description": "Callback on checked state change" },
-        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables the checkbox" },
-        { "name": "readOnly", "type": "boolean", "required": false, "default": false, "description": "Makes checkbox read-only" },
-        { "name": "invalid", "type": "boolean", "required": false, "default": false, "description": "Marks checkbox as invalid" },
-        { "name": "required", "type": "boolean", "required": false, "default": false, "description": "Marks checkbox as required" },
-        { "name": "variant", "type": "string", "required": false, "default": "solid", "enum": ["outline", "solid", "subtle"], "description": "Visual style of the checkbox control" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg"], "description": "Checkbox size" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for checked state" }
+      "slots": [
+        "root",
+        "control",
+        "indicator",
+        "label"
       ],
-      "variants": ["outline", "solid", "subtle"],
-      "states": ["default", "checked", "unchecked", "indeterminate", "hover", "focus", "disabled", "invalid"],
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean | 'indeterminate'",
+          "required": false,
+          "description": "Controlled checked state; 'indeterminate' for partial selection"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial checked state"
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(details: CheckboxCheckedChangeDetails) => void",
+          "required": false,
+          "description": "Callback on checked state change"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the checkbox"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Makes checkbox read-only"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Marks checkbox as invalid"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Marks checkbox as required"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "solid",
+          "enum": [
+            "outline",
+            "solid",
+            "subtle"
+          ],
+          "description": "Visual style of the checkbox control"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Checkbox size"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette for checked state"
+        }
+      ],
+      "variants": [
+        "outline",
+        "solid",
+        "subtle"
+      ],
+      "states": [
+        "default",
+        "checked",
+        "unchecked",
+        "indeterminate",
+        "hover",
+        "focus",
+        "disabled",
+        "invalid"
+      ],
       "behaviors": [
-        { "trigger": "click / Space", "result": "Toggles checked state; fires onCheckedChange" },
-        { "trigger": "checked='indeterminate'", "result": "Shows minus icon; clicking cycles to checked" },
-        { "trigger": "disabled=true", "result": "Prevents interaction; reduces opacity" }
+        {
+          "trigger": "click / Space",
+          "result": "Toggles checked state; fires onCheckedChange"
+        },
+        {
+          "trigger": "checked='indeterminate'",
+          "result": "Shows minus icon; clicking cycles to checked"
+        },
+        {
+          "trigger": "disabled=true",
+          "result": "Prevents interaction; reduces opacity"
+        }
       ],
       "keyboard_map": [
-        { "key": "Space", "action": "Toggles checkbox checked state" },
-        { "key": "Tab", "action": "Moves focus to/from checkbox" }
+        {
+          "key": "Space",
+          "action": "Toggles checkbox checked state"
+        },
+        {
+          "key": "Tab",
+          "action": "Moves focus to/from checkbox"
+        }
       ],
       "accessibility": {
         "role": "checkbox",
-        "aria": ["aria-checked (true | false | mixed for indeterminate)", "aria-disabled", "aria-invalid", "aria-required"],
+        "aria": [
+          "aria-checked (true | false | mixed for indeterminate)",
+          "aria-disabled",
+          "aria-invalid",
+          "aria-required"
+        ],
         "focus_management": "Receives focus via Tab; visible focus ring applied to control element",
         "wcag_notes": "SC 4.1.2 requires name, role, value; hidden native input preserves form compatibility; SC 1.4.11 for non-text contrast of control"
       },
       "composition": {
-        "composed_of": ["CheckboxRoot", "CheckboxControl", "CheckboxIndicator", "CheckboxLabel", "CheckboxHiddenInput"],
-        "commonly_used_with": ["CheckboxGroup", "Field", "Form", "Table"]
+        "composed_of": [
+          "CheckboxRoot",
+          "CheckboxControl",
+          "CheckboxIndicator",
+          "CheckboxLabel",
+          "CheckboxHiddenInput"
+        ],
+        "commonly_used_with": [
+          "CheckboxGroup",
+          "Field",
+          "Form",
+          "Table"
+        ]
       },
       "tokens_used": [
         "colorPalette.solid",
@@ -923,7 +2077,12 @@
     },
     {
       "name": "RadioGroup",
-      "aliases": ["RadioGroupRoot", "RadioGroupItem", "RadioGroupItemControl", "Radio"],
+      "aliases": [
+        "RadioGroupRoot",
+        "RadioGroupItem",
+        "RadioGroupItemControl",
+        "Radio"
+      ],
       "category": "form",
       "status": "stable",
       "import": {
@@ -932,41 +2091,167 @@
         "path": "packages/react/src/components/radio-group/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "label", "item", "itemControl", "itemText", "itemIndicator", "itemHiddenInput"]
+        "parts": [
+          "root",
+          "label",
+          "item",
+          "itemControl",
+          "itemText",
+          "itemIndicator",
+          "itemHiddenInput"
+        ]
       },
-      "slots": ["item", "itemControl", "itemText", "itemIndicator"],
-      "props": [
-        { "name": "value", "type": "string", "required": false, "description": "Controlled selected value" },
-        { "name": "defaultValue", "type": "string", "required": false, "description": "Uncontrolled initial selected value" },
-        { "name": "onValueChange", "type": "(details: RadioGroupValueChangeDetails) => void", "required": false, "description": "Callback on value change" },
-        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables all radio items in the group" },
-        { "name": "readOnly", "type": "boolean", "required": false, "default": false, "description": "Makes radio group read-only" },
-        { "name": "orientation", "type": "string", "required": false, "default": "vertical", "enum": ["horizontal", "vertical"], "description": "Layout direction of radio items" },
-        { "name": "variant", "type": "string", "required": false, "default": "solid", "enum": ["outline", "subtle", "solid"], "description": "Visual style of radio controls" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg"], "description": "Radio item size" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for selected state" }
+      "slots": [
+        "item",
+        "itemControl",
+        "itemText",
+        "itemIndicator"
       ],
-      "variants": ["outline", "subtle", "solid"],
-      "states": ["default", "selected", "unselected", "hover", "focus", "disabled"],
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled selected value"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Uncontrolled initial selected value"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(details: RadioGroupValueChangeDetails) => void",
+          "required": false,
+          "description": "Callback on value change"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables all radio items in the group"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Makes radio group read-only"
+        },
+        {
+          "name": "orientation",
+          "type": "string",
+          "required": false,
+          "default": "vertical",
+          "enum": [
+            "horizontal",
+            "vertical"
+          ],
+          "description": "Layout direction of radio items"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "solid",
+          "enum": [
+            "outline",
+            "subtle",
+            "solid"
+          ],
+          "description": "Visual style of radio controls"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Radio item size"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette for selected state"
+        }
+      ],
+      "variants": [
+        "outline",
+        "subtle",
+        "solid"
+      ],
+      "states": [
+        "default",
+        "selected",
+        "unselected",
+        "hover",
+        "focus",
+        "disabled"
+      ],
       "behaviors": [
-        { "trigger": "item clicked / Space", "result": "Selects item; fires onValueChange; deselects previously selected item" },
-        { "trigger": "Arrow keys", "result": "Navigates between radio items and selects them" }
+        {
+          "trigger": "item clicked / Space",
+          "result": "Selects item; fires onValueChange; deselects previously selected item"
+        },
+        {
+          "trigger": "Arrow keys",
+          "result": "Navigates between radio items and selects them"
+        }
       ],
       "keyboard_map": [
-        { "key": "ArrowDown / ArrowRight", "action": "Selects next radio item in group" },
-        { "key": "ArrowUp / ArrowLeft", "action": "Selects previous radio item in group" },
-        { "key": "Space", "action": "Selects currently focused radio item" },
-        { "key": "Tab", "action": "Moves focus to/from the radio group (selected item or first)" }
+        {
+          "key": "ArrowDown / ArrowRight",
+          "action": "Selects next radio item in group"
+        },
+        {
+          "key": "ArrowUp / ArrowLeft",
+          "action": "Selects previous radio item in group"
+        },
+        {
+          "key": "Space",
+          "action": "Selects currently focused radio item"
+        },
+        {
+          "key": "Tab",
+          "action": "Moves focus to/from the radio group (selected item or first)"
+        }
       ],
       "accessibility": {
         "role": "radiogroup",
-        "aria": ["role=radiogroup (root)", "role=radio (items)", "aria-checked", "aria-disabled", "aria-required"],
+        "aria": [
+          "role=radiogroup (root)",
+          "role=radio (items)",
+          "aria-checked",
+          "aria-disabled",
+          "aria-required"
+        ],
         "focus_management": "Tab moves focus to the group; arrow keys move between items; selected item is focused first",
         "wcag_notes": "SC 4.1.2 requires name for each radio; SC 1.3.1 group label required via aria-labelledby or aria-label on root"
       },
       "composition": {
-        "composed_of": ["RadioGroupRoot", "RadioGroupLabel", "RadioGroupItem", "RadioGroupItemControl", "RadioGroupItemIndicator", "RadioGroupItemText", "RadioGroupItemHiddenInput"],
-        "commonly_used_with": ["Field", "Fieldset", "Form"]
+        "composed_of": [
+          "RadioGroupRoot",
+          "RadioGroupLabel",
+          "RadioGroupItem",
+          "RadioGroupItemControl",
+          "RadioGroupItemIndicator",
+          "RadioGroupItemText",
+          "RadioGroupItemHiddenInput"
+        ],
+        "commonly_used_with": [
+          "Field",
+          "Fieldset",
+          "Form"
+        ]
       },
       "tokens_used": [
         "colorPalette.solid",
@@ -989,7 +2274,12 @@
     },
     {
       "name": "Switch",
-      "aliases": ["SwitchRoot", "SwitchControl", "SwitchThumb", "SwitchLabel"],
+      "aliases": [
+        "SwitchRoot",
+        "SwitchControl",
+        "SwitchThumb",
+        "SwitchLabel"
+      ],
       "category": "form",
       "status": "stable",
       "import": {
@@ -998,39 +2288,151 @@
         "path": "packages/react/src/components/switch/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "label", "control", "thumb", "indicator", "hiddenInput"]
+        "parts": [
+          "root",
+          "label",
+          "control",
+          "thumb",
+          "indicator",
+          "hiddenInput"
+        ]
       },
-      "slots": ["root", "label", "control", "thumb", "indicator"],
-      "props": [
-        { "name": "checked", "type": "boolean", "required": false, "description": "Controlled checked state" },
-        { "name": "defaultChecked", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial checked state" },
-        { "name": "onCheckedChange", "type": "(details: SwitchCheckedChangeDetails) => void", "required": false, "description": "Callback on state change" },
-        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables the switch" },
-        { "name": "readOnly", "type": "boolean", "required": false, "default": false, "description": "Makes switch read-only" },
-        { "name": "invalid", "type": "boolean", "required": false, "default": false, "description": "Marks switch as invalid" },
-        { "name": "variant", "type": "string", "required": false, "default": "solid", "enum": ["solid", "raised"], "description": "Visual style of the switch track" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["xs", "sm", "md", "lg"], "description": "Switch size" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for the active/checked state" }
+      "slots": [
+        "root",
+        "label",
+        "control",
+        "thumb",
+        "indicator"
       ],
-      "variants": ["solid", "raised"],
-      "states": ["default", "checked", "unchecked", "hover", "focus", "disabled"],
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled checked state"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial checked state"
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(details: SwitchCheckedChangeDetails) => void",
+          "required": false,
+          "description": "Callback on state change"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the switch"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Makes switch read-only"
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Marks switch as invalid"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "solid",
+          "enum": [
+            "solid",
+            "raised"
+          ],
+          "description": "Visual style of the switch track"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Switch size"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette for the active/checked state"
+        }
+      ],
+      "variants": [
+        "solid",
+        "raised"
+      ],
+      "states": [
+        "default",
+        "checked",
+        "unchecked",
+        "hover",
+        "focus",
+        "disabled"
+      ],
       "behaviors": [
-        { "trigger": "click / Space", "result": "Toggles checked state; fires onCheckedChange" },
-        { "trigger": "checked=true", "result": "Thumb slides to end position; track shows active color" }
+        {
+          "trigger": "click / Space",
+          "result": "Toggles checked state; fires onCheckedChange"
+        },
+        {
+          "trigger": "checked=true",
+          "result": "Thumb slides to end position; track shows active color"
+        }
       ],
       "keyboard_map": [
-        { "key": "Space", "action": "Toggles the switch state" },
-        { "key": "Tab", "action": "Moves focus to/from the switch" }
+        {
+          "key": "Space",
+          "action": "Toggles the switch state"
+        },
+        {
+          "key": "Tab",
+          "action": "Moves focus to/from the switch"
+        }
       ],
       "accessibility": {
         "role": "switch",
-        "aria": ["role=switch", "aria-checked (true | false)", "aria-disabled", "aria-label or aria-labelledby"],
+        "aria": [
+          "role=switch",
+          "aria-checked (true | false)",
+          "aria-disabled",
+          "aria-label or aria-labelledby"
+        ],
         "focus_management": "Receives focus via Tab; visible focus ring on control element",
         "wcag_notes": "SC 4.1.2 requires name; role=switch extends checkbox semantics for on/off toggles"
       },
       "composition": {
-        "composed_of": ["SwitchRoot", "SwitchControl", "SwitchThumb", "SwitchLabel", "SwitchHiddenInput"],
-        "commonly_used_with": ["Field", "Form", "Settings panels"]
+        "composed_of": [
+          "SwitchRoot",
+          "SwitchControl",
+          "SwitchThumb",
+          "SwitchLabel",
+          "SwitchHiddenInput"
+        ],
+        "commonly_used_with": [
+          "Field",
+          "Form",
+          "Settings panels"
+        ]
       },
       "tokens_used": [
         "colorPalette.solid",
@@ -1053,7 +2455,12 @@
     },
     {
       "name": "Tabs",
-      "aliases": ["TabsRoot", "TabsList", "TabsTrigger", "TabsContent"],
+      "aliases": [
+        "TabsRoot",
+        "TabsList",
+        "TabsTrigger",
+        "TabsContent"
+      ],
       "category": "navigation",
       "status": "stable",
       "import": {
@@ -1062,43 +2469,182 @@
         "path": "packages/react/src/components/tabs/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "list", "trigger", "content", "contentGroup", "indicator"]
+        "parts": [
+          "root",
+          "list",
+          "trigger",
+          "content",
+          "contentGroup",
+          "indicator"
+        ]
       },
-      "slots": ["root", "list", "trigger", "content", "indicator"],
-      "props": [
-        { "name": "value", "type": "string", "required": false, "description": "Controlled active tab value" },
-        { "name": "defaultValue", "type": "string", "required": false, "description": "Uncontrolled initial active tab value" },
-        { "name": "onValueChange", "type": "(details: TabsValueChangeDetails) => void", "required": false, "description": "Callback when active tab changes" },
-        { "name": "orientation", "type": "string", "required": false, "default": "horizontal", "enum": ["horizontal", "vertical"], "description": "Layout orientation of the tab list" },
-        { "name": "variant", "type": "string", "required": false, "default": "line", "enum": ["line", "subtle", "enclosed", "outline", "plain"], "description": "Visual style of the tab list" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["sm", "md", "lg"], "description": "Tab trigger height and padding" },
-        { "name": "fitted", "type": "boolean", "required": false, "default": false, "description": "Whether tabs stretch to fill available width" },
-        { "name": "justify", "type": "string", "required": false, "default": "start", "enum": ["start", "center", "end"], "description": "Alignment of tab triggers in the list" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for active tab indicator" }
+      "slots": [
+        "root",
+        "list",
+        "trigger",
+        "content",
+        "indicator"
       ],
-      "variants": ["line", "subtle", "enclosed", "outline", "plain"],
-      "states": ["default", "active", "inactive", "hover", "focus", "disabled"],
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled active tab value"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Uncontrolled initial active tab value"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(details: TabsValueChangeDetails) => void",
+          "required": false,
+          "description": "Callback when active tab changes"
+        },
+        {
+          "name": "orientation",
+          "type": "string",
+          "required": false,
+          "default": "horizontal",
+          "enum": [
+            "horizontal",
+            "vertical"
+          ],
+          "description": "Layout orientation of the tab list"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "line",
+          "enum": [
+            "line",
+            "subtle",
+            "enclosed",
+            "outline",
+            "plain"
+          ],
+          "description": "Visual style of the tab list"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Tab trigger height and padding"
+        },
+        {
+          "name": "fitted",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Whether tabs stretch to fill available width"
+        },
+        {
+          "name": "justify",
+          "type": "string",
+          "required": false,
+          "default": "start",
+          "enum": [
+            "start",
+            "center",
+            "end"
+          ],
+          "description": "Alignment of tab triggers in the list"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette for active tab indicator"
+        }
+      ],
+      "variants": [
+        "line",
+        "subtle",
+        "enclosed",
+        "outline",
+        "plain"
+      ],
+      "states": [
+        "default",
+        "active",
+        "inactive",
+        "hover",
+        "focus",
+        "disabled"
+      ],
       "behaviors": [
-        { "trigger": "tab trigger clicked", "result": "Activates tab; shows corresponding content panel; fires onValueChange" },
-        { "trigger": "Arrow keys on tab list", "result": "Moves focus between tab triggers" }
+        {
+          "trigger": "tab trigger clicked",
+          "result": "Activates tab; shows corresponding content panel; fires onValueChange"
+        },
+        {
+          "trigger": "Arrow keys on tab list",
+          "result": "Moves focus between tab triggers"
+        }
       ],
       "keyboard_map": [
-        { "key": "ArrowLeft / ArrowRight (horizontal)", "action": "Moves focus between tab triggers" },
-        { "key": "ArrowUp / ArrowDown (vertical)", "action": "Moves focus between tab triggers in vertical orientation" },
-        { "key": "Home", "action": "Focuses first tab trigger" },
-        { "key": "End", "action": "Focuses last tab trigger" },
-        { "key": "Enter / Space", "action": "Activates the focused tab" },
-        { "key": "Tab", "action": "Moves focus from tab list to tab panel content" }
+        {
+          "key": "ArrowLeft / ArrowRight (horizontal)",
+          "action": "Moves focus between tab triggers"
+        },
+        {
+          "key": "ArrowUp / ArrowDown (vertical)",
+          "action": "Moves focus between tab triggers in vertical orientation"
+        },
+        {
+          "key": "Home",
+          "action": "Focuses first tab trigger"
+        },
+        {
+          "key": "End",
+          "action": "Focuses last tab trigger"
+        },
+        {
+          "key": "Enter / Space",
+          "action": "Activates the focused tab"
+        },
+        {
+          "key": "Tab",
+          "action": "Moves focus from tab list to tab panel content"
+        }
       ],
       "accessibility": {
         "role": "tablist",
-        "aria": ["role=tablist (list)", "role=tab (triggers)", "role=tabpanel (content)", "aria-selected (active trigger)", "aria-controls (trigger points to panel)", "aria-labelledby (panel points to trigger)"],
+        "aria": [
+          "role=tablist (list)",
+          "role=tab (triggers)",
+          "role=tabpanel (content)",
+          "aria-selected (active trigger)",
+          "aria-controls (trigger points to panel)",
+          "aria-labelledby (panel points to trigger)"
+        ],
         "focus_management": "Tab navigates into tab list; arrow keys move between triggers; Tab moves to panel content",
         "wcag_notes": "ARIA Tabs pattern; SC 4.1.2 requires correct roles; SC 2.1.1 requires keyboard operability"
       },
       "composition": {
-        "composed_of": ["TabsRoot", "TabsList", "TabsTrigger", "TabsContent", "TabsIndicator"],
-        "commonly_used_with": ["Card", "Dialog", "Page layout"]
+        "composed_of": [
+          "TabsRoot",
+          "TabsList",
+          "TabsTrigger",
+          "TabsContent",
+          "TabsIndicator"
+        ],
+        "commonly_used_with": [
+          "Card",
+          "Dialog",
+          "Page layout"
+        ]
       },
       "tokens_used": [
         "colorPalette.solid",
@@ -1126,7 +2672,11 @@
     },
     {
       "name": "Tooltip",
-      "aliases": ["TooltipRoot", "TooltipContent", "TooltipTrigger"],
+      "aliases": [
+        "TooltipRoot",
+        "TooltipContent",
+        "TooltipTrigger"
+      ],
       "category": "overlay",
       "status": "stable",
       "import": {
@@ -1135,43 +2685,156 @@
         "path": "packages/react/src/components/tooltip/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "trigger", "positioner", "content", "arrow", "arrowTip"]
+        "parts": [
+          "root",
+          "trigger",
+          "positioner",
+          "content",
+          "arrow",
+          "arrowTip"
+        ]
       },
-      "slots": ["content", "arrow", "arrowTip"],
+      "slots": [
+        "content",
+        "arrow",
+        "arrowTip"
+      ],
       "props": [
-        { "name": "content", "type": "ReactNode", "required": true, "description": "Tooltip content to display" },
-        { "name": "open", "type": "boolean", "required": false, "description": "Controlled open state" },
-        { "name": "defaultOpen", "type": "boolean", "required": false, "default": false, "description": "Uncontrolled initial open state" },
-        { "name": "onOpenChange", "type": "(details: TooltipOpenChangeDetails) => void", "required": false, "description": "Callback when open state changes" },
-        { "name": "placement", "type": "string", "required": false, "default": "bottom", "enum": ["top", "bottom", "left", "right", "top-start", "top-end", "bottom-start", "bottom-end"], "description": "Preferred placement of the tooltip" },
-        { "name": "showDelay", "type": "number", "required": false, "default": 1000, "description": "Delay in ms before showing tooltip" },
-        { "name": "hideDelay", "type": "number", "required": false, "default": 500, "description": "Delay in ms before hiding tooltip" },
-        { "name": "disabled", "type": "boolean", "required": false, "default": false, "description": "Disables tooltip display" },
-        { "name": "closeOnClick", "type": "boolean", "required": false, "default": true, "description": "Whether tooltip closes when trigger is clicked" }
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "description": "Tooltip content to display"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(details: TooltipOpenChangeDetails) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        },
+        {
+          "name": "placement",
+          "type": "string",
+          "required": false,
+          "default": "bottom",
+          "enum": [
+            "top",
+            "bottom",
+            "left",
+            "right",
+            "top-start",
+            "top-end",
+            "bottom-start",
+            "bottom-end"
+          ],
+          "description": "Preferred placement of the tooltip"
+        },
+        {
+          "name": "showDelay",
+          "type": "number",
+          "required": false,
+          "default": 1000,
+          "description": "Delay in ms before showing tooltip"
+        },
+        {
+          "name": "hideDelay",
+          "type": "number",
+          "required": false,
+          "default": 500,
+          "description": "Delay in ms before hiding tooltip"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables tooltip display"
+        },
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether tooltip closes when trigger is clicked"
+        }
       ],
       "variants": [],
-      "states": ["hidden", "visible"],
+      "states": [
+        "hidden",
+        "visible"
+      ],
       "behaviors": [
-        { "trigger": "hover on trigger", "result": "Shows tooltip after showDelay ms" },
-        { "trigger": "focus on trigger", "result": "Shows tooltip immediately" },
-        { "trigger": "mouse leaves trigger", "result": "Hides tooltip after hideDelay ms" },
-        { "trigger": "blur on trigger", "result": "Hides tooltip immediately" },
-        { "trigger": "Escape key", "result": "Hides tooltip immediately" }
+        {
+          "trigger": "hover on trigger",
+          "result": "Shows tooltip after showDelay ms"
+        },
+        {
+          "trigger": "focus on trigger",
+          "result": "Shows tooltip immediately"
+        },
+        {
+          "trigger": "mouse leaves trigger",
+          "result": "Hides tooltip after hideDelay ms"
+        },
+        {
+          "trigger": "blur on trigger",
+          "result": "Hides tooltip immediately"
+        },
+        {
+          "trigger": "Escape key",
+          "result": "Hides tooltip immediately"
+        }
       ],
       "keyboard_map": [
-        { "key": "Escape", "action": "Dismisses the tooltip" },
-        { "key": "Tab (to trigger)", "action": "Shows tooltip on focus" },
-        { "key": "Tab (away)", "action": "Hides tooltip on blur" }
+        {
+          "key": "Escape",
+          "action": "Dismisses the tooltip"
+        },
+        {
+          "key": "Tab (to trigger)",
+          "action": "Shows tooltip on focus"
+        },
+        {
+          "key": "Tab (away)",
+          "action": "Hides tooltip on blur"
+        }
       ],
       "accessibility": {
         "role": "tooltip",
-        "aria": ["role=tooltip (content)", "aria-describedby (trigger points to tooltip)"],
+        "aria": [
+          "role=tooltip (content)",
+          "aria-describedby (trigger points to tooltip)"
+        ],
         "focus_management": "Tooltip itself is not focusable; appears on trigger focus/hover",
         "wcag_notes": "SC 1.4.13 requires tooltip to persist on hover, be dismissible with Escape, and not obscure other content; role=tooltip announces via screen reader"
       },
       "composition": {
-        "composed_of": ["TooltipRoot", "TooltipTrigger", "TooltipPositioner", "TooltipContent", "TooltipArrow", "TooltipArrowTip"],
-        "commonly_used_with": ["IconButton", "Button", "Badge"]
+        "composed_of": [
+          "TooltipRoot",
+          "TooltipTrigger",
+          "TooltipPositioner",
+          "TooltipContent",
+          "TooltipArrow",
+          "TooltipArrowTip"
+        ],
+        "commonly_used_with": [
+          "IconButton",
+          "Button",
+          "Badge"
+        ]
       },
       "tokens_used": [
         "bg-inverted",
@@ -1197,7 +2860,12 @@
     },
     {
       "name": "Avatar",
-      "aliases": ["AvatarRoot", "AvatarImage", "AvatarFallback", "AvatarGroup"],
+      "aliases": [
+        "AvatarRoot",
+        "AvatarImage",
+        "AvatarFallback",
+        "AvatarGroup"
+      ],
       "category": "data-display",
       "status": "stable",
       "import": {
@@ -1206,35 +2874,135 @@
         "path": "packages/react/src/components/avatar/index.ts"
       },
       "anatomy": {
-        "parts": ["root", "image", "fallback", "icon"]
+        "parts": [
+          "root",
+          "image",
+          "fallback",
+          "icon"
+        ]
       },
-      "slots": ["root", "image", "fallback"],
-      "props": [
-        { "name": "src", "type": "string", "required": false, "description": "Image source URL" },
-        { "name": "name", "type": "string", "required": false, "description": "User name used to generate initials fallback" },
-        { "name": "size", "type": "string", "required": false, "default": "md", "enum": ["full", "2xs", "xs", "sm", "md", "lg", "xl", "2xl"], "description": "Avatar size" },
-        { "name": "variant", "type": "string", "required": false, "default": "subtle", "enum": ["solid", "subtle", "outline"], "description": "Visual style of the avatar" },
-        { "name": "shape", "type": "string", "required": false, "default": "full", "enum": ["square", "rounded", "full"], "description": "Shape of the avatar (corner radius)" },
-        { "name": "colorPalette", "type": "string", "required": false, "default": "gray", "description": "Color palette for fallback background" },
-        { "name": "borderless", "type": "boolean", "required": false, "default": false, "description": "Removes the border ring from the avatar" }
+      "slots": [
+        "root",
+        "image",
+        "fallback"
       ],
-      "variants": ["solid", "subtle", "outline"],
-      "states": ["default", "image-loading", "image-error", "fallback"],
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "description": "Image source URL"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "User name used to generate initials fallback"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "md",
+          "enum": [
+            "full",
+            "2xs",
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ],
+          "description": "Avatar size"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "subtle",
+          "enum": [
+            "solid",
+            "subtle",
+            "outline"
+          ],
+          "description": "Visual style of the avatar"
+        },
+        {
+          "name": "shape",
+          "type": "string",
+          "required": false,
+          "default": "full",
+          "enum": [
+            "square",
+            "rounded",
+            "full"
+          ],
+          "description": "Shape of the avatar (corner radius)"
+        },
+        {
+          "name": "colorPalette",
+          "type": "string",
+          "required": false,
+          "default": "gray",
+          "description": "Color palette for fallback background"
+        },
+        {
+          "name": "borderless",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Removes the border ring from the avatar"
+        }
+      ],
+      "variants": [
+        "solid",
+        "subtle",
+        "outline"
+      ],
+      "states": [
+        "default",
+        "image-loading",
+        "image-error",
+        "fallback"
+      ],
       "behaviors": [
-        { "trigger": "src image loads successfully", "result": "Displays image, hides fallback" },
-        { "trigger": "src image fails to load or src not provided", "result": "Shows fallback: initials from name prop or generic icon" },
-        { "trigger": "AvatarGroup wrapping", "result": "Avatars stack with overlap; surplus count shown as +N badge" }
+        {
+          "trigger": "src image loads successfully",
+          "result": "Displays image, hides fallback"
+        },
+        {
+          "trigger": "src image fails to load or src not provided",
+          "result": "Shows fallback: initials from name prop or generic icon"
+        },
+        {
+          "trigger": "AvatarGroup wrapping",
+          "result": "Avatars stack with overlap; surplus count shown as +N badge"
+        }
       ],
       "keyboard_map": [],
       "accessibility": {
         "role": "img",
-        "aria": ["aria-label (describes who/what the avatar represents)", "alt attribute on inner img element"],
+        "aria": [
+          "aria-label (describes who/what the avatar represents)",
+          "alt attribute on inner img element"
+        ],
         "focus_management": "Not focusable by default; wrap in Button or Link if interactive",
         "wcag_notes": "SC 1.1.1 non-text content; provide descriptive aria-label or alt; SC 1.4.3 contrast applies to text initials in fallback"
       },
       "composition": {
-        "composed_of": ["AvatarRoot", "AvatarImage", "AvatarFallback", "AvatarIcon"],
-        "commonly_used_with": ["AvatarGroup", "Badge", "Card", "Menu"]
+        "composed_of": [
+          "AvatarRoot",
+          "AvatarImage",
+          "AvatarFallback",
+          "AvatarIcon"
+        ],
+        "commonly_used_with": [
+          "AvatarGroup",
+          "Badge",
+          "Card",
+          "Menu"
+        ]
       },
       "tokens_used": [
         "colorPalette.subtle",
@@ -1266,24 +3034,52 @@
     {
       "name": "form-with-validation",
       "description": "A validated form pattern using Field, Input, Select, Checkbox, and Button. Wrap each input in a Field component to associate labels and error messages. Use the invalid prop to show error states. Submit with a Button in loading state during async operations.",
-      "components": ["Field", "Input", "Select", "Checkbox", "Button", "Alert"]
+      "components": [
+        "Field",
+        "Input",
+        "Select",
+        "Checkbox",
+        "Button",
+        "Alert"
+      ]
     },
     {
       "name": "data-table-with-actions",
       "description": "A data list pattern using Card as a container, Badge for status indicators, Avatar for user columns, Menu for row-level actions, and Button for bulk actions. Alert shows operation feedback above the table.",
-      "components": ["Card", "Badge", "Avatar", "Menu", "Button", "Alert", "Tabs"]
+      "components": [
+        "Card",
+        "Badge",
+        "Avatar",
+        "Menu",
+        "Button",
+        "Alert",
+        "Tabs"
+      ]
     },
     {
       "name": "modal-confirmation-dialog",
       "description": "A confirmation dialog pattern using Dialog with a destructive action. The trigger is a ghost Button (or danger variant). Dialog.Body describes the irreversible action. Footer has a cancel ActionTrigger and a confirm Button with colorPalette='red'.",
-      "components": ["Dialog", "Button", "Alert"]
+      "components": [
+        "Dialog",
+        "Button",
+        "Alert"
+      ]
     }
   ],
   "app_shell": {
     "routing_lib": "react-router-dom",
-    "theme_provider": "Provider from @chakra-ui/react",
-    "layout_primitives": ["Box", "Stack", "VStack", "HStack", "Grid", "SimpleGrid", "Flex", "Container"],
-    "recommended_structure": "Wrap the application root in <Provider> from @chakra-ui/react to enable theming, color mode, and design token resolution. Use react-router-dom for client-side routing. Place route-level components inside the main content area. Use <ColorModeProvider> for dark mode toggling. Layout with Container (max-width), Grid/SimpleGrid for multi-column, Stack for vertical lists."
+    "theme_provider": "ChakraProvider",
+    "layout_primitives": [
+      "Box",
+      "Stack",
+      "VStack",
+      "HStack",
+      "Grid",
+      "SimpleGrid",
+      "Flex",
+      "Container"
+    ],
+    "recommended_structure": "Wrap the application root in <ChakraProvider> from @chakra-ui/react to enable theming, color mode, and design token resolution. Use react-router-dom for client-side routing. Place route-level components inside the main content area. Use <ColorModeChakraProvider> for dark mode toggling. Layout with Container (max-width), Grid/SimpleGrid for multi-column, Stack for vertical lists."
   },
   "capabilities": [
     "accessible component library (WCAG AA)",
@@ -1314,91 +3110,131 @@
       "component": "Button",
       "extracted": true,
       "confidence": 0.9,
-      "missing": ["all HTML button attributes documentation", "ButtonGroup gap/orientation props"]
+      "missing": [
+        "all HTML button attributes documentation",
+        "ButtonGroup gap/orientation props"
+      ]
     },
     {
       "component": "Input",
       "extracted": true,
       "confidence": 0.85,
-      "missing": ["InputGroup addon/element composition props", "specific aria attributes from Ark Field.Input"]
+      "missing": [
+        "InputGroup addon/element composition props",
+        "specific aria attributes from Ark Field.Input"
+      ]
     },
     {
       "component": "Card",
       "extracted": true,
       "confidence": 0.88,
-      "missing": ["as prop / polymorphism details"]
+      "missing": [
+        "as prop / polymorphism details"
+      ]
     },
     {
       "component": "Badge",
       "extracted": true,
       "confidence": 0.85,
-      "missing": ["specific size dimension values in pixels"]
+      "missing": [
+        "specific size dimension values in pixels"
+      ]
     },
     {
       "component": "Alert",
       "extracted": true,
       "confidence": 0.9,
-      "missing": ["custom icon slot details"]
+      "missing": [
+        "custom icon slot details"
+      ]
     },
     {
       "component": "Dialog",
       "extracted": true,
       "confidence": 0.85,
-      "missing": ["size dimension values", "scrollBehavior prop", "motionPreset prop"]
+      "missing": [
+        "size dimension values",
+        "scrollBehavior prop",
+        "motionPreset prop"
+      ]
     },
     {
       "component": "Drawer",
       "extracted": true,
       "confidence": 0.82,
-      "missing": ["exact size pixel values per placement", "motionPreset prop"]
+      "missing": [
+        "exact size pixel values per placement",
+        "motionPreset prop"
+      ]
     },
     {
       "component": "Menu",
       "extracted": true,
       "confidence": 0.88,
-      "missing": ["MenuContextTrigger usage", "nested submenu via MenuTriggerItem"]
+      "missing": [
+        "MenuContextTrigger usage",
+        "nested submenu via MenuTriggerItem"
+      ]
     },
     {
       "component": "Select",
       "extracted": true,
       "confidence": 0.85,
-      "missing": ["createListCollection API details", "async data loading pattern"]
+      "missing": [
+        "createListCollection API details",
+        "async data loading pattern"
+      ]
     },
     {
       "component": "Checkbox",
       "extracted": true,
       "confidence": 0.88,
-      "missing": ["CheckboxGroup controlled value API"]
+      "missing": [
+        "CheckboxGroup controlled value API"
+      ]
     },
     {
       "component": "RadioGroup",
       "extracted": true,
       "confidence": 0.87,
-      "missing": ["exact slot recipe slot details from source"]
+      "missing": [
+        "exact slot recipe slot details from source"
+      ]
     },
     {
       "component": "Switch",
       "extracted": true,
       "confidence": 0.87,
-      "missing": ["SwitchThumbIndicator usage details"]
+      "missing": [
+        "SwitchThumbIndicator usage details"
+      ]
     },
     {
       "component": "Tabs",
       "extracted": true,
       "confidence": 0.9,
-      "missing": ["TabsContentGroup lazy loading behavior", "lazyMount and unmountOnExit props"]
+      "missing": [
+        "TabsContentGroup lazy loading behavior",
+        "lazyMount and unmountOnExit props"
+      ]
     },
     {
       "component": "Tooltip",
       "extracted": true,
       "confidence": 0.82,
-      "missing": ["exact default showDelay/hideDelay values from source", "openDelay/closeDelay alias naming"]
+      "missing": [
+        "exact default showDelay/hideDelay values from source",
+        "openDelay/closeDelay alias naming"
+      ]
     },
     {
       "component": "Avatar",
       "extracted": true,
       "confidence": 0.88,
-      "missing": ["AvatarGroup max and spacing props", "AvatarStatusChangeDetails event details"]
+      "missing": [
+        "AvatarGroup max and spacing props",
+        "AvatarStatusChangeDetails event details"
+      ]
     }
   ]
 }
