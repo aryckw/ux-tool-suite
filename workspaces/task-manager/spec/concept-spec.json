@@ -1,0 +1,512 @@
+{
+  "schema_version": "1.0",
+  "id": "task-manager",
+  "version": 2,
+  "fidelity_stage": "interactive_prototype",
+  "knowledge_pack_ref": {
+    "library_name": "chakra-ui",
+    "library_version": "3.36.0"
+  },
+  "source": {
+    "request": "Design a task management dashboard for small teams to track projects, assignments and deadlines"
+  },
+  "intent": {
+    "goal": "Task management dashboard for small teams to track projects, assignments and deadlines",
+    "personas": [
+      {
+        "name": "Team Member",
+        "needs": "See my assigned tasks, update status, track deadlines"
+      },
+      {
+        "name": "Team Lead",
+        "needs": "Overview of all tasks across the team, reassign, add tasks, track progress"
+      }
+    ],
+    "success_criteria": [
+      "Team member can see all tasks assigned to them at a glance",
+      "Team lead can filter tasks by assignee, status, and project",
+      "Creating a new task takes fewer than 3 clicks",
+      "Status changes are visible without page reload"
+    ],
+    "constraints": {
+      "platforms": [
+        "web"
+      ],
+      "devices": [
+        "desktop",
+        "tablet"
+      ],
+      "a11y_target": "WCAG 2.2 AA",
+      "brand": "Neutral professional; supports light and dark mode"
+    },
+    "non_goals": [
+      "Time tracking",
+      "Gantt chart / timeline view",
+      "External calendar sync"
+    ]
+  },
+  "information_architecture": {
+    "screens": [
+      {
+        "id": "board",
+        "name": "Task Board",
+        "purpose": "Kanban-style board showing tasks by status column: To Do / In Progress / Review / Done"
+      },
+      {
+        "id": "task-detail",
+        "name": "Task Detail",
+        "purpose": "Drawer panel showing full task info, comments, assignee, due date, attachments"
+      },
+      {
+        "id": "create-task",
+        "name": "Create Task",
+        "purpose": "Modal dialog for creating a new task with title, description, assignee, due date, priority"
+      },
+      {
+        "id": "filters",
+        "name": "Filter Panel",
+        "purpose": "Sidebar or top bar for filtering tasks by assignee, project, label, due date range"
+      }
+    ],
+    "navigation": [
+      {
+        "from": "board",
+        "to": "task-detail",
+        "trigger": "Click task card"
+      },
+      {
+        "from": "board",
+        "to": "create-task",
+        "trigger": "Click + New Task button"
+      },
+      {
+        "from": "task-detail",
+        "to": "board",
+        "trigger": "Close drawer"
+      },
+      {
+        "from": "create-task",
+        "to": "board",
+        "trigger": "Submit or cancel"
+      }
+    ],
+    "flows": [
+      {
+        "name": "Create task",
+        "steps": [
+          "Click + New Task",
+          "Fill title, description, assignee, due date, priority",
+          "Click Create",
+          "Task appears in To Do column"
+        ]
+      },
+      {
+        "name": "Update status",
+        "steps": [
+          "Open task card",
+          "Change status via dropdown",
+          "Board column updates"
+        ]
+      }
+    ]
+  },
+  "data_model": {
+    "entities": [
+      {
+        "name": "Task",
+        "fields": [
+          "id",
+          "title",
+          "description",
+          "status",
+          "priority",
+          "assigneeId",
+          "projectId",
+          "labels",
+          "dueDate",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      {
+        "name": "User",
+        "fields": [
+          "id",
+          "name",
+          "email",
+          "avatarUrl"
+        ]
+      },
+      {
+        "name": "Project",
+        "fields": [
+          "id",
+          "name",
+          "color"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "tasks-api",
+        "kind": "mock",
+        "contract": "REST /api/tasks — returns Task[]"
+      },
+      {
+        "name": "users-api",
+        "kind": "mock",
+        "contract": "REST /api/users — returns User[]"
+      }
+    ]
+  },
+  "composition": [
+    {
+      "screen_id": "board",
+      "regions": [
+        {
+          "name": "top-bar",
+          "responsive": "full width, fixed"
+        },
+        {
+          "name": "filter-bar",
+          "responsive": "full width, collapsible on tablet"
+        },
+        {
+          "name": "kanban-columns",
+          "responsive": "horizontal scroll on tablet, 4 columns desktop"
+        },
+        {
+          "name": "task-cards",
+          "responsive": "stacked in each column"
+        }
+      ],
+      "breakpoints": [
+        "md",
+        "lg",
+        "xl"
+      ]
+    },
+    {
+      "screen_id": "task-detail",
+      "regions": [
+        {
+          "name": "drawer-header",
+          "responsive": "full width of drawer"
+        },
+        {
+          "name": "task-meta",
+          "responsive": "2-col grid"
+        },
+        {
+          "name": "task-description",
+          "responsive": "full width"
+        },
+        {
+          "name": "comments-section",
+          "responsive": "full width"
+        }
+      ],
+      "breakpoints": [
+        "md"
+      ]
+    },
+    {
+      "screen_id": "create-task",
+      "regions": [
+        {
+          "name": "dialog-header",
+          "responsive": "full width of dialog"
+        },
+        {
+          "name": "form-fields",
+          "responsive": "single column"
+        },
+        {
+          "name": "dialog-footer",
+          "responsive": "right-aligned actions"
+        }
+      ],
+      "breakpoints": [
+        "md"
+      ]
+    }
+  ],
+  "component_bindings": [
+    {
+      "screen_id": "board",
+      "need": "Application top navigation bar",
+      "component": "Card",
+      "variant": "subtle",
+      "props": {
+        "as": "header"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "board",
+      "need": "Filter by assignee dropdown",
+      "component": "Select",
+      "variant": "outline",
+      "props": {
+        "placeholder": "All assignees"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "board",
+      "need": "Filter by status tabs",
+      "component": "Tabs",
+      "variant": "line",
+      "props": {
+        "fitted": false
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "board",
+      "need": "Task card in kanban column",
+      "component": "Card",
+      "variant": "elevated",
+      "props": {
+        "size": "sm"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "board",
+      "need": "Task priority badge",
+      "component": "Badge",
+      "variant": "subtle",
+      "props": {
+        "colorPalette": "red"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "board",
+      "need": "Task assignee avatar",
+      "component": "Avatar",
+      "variant": "subtle",
+      "props": {
+        "size": "xs"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "board",
+      "need": "New task button",
+      "component": "Button",
+      "variant": "solid",
+      "props": {
+        "colorPalette": "blue"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "board",
+      "need": "Overdue task alert",
+      "component": "Alert",
+      "variant": "subtle",
+      "props": {
+        "status": "error"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "task-detail",
+      "need": "Sliding detail panel",
+      "component": "Drawer",
+      "variant": "outline",
+      "props": {
+        "placement": "right",
+        "size": "md"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "task-detail",
+      "need": "Status change dropdown",
+      "component": "Menu",
+      "variant": "subtle",
+      "props": {},
+      "gap": false
+    },
+    {
+      "screen_id": "task-detail",
+      "need": "Assignee avatar",
+      "component": "Avatar",
+      "variant": "subtle",
+      "props": {
+        "size": "sm"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "task-detail",
+      "need": "Due date tooltip",
+      "component": "Tooltip",
+      "props": {
+        "content": "Due date"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "task-detail",
+      "need": "Label badges",
+      "component": "Badge",
+      "variant": "outline",
+      "props": {},
+      "gap": false
+    },
+    {
+      "screen_id": "create-task",
+      "need": "Task creation modal dialog",
+      "component": "Dialog",
+      "props": {
+        "size": "md"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "create-task",
+      "need": "Task title input",
+      "component": "Input",
+      "variant": "outline",
+      "props": {
+        "placeholder": "Task title"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "create-task",
+      "need": "Assignee selector",
+      "component": "Select",
+      "variant": "outline",
+      "props": {
+        "placeholder": "Assign to..."
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "create-task",
+      "need": "Priority radio group",
+      "component": "RadioGroup",
+      "variant": "outline",
+      "props": {},
+      "gap": false
+    },
+    {
+      "screen_id": "create-task",
+      "need": "Submit and cancel buttons",
+      "component": "Button",
+      "variant": "solid",
+      "props": {},
+      "gap": false
+    },
+    {
+      "screen_id": "board",
+      "need": "Kanban column container (drag-drop)",
+      "component": "Card",
+      "variant": "subtle",
+      "props": {},
+      "gap": true
+    }
+  ],
+  "theming": {
+    "mode": "both",
+    "token_overrides": {}
+  },
+  "interaction_behavior": [
+    {
+      "screen_id": "board",
+      "states": [
+        "loading",
+        "empty",
+        "error",
+        "success"
+      ],
+      "validation": [],
+      "transitions": [
+        "Task card drag to new column updates status",
+        "Filter change re-renders filtered card list"
+      ]
+    },
+    {
+      "screen_id": "create-task",
+      "states": [
+        "idle",
+        "submitting",
+        "error"
+      ],
+      "validation": [
+        "Title is required",
+        "Due date must be in the future"
+      ],
+      "transitions": [
+        "Submit triggers loading state on button",
+        "Success closes dialog and inserts card"
+      ]
+    }
+  ],
+  "accessibility": {
+    "wcag_target": "WCAG 2.2 AA",
+    "keyboard_model": "Tab through kanban columns; Enter opens task detail; Escape closes drawer/dialog; arrow keys navigate within Tabs and Menu",
+    "focus_order": [
+      "top-bar",
+      "filter-bar",
+      "kanban-columns",
+      "task-cards"
+    ]
+  },
+  "assets": {
+    "wireframes": [
+      "design/board-wireframe.svg",
+      "design/task-detail-wireframe.svg",
+      "design/create-task-wireframe.svg"
+    ],
+    "mockups": [
+      "design/board-mockup.html"
+    ],
+    "prototype": {
+      "path": "prototype/",
+      "run_cmd": "cd prototype && pnpm install && pnpm dev"
+    }
+  },
+  "elicitation_log": [
+    {
+      "stage": "designer",
+      "question": "What is the primary goal of the dashboard?",
+      "answer": "Help small teams track tasks, assignments, and deadlines",
+      "status": "answered",
+      "timestamp": "2026-06-16T00:30:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "Which screens are in scope?",
+      "answer": "Kanban board, task detail drawer, create task dialog, filter panel",
+      "status": "answered",
+      "timestamp": "2026-06-16T00:30:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "Light/dark mode support?",
+      "answer": "Both — Chakra UI color mode",
+      "status": "answered",
+      "timestamp": "2026-06-16T00:30:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "Is drag-and-drop required for MVP?",
+      "answer": "Kanban drag-drop is a gap in Chakra UI; flagged as gap:true in component_bindings",
+      "status": "assumed",
+      "timestamp": "2026-06-16T00:30:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "What accessibility target?",
+      "answer": "WCAG 2.2 AA — Chakra UI meets this by default",
+      "status": "inferred",
+      "timestamp": "2026-06-16T00:30:00Z"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#F5F5F5"/>
+
+  <!-- Title bar -->
+  <text x="720" y="24" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333" font-weight="bold">Screen: location-search | Stage: wireframe</text>
+
+  <!-- AppShell top bar -->
+  <rect x="0" y="0" width="1440" height="64" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="38" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">AppShell — top-bar</text>
+
+  <!-- Search input (focused) -->
+  <rect x="240" y="120" width="960" height="56" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="153" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Input — location search (focused)</text>
+
+  <!-- Results list - row 1 -->
+  <rect x="240" y="192" width="960" height="80" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="236" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — result-1 | Button — select</text>
+
+  <!-- Results list - row 2 -->
+  <rect x="240" y="272" width="960" height="80" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="316" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — result-2 | Button — select</text>
+
+  <!-- Results list - row 3 -->
+  <rect x="240" y="352" width="960" height="80" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="396" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — result-3 | Button — select</text>
+
+  <!-- Results list - row 4 -->
+  <rect x="240" y="432" width="960" height="80" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="476" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — result-4 | Button — select</text>
+
+  <!-- Results list - row 5 -->
+  <rect x="240" y="512" width="960" height="80" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="556" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — result-5 | Button — select</text>
+
+  <!-- Empty state -->
+  <rect x="240" y="608" width="960" height="120" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="673" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Stat — no results</text>
+</svg>

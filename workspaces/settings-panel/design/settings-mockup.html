@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    /* Custom switch styles */
+    .switch-track {
+      width: 44px; height: 24px; border-radius: 12px; background: #D1D5DB;
+      position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+    }
+    .switch-track.on { background: #3B82F6; }
+    .switch-track.disabled { opacity: 0.5; cursor: not-allowed; }
+    .switch-thumb {
+      width: 20px; height: 20px; border-radius: 50%; background: #fff;
+      position: absolute; top: 2px; left: 2px; transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .switch-track.on .switch-thumb { transform: translateX(20px); }
+
+    /* Flash badge */
+    .flash-badge {
+      display: inline-flex; align-items: center; padding: 2px 8px;
+      background: #D1FAE5; color: #065F46; border-radius: 9999px;
+      font-size: 11px; font-weight: 500; opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .flash-badge.visible { opacity: 1; }
+
+    /* Strength bar */
+    .strength-bar { height: 3px; flex: 1; border-radius: 9999px; background: #E5E7EB; transition: background 0.3s; }
+    .strength-bar.weak { background: #EF4444; }
+    .strength-bar.fair { background: #F59E0B; }
+    .strength-bar.strong { background: #22C55E; }
+
+    /* Dialog overlay */
+    .dialog-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center; z-index: 100;
+    }
+
+    /* Scrollbar for dark mode */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+    .dark ::-webkit-scrollbar-thumb { background: #4B5563; }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+
+  <!-- Top bar -->
+  <header class="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-50 px-6 flex items-center justify-between shadow-sm">
+    <div class="flex items-center gap-3">
+      <span class="text-blue-600 text-xl">⚙</span>
+      <span class="font-bold text-lg text-gray-900 dark:text-gray-100">SettingsApp</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleDark()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Toggle dark mode">
+        <span id="dark-icon" class="text-lg">🌙</span>
+      </button>
+      <div class="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold text-sm">JD</div>
+    </div>
+  </header>
+
+  <!-- Tab navigation -->
+  <nav class="fixed top-16 left-0 right-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-40 px-6">
+    <div class="flex gap-1">
+      <button onclick="switchTab('profile')" id="tab-profile"
+        class="tab-btn px-5 py-3 text-sm font-medium border-b-2 transition-colors">Profile</button>
+      <button onclick="switchTab('notifications')" id="tab-notifications"
+        class="tab-btn px-5 py-3 text-sm font-medium border-b-2 transition-colors">Notifications</button>
+      <button onclick="switchTab('security')" id="tab-security"
+        class="tab-btn px-5 py-3 text-sm font-medium border-b-2 transition-colors">Security</button>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="pt-32 pb-16 px-6">
+    <div class="max-w-2xl mx-auto">
+
+      <!-- ===== PROFILE TAB ===== -->
+      <div id="panel-profile" class="tab-panel">
+        <!-- Avatar section -->
+        <div class="flex items-center gap-5 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800 mb-6">
+          <div class="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-2xl shrink-0">JD</div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-gray-100" id="avatar-name-display">Jordan Davis</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">jordan@company.com</p>
+            <button class="mt-2 px-3 py-1.5 text-xs font-medium border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+              Change Photo
+            </button>
+          </div>
+        </div>
+
+        <!-- Success alert (hidden by default) -->
+        <div id="profile-success" class="hidden mb-4 px-4 py-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center gap-3">
+          <svg class="w-5 h-5 text-green-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-sm font-medium text-green-700 dark:text-green-400">Changes saved successfully</span>
+        </div>
+
+        <!-- Profile form -->
+        <form id="profile-form" onsubmit="saveProfile(event)" class="space-y-5">
+          <!-- Display Name -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+              Display Name <span class="text-red-500">*</span>
+            </label>
+            <input id="field-name" type="text" value="Jordan Davis" oninput="markDirty()"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow" />
+            <p id="name-error" class="hidden mt-1 text-xs text-red-600">Display name is required</p>
+          </div>
+
+          <!-- Email (disabled) -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
+            <input type="email" value="jordan@company.com" disabled
+              class="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md bg-gray-50 dark:bg-gray-800/50 text-gray-400 dark:text-gray-500 text-sm cursor-not-allowed" />
+            <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">Email changes require verification. Contact support.</p>
+          </div>
+
+          <!-- Bio -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Bio</label>
+            <textarea id="field-bio" rows="3" oninput="markDirty()"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y transition-shadow"
+              placeholder="Tell your team a bit about yourself...">Product designer at Team Alpha. Coffee enthusiast.</textarea>
+          </div>
+
+          <!-- Timezone + Language -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Timezone</label>
+              <select id="field-timezone" onchange="markDirty()"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="America/Los_Angeles" selected>Pacific Time (UTC-8)</option>
+                <option value="America/New_York">Eastern Time (UTC-5)</option>
+                <option value="Europe/London">GMT (UTC+0)</option>
+                <option value="Europe/Paris">Central European (UTC+1)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Language</label>
+              <select id="field-language" onchange="markDirty()"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="en" selected>English</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="es">Español</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Action row -->
+          <div class="flex justify-end gap-3 pt-2">
+            <button type="button" id="btn-discard" onclick="discardProfile()"
+              class="hidden px-4 py-2 text-sm font-medium border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+              Discard changes
+            </button>
+            <button type="submit" id="btn-save"
+              class="px-4 py-2 text-sm font-medium rounded-md transition-colors bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed" disabled>
+              <span id="btn-save-text">Save changes</span>
+              <span id="btn-save-spinner" class="hidden">Saving...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ===== NOTIFICATIONS TAB ===== -->
+      <div id="panel-notifications" class="tab-panel hidden">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Notification Preferences</h2>
+
+        <!-- Task Notifications card -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-4">
+          <div class="px-5 py-3 border-b border-gray-100 dark:border-gray-700">
+            <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Task Notifications</p>
+          </div>
+          <div class="divide-y divide-gray-100 dark:divide-gray-700">
+            <div class="notif-row px-5 py-4 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Assigned to me</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">When a task is assigned to you</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="flash-badge" id="flash-taskAssigned">Saved</span>
+                <div class="switch-track on" onclick="toggleSwitch(this, 'taskAssigned')" role="switch" aria-checked="true" tabindex="0">
+                  <div class="switch-thumb"></div>
+                </div>
+              </div>
+            </div>
+            <div class="notif-row px-5 py-4 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Due soon reminders</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">24 hours before a task is due</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="flash-badge" id="flash-taskDue">Saved</span>
+                <div class="switch-track on" onclick="toggleSwitch(this, 'taskDue')" role="switch" aria-checked="true" tabindex="0">
+                  <div class="switch-thumb"></div>
+                </div>
+              </div>
+            </div>
+            <div class="notif-row px-5 py-4 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Mentions</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">When someone @mentions you</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="flash-badge" id="flash-mentions">Saved</span>
+                <div class="switch-track on" onclick="toggleSwitch(this, 'mentions')" role="switch" aria-checked="true" tabindex="0">
+                  <div class="switch-thumb"></div>
+                </div>
+              </div>
+            </div>
+            <div class="notif-row px-5 py-4 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Comments</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">New comments on your tasks</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="flash-badge" id="flash-comments">Saved</span>
+                <div class="switch-track" onclick="toggleSwitch(this, 'comments')" role="switch" aria-checked="false" tabindex="0">
+                  <div class="switch-thumb"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Updates & Alerts card -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+          <div class="px-5 py-3 border-b border-gray-100 dark:border-gray-700">
+            <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Updates &amp; Alerts</p>
+          </div>
+          <div class="divide-y divide-gray-100 dark:divide-gray-700">
+            <div class="notif-row px-5 py-4 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Product updates</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">New features and improvements</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="flash-badge" id="flash-productUpdates">Saved</span>
+                <div class="switch-track on" onclick="toggleSwitch(this, 'productUpdates')" role="switch" aria-checked="true" tabindex="0">
+                  <div class="switch-thumb"></div>
+                </div>
+              </div>
+            </div>
+            <div class="notif-row px-5 py-4 flex items-center justify-between">
+              <div>
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Security alerts</p>
+                  <span class="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full">Required</span>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Always enabled for your safety</p>
+              </div>
+              <div class="switch-track on disabled" role="switch" aria-checked="true" aria-disabled="true">
+                <div class="switch-thumb"></div>
+              </div>
+            </div>
+            <div class="notif-row px-5 py-4 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Email digest</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Weekly summary of your team activity</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="flash-badge" id="flash-emailDigest">Saved</span>
+                <div class="switch-track" onclick="toggleSwitch(this, 'emailDigest')" role="switch" aria-checked="false" tabindex="0">
+                  <div class="switch-thumb"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECURITY TAB ===== -->
+      <div id="panel-security" class="tab-panel hidden">
+
+        <!-- Change Password -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-4">
+          <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Change Password</h3>
+          </div>
+          <div class="px-6 py-5">
+            <form id="pw-form" onsubmit="changePassword(event)" class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Current password</label>
+                <input id="pw-current" type="password" placeholder="••••••••"
+                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">New password</label>
+                <input id="pw-new" type="password" placeholder="••••••••" oninput="updateStrength()"
+                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <!-- Strength indicator -->
+                <div id="strength-indicator" class="hidden mt-2">
+                  <div class="flex gap-1 items-center">
+                    <div class="strength-bar" id="bar-1"></div>
+                    <div class="strength-bar" id="bar-2"></div>
+                    <div class="strength-bar" id="bar-3"></div>
+                    <span id="strength-label" class="text-xs font-medium ml-1 w-12"></span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Confirm new password</label>
+                <input id="pw-confirm" type="password" placeholder="••••••••" oninput="clearPwError()"
+                  class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <p id="pw-error" class="hidden mt-1 text-xs text-red-600"></p>
+              </div>
+
+              <!-- PW success -->
+              <div id="pw-success" class="hidden px-4 py-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm font-medium text-green-700 dark:text-green-400">Password updated successfully.</span>
+              </div>
+
+              <div class="flex justify-end">
+                <button type="submit" id="btn-pw-update"
+                  class="px-4 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">
+                  Update password
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Two-Factor Authentication -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-4">
+          <div class="px-6 py-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Two-Factor Authentication</h3>
+                <p id="2fa-desc" class="text-sm text-gray-500 dark:text-gray-400 mt-1">Add an extra layer of security to your account</p>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <button id="btn-setup-2fa" onclick="setup2FA()" class="hidden px-3 py-1.5 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-md hover:bg-blue-100 transition-colors">
+                  Setup Authenticator
+                </button>
+                <div class="switch-track" id="switch-2fa" onclick="toggle2FA()" role="switch" aria-checked="false" tabindex="0" style="width:52px; height:28px; border-radius: 14px;">
+                  <div class="switch-thumb" style="width:24px; height:24px; top:2px; left:2px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Sessions -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-4">
+          <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Active Sessions</h3>
+          </div>
+          <div class="px-6 py-5 space-y-3">
+            <!-- Session 1 (current) -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Chrome 125</span>
+                  <span class="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 rounded-full font-medium">Current</span>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">macOS Sonoma · San Francisco, CA · 2 minutes ago</p>
+              </div>
+            </div>
+            <!-- Session 2 -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Safari 17</span>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">iPhone 15 Pro · New York, NY · 3 days ago</p>
+              </div>
+              <button onclick="revokeSession(this)"
+                class="px-3 py-1.5 text-xs font-medium border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
+                Revoke
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-xl p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <h3 class="font-semibold text-red-800 dark:text-red-400">Danger Zone</h3>
+          </div>
+          <p class="text-sm text-red-700 dark:text-red-400 mb-4">
+            Permanently delete your account and all associated data. This action cannot be undone.
+          </p>
+          <div id="danger-normal">
+            <button onclick="showDeleteConfirm()"
+              class="px-4 py-2 text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors">
+              Delete Account
+            </button>
+          </div>
+          <div id="danger-confirm" class="hidden">
+            <p class="text-sm font-medium text-red-800 dark:text-red-400 mb-2">Type <strong>DELETE</strong> to confirm:</p>
+            <div class="flex items-center gap-2">
+              <input id="delete-input" type="text" placeholder="DELETE" oninput="checkDeleteInput()"
+                class="px-3 py-1.5 w-28 border border-red-300 dark:border-red-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+              <button id="btn-confirm-delete" onclick="confirmDelete()" disabled
+                class="px-3 py-1.5 text-sm font-medium bg-red-300 text-white rounded-md cursor-not-allowed transition-colors">
+                Confirm Delete
+              </button>
+              <button onclick="cancelDelete()"
+                class="px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // ============ DARK MODE ============
+    function toggleDark() {
+      const html = document.documentElement
+      html.classList.toggle('dark')
+      document.getElementById('dark-icon').textContent = html.classList.contains('dark') ? '☀️' : '🌙'
+    }
+
+    // ============ TABS ============
+    const tabs = ['profile', 'notifications', 'security']
+    function switchTab(name) {
+      tabs.forEach(t => {
+        const btn = document.getElementById('tab-' + t)
+        const panel = document.getElementById('panel-' + t)
+        const active = t === name
+        panel.classList.toggle('hidden', !active)
+        if (active) {
+          btn.classList.add('border-blue-500', 'text-blue-600', 'dark:text-blue-400')
+          btn.classList.remove('border-transparent', 'text-gray-500', 'dark:text-gray-400', 'hover:text-gray-700')
+        } else {
+          btn.classList.remove('border-blue-500', 'text-blue-600', 'dark:text-blue-400')
+          btn.classList.add('border-transparent', 'text-gray-500', 'dark:text-gray-400', 'hover:text-gray-700')
+        }
+      })
+    }
+    switchTab('profile') // init
+
+    // ============ PROFILE ============
+    let profileDirty = false
+    const origValues = {
+      name: 'Jordan Davis',
+      bio: 'Product designer at Team Alpha. Coffee enthusiast.',
+      timezone: 'America/Los_Angeles',
+      language: 'en'
+    }
+
+    function markDirty() {
+      profileDirty = true
+      const saveBtn = document.getElementById('btn-save')
+      const discardBtn = document.getElementById('btn-discard')
+      saveBtn.disabled = false
+      saveBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-blue-600 hover:bg-blue-700 text-white cursor-pointer'
+      discardBtn.classList.remove('hidden')
+      // Update avatar display name live
+      document.getElementById('avatar-name-display').textContent = document.getElementById('field-name').value || 'Jordan Davis'
+    }
+
+    function discardProfile() {
+      document.getElementById('field-name').value = origValues.name
+      document.getElementById('field-bio').value = origValues.bio
+      document.getElementById('field-timezone').value = origValues.timezone
+      document.getElementById('field-language').value = origValues.language
+      document.getElementById('avatar-name-display').textContent = origValues.name
+      document.getElementById('name-error').classList.add('hidden')
+      resetSaveBtn()
+    }
+
+    function resetSaveBtn() {
+      profileDirty = false
+      const saveBtn = document.getElementById('btn-save')
+      saveBtn.disabled = true
+      saveBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-colors bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+      document.getElementById('btn-discard').classList.add('hidden')
+    }
+
+    async function saveProfile(e) {
+      e.preventDefault()
+      const name = document.getElementById('field-name').value.trim()
+      if (!name) {
+        document.getElementById('name-error').classList.remove('hidden')
+        return
+      }
+      document.getElementById('name-error').classList.add('hidden')
+      const saveBtn = document.getElementById('btn-save')
+      const saveText = document.getElementById('btn-save-text')
+      const saveSpinner = document.getElementById('btn-save-spinner')
+      saveBtn.disabled = true
+      saveText.classList.add('hidden')
+      saveSpinner.classList.remove('hidden')
+      await delay(800)
+      saveText.classList.remove('hidden')
+      saveSpinner.classList.add('hidden')
+      resetSaveBtn()
+      const successEl = document.getElementById('profile-success')
+      successEl.classList.remove('hidden')
+      setTimeout(() => successEl.classList.add('hidden'), 3000)
+    }
+
+    // ============ NOTIFICATIONS ============
+    function toggleSwitch(el, key) {
+      if (el.classList.contains('disabled')) return
+      el.classList.toggle('on')
+      const checked = el.classList.contains('on')
+      el.setAttribute('aria-checked', checked)
+      // Show flash badge
+      const flash = document.getElementById('flash-' + key)
+      if (flash) {
+        flash.classList.add('visible')
+        setTimeout(() => flash.classList.remove('visible'), 1500)
+      }
+    }
+
+    // ============ SECURITY — PASSWORD ============
+    function updateStrength() {
+      const pw = document.getElementById('pw-new').value
+      const indicator = document.getElementById('strength-indicator')
+      if (!pw) { indicator.classList.add('hidden'); return }
+      indicator.classList.remove('hidden')
+      const len = pw.length
+      const strength = len < 8 ? 1 : len < 12 ? 2 : 3
+      const colors = { 1: 'weak', 2: 'fair', 3: 'strong' }
+      const labels = { 1: 'Weak', 2: 'Fair', 3: 'Strong' }
+      const labelColors = { 1: 'text-red-500', 2: 'text-yellow-500', 3: 'text-green-600' }
+      for (let i = 1; i <= 3; i++) {
+        const bar = document.getElementById('bar-' + i)
+        bar.className = 'strength-bar' + (strength >= i ? ' ' + colors[strength] : '')
+      }
+      const label = document.getElementById('strength-label')
+      label.textContent = labels[strength]
+      label.className = 'text-xs font-medium ml-1 w-12 ' + labelColors[strength]
+    }
+
+    function clearPwError() {
+      document.getElementById('pw-error').classList.add('hidden')
+    }
+
+    async function changePassword(e) {
+      e.preventDefault()
+      const newPw = document.getElementById('pw-new').value
+      const confirmPw = document.getElementById('pw-confirm').value
+      const errEl = document.getElementById('pw-error')
+      if (newPw.length < 8) {
+        errEl.textContent = 'Password must be at least 8 characters'
+        errEl.classList.remove('hidden')
+        return
+      }
+      if (newPw !== confirmPw) {
+        errEl.textContent = 'Passwords do not match'
+        errEl.classList.remove('hidden')
+        return
+      }
+      errEl.classList.add('hidden')
+      const btn = document.getElementById('btn-pw-update')
+      btn.textContent = 'Updating...'
+      btn.disabled = true
+      await delay(800)
+      btn.textContent = 'Update password'
+      btn.disabled = false
+      document.getElementById('pw-current').value = ''
+      document.getElementById('pw-new').value = ''
+      document.getElementById('pw-confirm').value = ''
+      document.getElementById('strength-indicator').classList.add('hidden')
+      const successEl = document.getElementById('pw-success')
+      successEl.classList.remove('hidden')
+      setTimeout(() => successEl.classList.add('hidden'), 3000)
+    }
+
+    // ============ SECURITY — 2FA ============
+    let twoFAEnabled = false
+    function toggle2FA() {
+      twoFAEnabled = !twoFAEnabled
+      const sw = document.getElementById('switch-2fa')
+      const desc = document.getElementById('2fa-desc')
+      const setupBtn = document.getElementById('btn-setup-2fa')
+      sw.classList.toggle('on', twoFAEnabled)
+      sw.setAttribute('aria-checked', twoFAEnabled)
+      desc.textContent = twoFAEnabled
+        ? 'Enabled — your account is more secure'
+        : 'Add an extra layer of security to your account'
+      setupBtn.classList.toggle('hidden', !twoFAEnabled)
+    }
+    function setup2FA() { alert('2FA setup flow — not in scope for this prototype') }
+
+    // ============ SECURITY — SESSIONS ============
+    function revokeSession(btn) {
+      const row = btn.closest('.flex')
+      row.style.opacity = '0.5'
+      setTimeout(() => row.remove(), 400)
+    }
+
+    // ============ SECURITY — DELETE ============
+    function showDeleteConfirm() {
+      document.getElementById('danger-normal').classList.add('hidden')
+      document.getElementById('danger-confirm').classList.remove('hidden')
+    }
+    function cancelDelete() {
+      document.getElementById('danger-normal').classList.remove('hidden')
+      document.getElementById('danger-confirm').classList.add('hidden')
+      document.getElementById('delete-input').value = ''
+      document.getElementById('btn-confirm-delete').disabled = true
+      document.getElementById('btn-confirm-delete').className = 'px-3 py-1.5 text-sm font-medium bg-red-300 text-white rounded-md cursor-not-allowed transition-colors'
+    }
+    function checkDeleteInput() {
+      const val = document.getElementById('delete-input').value
+      const btn = document.getElementById('btn-confirm-delete')
+      const valid = val === 'DELETE'
+      btn.disabled = !valid
+      btn.className = valid
+        ? 'px-3 py-1.5 text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-md cursor-pointer transition-colors'
+        : 'px-3 py-1.5 text-sm font-medium bg-red-300 text-white rounded-md cursor-not-allowed transition-colors'
+    }
+    function confirmDelete() {
+      alert('Account deletion confirmed — not executed in this prototype.')
+      cancelDelete()
+    }
+
+    // ============ UTIL ============
+    function delay(ms) { return new Promise(r => setTimeout(r, ms)) }
+  </script>
+</body>
+</html>

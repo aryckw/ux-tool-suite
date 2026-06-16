@@ -1,0 +1,408 @@
+{
+  "schema_version": "1.0",
+  "id": "user-directory",
+  "version": 2,
+  "fidelity_stage": "interactive_prototype",
+  "knowledge_pack_ref": {
+    "library_name": "chakra-ui",
+    "library_version": "3.36.0"
+  },
+  "source": {
+    "request": "Searchable team member directory with role filtering and slide-out detail panel"
+  },
+  "intent": {
+    "goal": "Searchable team member directory with role filtering and slide-out detail panel",
+    "personas": [
+      {
+        "name": "Team Member",
+        "needs": "Find a colleague's contact info or role quickly"
+      },
+      {
+        "name": "Admin",
+        "needs": "Invite new members, change roles, deactivate accounts"
+      }
+    ],
+    "success_criteria": [
+      "Find any team member in under 5 seconds",
+      "Filter by role or department in one click",
+      "View full member profile without leaving the page",
+      "Invite a new member in under 3 clicks"
+    ],
+    "constraints": {
+      "platforms": [
+        "web"
+      ],
+      "devices": [
+        "desktop",
+        "tablet"
+      ],
+      "a11y_target": "WCAG 2.2 AA",
+      "brand": "Neutral professional; light and dark mode"
+    },
+    "non_goals": [
+      "Direct messaging",
+      "Org chart",
+      "Permissions management"
+    ]
+  },
+  "information_architecture": {
+    "screens": [
+      {
+        "id": "directory",
+        "name": "Directory",
+        "purpose": "Searchable grid of team member cards with role/department filters"
+      },
+      {
+        "id": "member-detail",
+        "name": "Member Detail",
+        "purpose": "Drawer showing full member profile: contact info, role, activity, tabs for projects/permissions"
+      },
+      {
+        "id": "invite-member",
+        "name": "Invite Member",
+        "purpose": "Dialog to invite a new member by email with role assignment"
+      }
+    ],
+    "navigation": [
+      {
+        "from": "directory",
+        "to": "member-detail",
+        "trigger": "Click member card"
+      },
+      {
+        "from": "directory",
+        "to": "invite-member",
+        "trigger": "Click Invite Member button"
+      },
+      {
+        "from": "member-detail",
+        "to": "directory",
+        "trigger": "Close drawer"
+      }
+    ],
+    "flows": [
+      {
+        "name": "Find member",
+        "steps": [
+          "Type in search",
+          "Cards filter live",
+          "Click card",
+          "View detail drawer"
+        ]
+      },
+      {
+        "name": "Invite member",
+        "steps": [
+          "Click Invite",
+          "Enter email + select role",
+          "Click Send invite",
+          "See success state"
+        ]
+      }
+    ]
+  },
+  "data_model": {
+    "entities": [
+      {
+        "name": "Member",
+        "fields": [
+          "id",
+          "name",
+          "email",
+          "role",
+          "department",
+          "status",
+          "avatarColor",
+          "initials",
+          "joinedAt",
+          "lastActive",
+          "projects"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "members-api",
+        "kind": "mock",
+        "contract": "REST /api/members"
+      }
+    ]
+  },
+  "composition": [
+    {
+      "screen_id": "directory",
+      "regions": [
+        {
+          "name": "page-header",
+          "responsive": "full width"
+        },
+        {
+          "name": "search-filter-bar",
+          "responsive": "full width, horizontal"
+        },
+        {
+          "name": "member-grid",
+          "responsive": "3-col desktop, 2-col tablet, 1-col mobile"
+        },
+        {
+          "name": "empty-state",
+          "responsive": "centered"
+        }
+      ],
+      "breakpoints": [
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ]
+    },
+    {
+      "screen_id": "member-detail",
+      "regions": [
+        {
+          "name": "drawer-header",
+          "responsive": "full drawer width"
+        },
+        {
+          "name": "member-hero",
+          "responsive": "centered in drawer"
+        },
+        {
+          "name": "contact-info",
+          "responsive": "stacked"
+        },
+        {
+          "name": "detail-tabs",
+          "responsive": "full drawer width"
+        }
+      ],
+      "breakpoints": [
+        "md"
+      ]
+    }
+  ],
+  "component_bindings": [
+    {
+      "screen_id": "directory",
+      "need": "Live search input",
+      "component": "Input",
+      "variant": "outline",
+      "props": {
+        "placeholder": "Search members..."
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "directory",
+      "need": "Role filter dropdown",
+      "component": "Select",
+      "variant": "outline",
+      "gap": false
+    },
+    {
+      "screen_id": "directory",
+      "need": "Department filter dropdown",
+      "component": "Select",
+      "variant": "outline",
+      "gap": false
+    },
+    {
+      "screen_id": "directory",
+      "need": "Member card",
+      "component": "Card",
+      "variant": "elevated",
+      "gap": false
+    },
+    {
+      "screen_id": "directory",
+      "need": "Member avatar in card",
+      "component": "Avatar",
+      "variant": "subtle",
+      "props": {
+        "size": "lg"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "directory",
+      "need": "Role badge",
+      "component": "Badge",
+      "variant": "subtle",
+      "gap": false
+    },
+    {
+      "screen_id": "directory",
+      "need": "Active/inactive status badge",
+      "component": "Badge",
+      "variant": "solid",
+      "gap": false
+    },
+    {
+      "screen_id": "directory",
+      "need": "Invite Member button",
+      "component": "Button",
+      "variant": "solid",
+      "props": {
+        "colorPalette": "blue"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "directory",
+      "need": "Empty search state",
+      "component": "Alert",
+      "variant": "subtle",
+      "props": {
+        "status": "info"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "member-detail",
+      "need": "Slide-out detail panel",
+      "component": "Drawer",
+      "props": {
+        "placement": "end",
+        "size": "md"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "member-detail",
+      "need": "Member avatar (large)",
+      "component": "Avatar",
+      "props": {
+        "size": "2xl"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "member-detail",
+      "need": "Profile detail tabs",
+      "component": "Tabs",
+      "variant": "line",
+      "gap": false
+    },
+    {
+      "screen_id": "member-detail",
+      "need": "Change role menu",
+      "component": "Select",
+      "variant": "outline",
+      "gap": false
+    },
+    {
+      "screen_id": "invite-member",
+      "need": "Invite modal dialog",
+      "component": "Dialog",
+      "props": {
+        "size": "sm"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "invite-member",
+      "need": "Email input",
+      "component": "Input",
+      "variant": "outline",
+      "props": {
+        "type": "email"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "invite-member",
+      "need": "Role selection",
+      "component": "RadioGroup",
+      "variant": "outline",
+      "gap": false
+    }
+  ],
+  "theming": {
+    "mode": "both"
+  },
+  "interaction_behavior": [
+    {
+      "screen_id": "directory",
+      "states": [
+        "loading",
+        "empty-search",
+        "populated",
+        "error"
+      ],
+      "validation": [],
+      "transitions": [
+        "Search input filters grid live (no submit)",
+        "Role/department filters combine with search"
+      ]
+    },
+    {
+      "screen_id": "invite-member",
+      "states": [
+        "idle",
+        "submitting",
+        "success",
+        "error"
+      ],
+      "validation": [
+        "Email is required and must be valid",
+        "Role is required"
+      ],
+      "transitions": [
+        "Success shows confirmation and closes dialog after 2s"
+      ]
+    }
+  ],
+  "accessibility": {
+    "wcag_target": "WCAG 2.2 AA",
+    "keyboard_model": "Tab through member cards; Enter opens detail drawer; Escape closes drawer/dialog",
+    "focus_order": [
+      "search-input",
+      "role-filter",
+      "member-cards",
+      "invite-button"
+    ]
+  },
+  "assets": {
+    "wireframes": [
+      "design/directory-wireframe.svg",
+      "design/member-detail-wireframe.svg"
+    ],
+    "mockups": [
+      "design/directory-mockup.html"
+    ],
+    "prototype": {
+      "path": "prototype/",
+      "run_cmd": "cd prototype && pnpm dev"
+    }
+  },
+  "elicitation_log": [
+    {
+      "stage": "designer",
+      "question": "Card or table layout?",
+      "answer": "Card grid — more visual, better for directory",
+      "status": "answered",
+      "timestamp": "2026-06-16T10:25:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "Admin actions in scope?",
+      "answer": "Yes: invite, change role, deactivate (visible to admin role only)",
+      "status": "answered",
+      "timestamp": "2026-06-16T10:25:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "Light/dark mode?",
+      "answer": "Both",
+      "status": "answered",
+      "timestamp": "2026-06-16T10:25:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "How many members to show?",
+      "answer": "12 mock members across 3 departments and 4 roles",
+      "status": "assumed",
+      "timestamp": "2026-06-16T10:25:00Z"
+    }
+  ]
+}

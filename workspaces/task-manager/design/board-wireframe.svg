@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" font-family="sans-serif">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#F5F5F5"/>
+
+  <!-- Title -->
+  <text x="720" y="890" font-size="12" fill="#666" text-anchor="middle">Screen: board | Chakra UI v3 | Stage: wireframe</text>
+
+  <!-- 1. Top bar -->
+  <rect x="0" y="0" width="1440" height="64" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="37" font-size="13" fill="#333" text-anchor="middle" font-weight="bold">Card (subtle) — top bar: logo + Avatar + Button (+ New Task)</text>
+
+  <!-- 2. Filter bar -->
+  <rect x="0" y="64" width="1440" height="52" fill="#FAFAFA" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="94" font-size="13" fill="#333" text-anchor="middle">Tabs (line) — status filter | Select — assignee | Select — project</text>
+
+  <!-- 3. Kanban Column 1: To Do -->
+  <rect x="24" y="132" width="312" height="748" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="6"/>
+  <text x="180" y="158" font-size="13" fill="#333" text-anchor="middle" font-weight="bold">To Do (4 tasks)</text>
+
+  <!-- 3. Kanban Column 2: In Progress -->
+  <rect x="360" y="132" width="312" height="748" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="6"/>
+  <text x="516" y="158" font-size="13" fill="#333" text-anchor="middle" font-weight="bold">In Progress (2 tasks)</text>
+
+  <!-- 3. Kanban Column 3: Review -->
+  <rect x="696" y="132" width="312" height="748" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="6"/>
+  <text x="852" y="158" font-size="13" fill="#333" text-anchor="middle" font-weight="bold">Review (1 task)</text>
+
+  <!-- 3. Kanban Column 4: Done -->
+  <rect x="1032" y="132" width="312" height="748" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="6"/>
+  <text x="1188" y="158" font-size="13" fill="#333" text-anchor="middle" font-weight="bold">Done (6 tasks)</text>
+
+  <!-- 4. Task Cards in Col 1 -->
+  <!-- Card 1 at y=172 -->
+  <rect x="36" y="172" width="288" height="96" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="180" y="208" font-size="11" fill="#333" text-anchor="middle">Card (elevated) — title</text>
+  <text x="180" y="226" font-size="11" fill="#333" text-anchor="middle">Badge (priority) | Avatar (assignee)</text>
+  <text x="180" y="244" font-size="11" fill="#666" text-anchor="middle">Tooltip (due date)</text>
+
+  <!-- Card 2 at y=284 -->
+  <rect x="36" y="284" width="288" height="96" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="180" y="320" font-size="11" fill="#333" text-anchor="middle">Card (elevated) — title</text>
+  <text x="180" y="338" font-size="11" fill="#333" text-anchor="middle">Badge (priority) | Avatar (assignee)</text>
+  <text x="180" y="356" font-size="11" fill="#666" text-anchor="middle">Tooltip (due date)</text>
+
+  <!-- Card 3 at y=396 -->
+  <rect x="36" y="396" width="288" height="96" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="180" y="432" font-size="11" fill="#333" text-anchor="middle">Card (elevated) — title</text>
+  <text x="180" y="450" font-size="11" fill="#333" text-anchor="middle">Badge (priority) | Avatar (assignee)</text>
+  <text x="180" y="468" font-size="11" fill="#666" text-anchor="middle">Tooltip (due date)</text>
+
+  <!-- Task cards in Col 2 (In Progress) -->
+  <rect x="372" y="172" width="288" height="96" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="516" y="208" font-size="11" fill="#333" text-anchor="middle">Card (elevated) — title</text>
+  <text x="516" y="226" font-size="11" fill="#333" text-anchor="middle">Badge (priority) | Avatar (assignee)</text>
+  <text x="516" y="244" font-size="11" fill="#666" text-anchor="middle">Tooltip (due date)</text>
+
+  <rect x="372" y="284" width="288" height="96" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="516" y="320" font-size="11" fill="#333" text-anchor="middle">Card (elevated) — title</text>
+  <text x="516" y="338" font-size="11" fill="#333" text-anchor="middle">Badge (priority) | Avatar (assignee)</text>
+  <text x="516" y="356" font-size="11" fill="#666" text-anchor="middle">Tooltip (due date)</text>
+
+  <!-- Task card in Col 3 (Review) -->
+  <rect x="708" y="172" width="288" height="96" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="852" y="208" font-size="11" fill="#333" text-anchor="middle">Card (elevated) — title</text>
+  <text x="852" y="226" font-size="11" fill="#333" text-anchor="middle">Badge (priority) | Avatar (assignee)</text>
+  <text x="852" y="244" font-size="11" fill="#666" text-anchor="middle">Tooltip (due date)</text>
+
+  <!-- Task cards in Col 4 (Done) - grayed out -->
+  <rect x="1044" y="172" width="288" height="96" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="1188" y="208" font-size="11" fill="#999" text-anchor="middle">Card (elevated) — title [done]</text>
+  <text x="1188" y="226" font-size="11" fill="#999" text-anchor="middle">Badge (priority) | Avatar (assignee)</text>
+  <text x="1188" y="244" font-size="11" fill="#bbb" text-anchor="middle">Tooltip (due date)</text>
+
+  <rect x="1044" y="284" width="288" height="96" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="1188" y="320" font-size="11" fill="#999" text-anchor="middle">Card (elevated) — title [done]</text>
+  <text x="1188" y="338" font-size="11" fill="#999" text-anchor="middle">Badge (priority) | Avatar (assignee)</text>
+  <text x="1188" y="356" font-size="11" fill="#bbb" text-anchor="middle">Tooltip (due date)</text>
+
+  <!-- 5. Overdue alert in Col 1 -->
+  <rect x="36" y="744" width="288" height="48" fill="#FEF2F2" stroke="#EF4444" stroke-width="1" rx="4"/>
+  <text x="180" y="768" font-size="11" fill="#DC2626" text-anchor="middle" font-weight="bold">Alert (subtle/error)</text>
+  <text x="180" y="783" font-size="11" fill="#DC2626" text-anchor="middle">1 overdue task</text>
+</svg>

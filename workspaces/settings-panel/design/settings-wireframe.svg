@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#F9FAFB"/>
+
+  <!-- Top bar -->
+  <rect x="0" y="0" width="1440" height="64" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="24" y="38" font-size="16" font-weight="bold" fill="#374151">AppShell — top bar</text>
+  <rect x="1350" y="16" width="66" height="32" rx="16" fill="#E5E7EB"/>
+  <text x="1383" y="36" font-size="12" text-anchor="middle" fill="#6B7280">JD</text>
+
+  <!-- Tabs nav -->
+  <rect x="0" y="64" width="1440" height="48" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="24" y="93" font-size="13" fill="#374151">Tabs (line) —</text>
+  <rect x="140" y="72" width="80" height="32" rx="4" fill="#3B82F6"/>
+  <text x="180" y="92" font-size="13" text-anchor="middle" fill="#FFFFFF" font-weight="bold">Profile</text>
+  <rect x="228" y="72" width="120" height="32" rx="4" fill="none" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="288" y="92" font-size="13" text-anchor="middle" fill="#6B7280">Notifications</text>
+  <rect x="356" y="72" width="80" height="32" rx="4" fill="none" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="396" y="92" font-size="13" text-anchor="middle" fill="#6B7280">Security</text>
+
+  <!-- Page content area border -->
+  <rect x="320" y="128" width="800" height="720" rx="8" fill="none" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- Avatar block -->
+  <rect x="320" y="144" width="800" height="100" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <circle cx="380" cy="194" r="36" fill="#DBEAFE" stroke="#93C5FD" stroke-width="2"/>
+  <text x="380" y="200" font-size="18" text-anchor="middle" fill="#3B82F6" font-weight="bold">JD</text>
+  <rect x="430" y="174" width="100" height="28" rx="4" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="480" y="193" font-size="12" text-anchor="middle" fill="#3B82F6">Change Photo</text>
+  <text x="550" y="189" font-size="11" fill="#6B7280">Avatar (2xl) + Upload Button (ghost)</text>
+
+  <!-- Name field -->
+  <rect x="320" y="260" width="800" height="56" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="336" y="280" font-size="11" fill="#6B7280">Field.Root — Display Name *</text>
+  <rect x="336" y="287" width="768" height="22" rx="3" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="344" y="302" font-size="11" fill="#9CA3AF">Input (outline) — Jordan Davis</text>
+
+  <!-- Email field -->
+  <rect x="320" y="332" width="800" height="56" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="336" y="352" font-size="11" fill="#6B7280">Field.Root — Email *</text>
+  <rect x="336" y="359" width="768" height="22" rx="3" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="344" y="374" font-size="11" fill="#9CA3AF">Input (outline, disabled) — jordan@company.com</text>
+
+  <!-- Bio field -->
+  <rect x="320" y="404" width="800" height="100" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="336" y="424" font-size="11" fill="#6B7280">Field.Root — Bio</text>
+  <rect x="336" y="431" width="768" height="64" rx="3" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="344" y="449" font-size="11" fill="#9CA3AF">Input (outline, textarea) — Product designer at Team Alpha...</text>
+
+  <!-- Timezone selector -->
+  <rect x="320" y="520" width="380" height="56" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="336" y="540" font-size="11" fill="#6B7280">Select (outline) — Timezone</text>
+  <rect x="336" y="547" width="348" height="22" rx="3" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="344" y="562" font-size="11" fill="#9CA3AF">Pacific Time (UTC-8)</text>
+  <text x="676" y="562" font-size="11" fill="#6B7280">▼</text>
+
+  <!-- Language selector -->
+  <rect x="720" y="520" width="400" height="56" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="736" y="540" font-size="11" fill="#6B7280">Select (outline) — Language</text>
+  <rect x="736" y="547" width="368" height="22" rx="3" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="744" y="562" font-size="11" fill="#9CA3AF">English</text>
+  <text x="1096" y="562" font-size="11" fill="#6B7280">▼</text>
+
+  <!-- Action row -->
+  <rect x="320" y="600" width="800" height="48" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="336" y="629" font-size="11" fill="#9CA3AF">Button (ghost — Discard)</text>
+  <rect x="836" y="610" width="130" height="28" rx="4" fill="#3B82F6"/>
+  <text x="901" y="629" font-size="12" text-anchor="middle" fill="#FFFFFF" font-weight="bold">Save changes</text>
+  <rect x="700" y="610" width="128" height="28" rx="4" fill="none" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="764" y="629" font-size="12" text-anchor="middle" fill="#6B7280">Discard changes</text>
+
+  <!-- Success alert -->
+  <rect x="320" y="664" width="800" height="48" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+  <circle cx="348" cy="688" r="10" fill="#22C55E"/>
+  <text x="348" y="693" font-size="12" text-anchor="middle" fill="#FFFFFF">✓</text>
+  <text x="370" y="693" font-size="13" fill="#16A34A">Alert (subtle/success) — Changes saved successfully</text>
+
+  <!-- Title -->
+  <text x="720" y="878" font-size="12" text-anchor="middle" fill="#9CA3AF">Screen: settings/profile  |  Chakra UI v3  |  Stage: wireframe</text>
+</svg>

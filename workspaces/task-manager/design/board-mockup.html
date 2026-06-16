@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow — Task Management Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    * { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+
+    /* Chakra UI v3 color token overrides as CSS vars */
+    :root {
+      --blue-500: #3B82F6;
+      --red-500: #EF4444;
+      --orange-500: #F97316;
+      --yellow-500: #EAB308;
+      --green-500: #22C55E;
+      --gray-50: #fafafa;
+      --gray-100: #f4f4f5;
+      --gray-200: #e4e4e7;
+      --gray-400: #a1a1aa;
+      --gray-500: #71717a;
+      --gray-600: #52525b;
+      --gray-700: #3f3f46;
+      --gray-800: #27272a;
+      --gray-900: #18181b;
+      --gray-950: #111111;
+    }
+
+    /* Smooth dark mode transitions */
+    body { transition: background-color 0.2s, color 0.2s; }
+
+    /* Scrollbar styling */
+    .kanban-scroll::-webkit-scrollbar { height: 6px; }
+    .kanban-scroll::-webkit-scrollbar-track { background: transparent; }
+    .kanban-scroll::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+    .dark .kanban-scroll::-webkit-scrollbar-thumb { background: #3f3f46; }
+
+    /* Custom badge styles */
+    .badge-critical { background: #FEE2E2; color: #DC2626; }
+    .badge-high { background: #FFEDD5; color: #C2410C; }
+    .badge-medium { background: #FEF9C3; color: #A16207; }
+    .badge-low { background: #DCFCE7; color: #15803D; }
+    .dark .badge-critical { background: #450A0A; color: #FCA5A5; }
+    .dark .badge-high { background: #431407; color: #FED7AA; }
+    .dark .badge-medium { background: #422006; color: #FDE68A; }
+    .dark .badge-low { background: #052E16; color: #86EFAC; }
+
+    /* Task card hover */
+    .task-card { transition: box-shadow 0.15s, transform 0.1s; }
+    .task-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); transform: translateY(-1px); }
+    .dark .task-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+
+    /* Tab pill active */
+    .tab-pill { transition: background 0.15s, color 0.15s; }
+    .tab-pill.active { background: #3B82F6; color: white; }
+    .dark .tab-pill.active { background: #2563EB; color: white; }
+
+    /* Overlay for dialog/modal */
+    .modal-overlay { background: rgba(0,0,0,0.4); }
+    .dark .modal-overlay { background: rgba(0,0,0,0.65); }
+
+    /* State banner */
+    .state-banner { background: #F0FDF4; border: 1px solid #86EFAC; color: #15803D; }
+    .state-banner.loading { background: #EFF6FF; border-color: #93C5FD; color: #1D4ED8; }
+    .state-banner.error { background: #FEF2F2; border-color: #FCA5A5; color: #DC2626; }
+    .state-banner.empty { background: #FAFAFA; border-color: #D4D4D8; color: #52525B; }
+    .dark .state-banner { background: #052E16; border-color: #166534; color: #86EFAC; }
+    .dark .state-banner.loading { background: #0C142E; border-color: #1D4ED8; color: #93C5FD; }
+    .dark .state-banner.error { background: #1F0808; border-color: #991B1B; color: #FCA5A5; }
+    .dark .state-banner.empty { background: #18181B; border-color: #3F3F46; color: #A1A1AA; }
+  </style>
+  <script>
+    // Configure Tailwind dark mode
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            blue: { 500: '#3B82F6', 600: '#2563EB', 700: '#1D4ED8' },
+            red: { 500: '#EF4444' },
+            orange: { 500: '#F97316' },
+            yellow: { 500: '#EAB308' },
+            green: { 500: '#22C55E' },
+            gray: {
+              50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7',
+              300: '#d4d4d8', 400: '#a1a1aa', 500: '#71717a',
+              600: '#52525b', 700: '#3f3f46', 800: '#27272a',
+              900: '#18181b', 950: '#111111'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen">
+
+  <!-- ======================== TOP BAR ======================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm h-16 flex items-center px-6">
+    <!-- Logo -->
+    <div class="flex items-center gap-2 mr-8">
+      <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+        <svg width="18" height="18" fill="none" viewBox="0 0 18 18">
+          <rect x="2" y="2" width="6" height="6" rx="1.5" fill="white"/>
+          <rect x="10" y="2" width="6" height="6" rx="1.5" fill="white" opacity="0.7"/>
+          <rect x="2" y="10" width="6" height="6" rx="1.5" fill="white" opacity="0.7"/>
+          <rect x="10" y="10" width="6" height="6" rx="1.5" fill="white" opacity="0.4"/>
+        </svg>
+      </div>
+      <span class="font-bold text-lg tracking-tight text-gray-900 dark:text-white">TaskFlow</span>
+    </div>
+
+    <!-- Project selector -->
+    <div class="relative mr-auto">
+      <button class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+        <span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span>
+        Team Alpha
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14" class="text-gray-400">
+          <path d="M3.5 5L7 8.5L10.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Right side: New Task + Avatar -->
+    <div class="flex items-center gap-3">
+      <button onclick="openDialog()" class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-md transition-colors shadow-sm">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
+          <path d="M8 3v10M3 8h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        New Task
+      </button>
+      <!-- Avatar -->
+      <div class="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-semibold cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all" title="John Doe">JD</div>
+    </div>
+  </header>
+
+  <!-- ======================== FILTER BAR ======================== -->
+  <div class="fixed top-16 left-0 right-0 z-40 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-12 flex items-center px-6 gap-4">
+    <!-- Tab pills -->
+    <div class="flex gap-1 mr-4" id="tab-pills">
+      <button onclick="setTab('all')" class="tab-pill active px-3 py-1 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700" data-tab="all">All</button>
+      <button onclick="setTab('todo')" class="tab-pill px-3 py-1 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700" data-tab="todo">To Do</button>
+      <button onclick="setTab('inprogress')" class="tab-pill px-3 py-1 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700" data-tab="inprogress">In Progress</button>
+      <button onclick="setTab('done')" class="tab-pill px-3 py-1 text-xs font-medium rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700" data-tab="done">Done</button>
+    </div>
+
+    <!-- Assignee dropdown -->
+    <select class="text-xs border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-md px-2 py-1.5 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option value="">All assignees</option>
+      <option value="jd">John Doe</option>
+      <option value="am">Alice M.</option>
+      <option value="sr">Sam R.</option>
+    </select>
+
+    <!-- Project dropdown -->
+    <select class="text-xs border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-md px-2 py-1.5 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option value="">All projects</option>
+      <option value="alpha">Team Alpha</option>
+      <option value="beta">Beta Launch</option>
+    </select>
+
+    <div class="ml-auto flex items-center gap-3">
+      <!-- State switcher -->
+      <div class="flex items-center gap-1 border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden">
+        <button onclick="setState('success')" class="px-2 py-1 text-xs text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-950 border-r border-gray-200 dark:border-gray-700">success</button>
+        <button onclick="setState('loading')" class="px-2 py-1 text-xs text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950 border-r border-gray-200 dark:border-gray-700">loading</button>
+        <button onclick="setState('empty')" class="px-2 py-1 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 border-r border-gray-200 dark:border-gray-700">empty</button>
+        <button onclick="setState('error')" class="px-2 py-1 text-xs text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950">error</button>
+      </div>
+      <!-- Dark mode toggle -->
+      <button onclick="toggleDark()" class="p-1.5 rounded-md text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" title="Toggle dark mode">
+        <svg id="icon-sun" width="18" height="18" fill="none" viewBox="0 0 18 18" class="hidden dark:block">
+          <circle cx="9" cy="9" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9 1v2M9 15v2M1 9h2M15 9h2M3.22 3.22l1.42 1.42M13.36 13.36l1.42 1.42M3.22 14.78l1.42-1.42M13.36 4.64l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <svg id="icon-moon" width="18" height="18" fill="none" viewBox="0 0 18 18" class="block dark:hidden">
+          <path d="M15 10.5A7 7 0 117 2.5a5.5 5.5 0 008 8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================== STATE BANNER ======================== -->
+  <div id="state-banner" class="fixed top-28 left-0 right-0 z-30 hidden">
+    <div id="state-banner-inner" class="state-banner mx-6 mt-2 px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2">
+      <span id="state-banner-text"></span>
+      <button onclick="setState('success')" class="ml-auto text-xs opacity-60 hover:opacity-100">dismiss</button>
+    </div>
+  </div>
+
+  <!-- ======================== KANBAN BOARD ======================== -->
+  <main class="pt-28 px-6 pb-8">
+    <div id="board-content">
+      <!-- Normal state: kanban columns -->
+      <div id="kanban-view" class="kanban-scroll flex gap-4 overflow-x-auto pb-4">
+
+        <!-- ---- TO DO ---- -->
+        <div class="flex-none w-72">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold text-sm text-gray-700 dark:text-gray-200">To Do</span>
+              <span class="px-2 py-0.5 text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full font-medium">3</span>
+            </div>
+            <button onclick="openDialog()" class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors">
+              <svg width="12" height="12" fill="none" viewBox="0 0 12 12"><path d="M6 2v8M2 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 min-h-48 flex flex-col gap-2">
+
+            <!-- Alert: overdue -->
+            <div class="flex items-center gap-2 px-3 py-2 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-md text-xs text-red-700 dark:text-red-400">
+              <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1L13 12H1L7 1z" stroke="currentColor" stroke-width="1.2"/><path d="M7 6v3M7 10.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              <span><strong>1 task overdue:</strong> Mobile layout (Jun 15)</span>
+            </div>
+
+            <!-- Task card 1 -->
+            <div class="task-card bg-white dark:bg-gray-900 rounded-md p-3 cursor-pointer border border-gray-100 dark:border-gray-700" onclick="openDrawer('Fix login bug')">
+              <div class="flex items-start justify-between mb-2">
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100 leading-snug">Fix login bug</p>
+                <span class="badge-critical text-xs px-2 py-0.5 rounded-full font-medium ml-2 flex-none">Critical</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-semibold">JD</div>
+                <span class="text-xs text-gray-400 dark:text-gray-500">Jun 18</span>
+              </div>
+            </div>
+
+            <!-- Task card 2 -->
+            <div class="task-card bg-white dark:bg-gray-900 rounded-md p-3 cursor-pointer border border-gray-100 dark:border-gray-700" onclick="openDrawer('Update docs')">
+              <div class="flex items-start justify-between mb-2">
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100 leading-snug">Update docs</p>
+                <span class="badge-low text-xs px-2 py-0.5 rounded-full font-medium ml-2 flex-none">Low</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-semibold">AM</div>
+                <span class="text-xs text-gray-400 dark:text-gray-500">Jun 30</span>
+              </div>
+            </div>
+
+            <!-- Task card 3 -->
+            <div class="task-card bg-white dark:bg-gray-900 rounded-md p-3 cursor-pointer border border-gray-100 dark:border-gray-700" onclick="openDrawer('API rate limiting')">
+              <div class="flex items-start justify-between mb-2">
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100 leading-snug">API rate limiting</p>
+                <span class="badge-high text-xs px-2 py-0.5 rounded-full font-medium ml-2 flex-none">High</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-semibold">JD</div>
+                <span class="text-xs text-gray-400 dark:text-gray-500">Jun 20</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ---- IN PROGRESS ---- -->
+        <div class="flex-none w-72">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold text-sm text-gray-700 dark:text-gray-200">In Progress</span>
+              <span class="px-2 py-0.5 text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full font-medium">2</span>
+            </div>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 min-h-48 flex flex-col gap-2">
+
+            <div class="task-card bg-white dark:bg-gray-900 rounded-md p-3 cursor-pointer border border-gray-100 dark:border-gray-700" onclick="openDrawer('Dashboard redesign')">
+              <div class="flex items-start justify-between mb-2">
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100 leading-snug">Dashboard redesign</p>
+                <span class="badge-medium text-xs px-2 py-0.5 rounded-full font-medium ml-2 flex-none">Medium</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-semibold">SR</div>
+                <span class="text-xs text-gray-400 dark:text-gray-500">Jun 22</span>
+              </div>
+            </div>
+
+            <div class="task-card bg-white dark:bg-gray-900 rounded-md p-3 cursor-pointer border border-gray-100 dark:border-gray-700" onclick="openDrawer('Auth refactor')">
+              <div class="flex items-start justify-between mb-2">
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100 leading-snug">Auth refactor</p>
+                <span class="badge-high text-xs px-2 py-0.5 rounded-full font-medium ml-2 flex-none">High</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-semibold">AM</div>
+                <span class="text-xs text-gray-400 dark:text-gray-500">Jun 19</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ---- REVIEW ---- -->
+        <div class="flex-none w-72">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold text-sm text-gray-700 dark:text-gray-200">Review</span>
+              <span class="px-2 py-0.5 text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded-full font-medium">1</span>
+            </div>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 min-h-48 flex flex-col gap-2">
+
+            <div class="task-card bg-white dark:bg-gray-900 rounded-md p-3 cursor-pointer border border-red-200 dark:border-red-900" onclick="openDrawer('Mobile layout')">
+              <div class="flex items-start justify-between mb-2">
+                <p class="text-sm font-medium text-gray-900 dark:text-gray-100 leading-snug">Mobile layout</p>
+                <span class="badge-medium text-xs px-2 py-0.5 rounded-full font-medium ml-2 flex-none">Medium</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-semibold">SR</div>
+                <span class="text-xs text-red-500 font-medium">Jun 15 — Overdue</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ---- DONE ---- -->
+        <div class="flex-none w-72">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold text-sm text-gray-700 dark:text-gray-200">Done</span>
+              <span class="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full font-medium">2</span>
+            </div>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 min-h-48 flex flex-col gap-2">
+
+            <div class="task-card bg-white dark:bg-gray-900 rounded-md p-3 cursor-pointer border border-gray-100 dark:border-gray-700 opacity-60">
+              <div class="flex items-start justify-between mb-2">
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-500 line-through leading-snug">Setup CI/CD</p>
+                <span class="badge-low text-xs px-2 py-0.5 rounded-full font-medium ml-2 flex-none opacity-60">Low</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="w-6 h-6 rounded-full bg-gray-400 flex items-center justify-center text-white text-xs font-semibold">JD</div>
+                <span class="text-xs text-gray-400 dark:text-gray-500">Jun 10</span>
+              </div>
+            </div>
+
+            <div class="task-card bg-white dark:bg-gray-900 rounded-md p-3 cursor-pointer border border-gray-100 dark:border-gray-700 opacity-60">
+              <div class="flex items-start justify-between mb-2">
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-500 line-through leading-snug">Write tests</p>
+                <span class="badge-medium text-xs px-2 py-0.5 rounded-full font-medium ml-2 flex-none opacity-60">Medium</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-semibold">AM</div>
+                <span class="text-xs text-gray-400 dark:text-gray-500">Jun 12</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Empty state (hidden by default) -->
+      <div id="empty-view" class="hidden flex flex-col items-center justify-center py-24 text-center">
+        <div class="w-16 h-16 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+          <svg width="32" height="32" fill="none" viewBox="0 0 32 32" class="text-gray-400"><rect x="4" y="8" width="24" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M10 14h12M10 19h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-1">No tasks yet</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Create your first task to get started</p>
+        <button onclick="openDialog()" class="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-md hover:bg-blue-600 transition-colors">+ New Task</button>
+      </div>
+
+      <!-- Loading state (hidden by default) -->
+      <div id="loading-view" class="hidden flex items-center justify-center py-24">
+        <div class="flex flex-col items-center gap-3">
+          <svg class="animate-spin w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+          </svg>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Loading tasks…</p>
+        </div>
+      </div>
+
+      <!-- Error state (hidden by default) -->
+      <div id="error-view" class="hidden flex flex-col items-center justify-center py-24 text-center">
+        <div class="w-16 h-16 bg-red-100 dark:bg-red-950 rounded-full flex items-center justify-center mb-4">
+          <svg width="32" height="32" fill="none" viewBox="0 0 32 32" class="text-red-500"><circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.5"/><path d="M16 10v6M16 20v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-1">Something went wrong</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Could not load tasks. Check your connection and try again.</p>
+        <button onclick="setState('success')" class="px-4 py-2 bg-red-500 text-white text-sm font-semibold rounded-md hover:bg-red-600 transition-colors">Retry</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======================== TASK DETAIL DRAWER ======================== -->
+  <div id="drawer-overlay" class="fixed inset-0 z-50 hidden">
+    <div class="modal-overlay absolute inset-0" onclick="closeDrawer()"></div>
+    <div id="drawer-panel" class="absolute top-0 right-0 bottom-0 w-96 bg-white dark:bg-gray-900 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out">
+      <!-- Drawer header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="drawer-title" class="font-semibold text-gray-900 dark:text-white text-base">Task Detail</h2>
+        <button onclick="closeDrawer()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+          <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <!-- Meta row: status + priority -->
+      <div class="flex items-center gap-2 px-6 py-3 border-b border-gray-100 dark:border-gray-800">
+        <button class="flex items-center gap-1.5 px-3 py-1 text-xs bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 rounded-md font-medium hover:bg-blue-100 dark:hover:bg-blue-900 border border-blue-200 dark:border-blue-800">
+          In Progress
+          <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <span class="badge-high text-xs px-2.5 py-1 rounded-full font-medium">High</span>
+        <span class="text-xs text-gray-400 dark:text-gray-500 ml-auto">Due: Jun 20</span>
+      </div>
+      <!-- Assignee -->
+      <div class="flex items-center gap-3 px-6 py-3 border-b border-gray-100 dark:border-gray-800">
+        <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-semibold">JD</div>
+        <div>
+          <p class="text-sm font-medium text-gray-900 dark:text-gray-100">John Doe</p>
+          <p class="text-xs text-gray-400">Assignee</p>
+        </div>
+      </div>
+      <!-- Labels -->
+      <div class="flex items-center gap-2 px-6 py-3 border-b border-gray-100 dark:border-gray-800">
+        <span class="text-xs px-2 py-0.5 border border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-400 rounded-full">frontend</span>
+        <span class="text-xs px-2 py-0.5 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 rounded-full">bug</span>
+        <span class="text-xs px-2 py-0.5 border border-orange-300 dark:border-orange-700 text-orange-700 dark:text-orange-400 rounded-full">urgent</span>
+      </div>
+      <!-- Description -->
+      <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+        <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Description</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">Users are unable to log in using Google OAuth when 2FA is enabled. The error occurs at the token exchange step. Affects ~15% of users.</p>
+      </div>
+      <!-- Comments -->
+      <div class="flex-1 overflow-y-auto px-6 py-4">
+        <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Comments (2)</h3>
+        <div class="flex flex-col gap-3">
+          <div class="flex gap-2">
+            <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-semibold flex-none mt-0.5">AM</div>
+            <div class="flex-1 bg-gray-50 dark:bg-gray-800 rounded-md p-2.5">
+              <p class="text-xs font-medium text-gray-700 dark:text-gray-200">Alice M.</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Reproduced on staging. The redirect_uri mismatch is the root cause.</p>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-semibold flex-none mt-0.5">JD</div>
+            <div class="flex-1 bg-gray-50 dark:bg-gray-800 rounded-md p-2.5">
+              <p class="text-xs font-medium text-gray-700 dark:text-gray-200">John Doe</p>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">Working on a fix. Should be ready for review by EOD.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Comment input -->
+      <div class="px-6 py-3 border-t border-gray-200 dark:border-gray-700 flex gap-2">
+        <input type="text" placeholder="Add a comment…" class="flex-1 text-sm border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-md px-3 py-2 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        <button class="px-3 py-2 bg-blue-500 text-white text-xs font-semibold rounded-md hover:bg-blue-600 transition-colors">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== CREATE TASK DIALOG ======================== -->
+  <div id="dialog-overlay" class="fixed inset-0 z-60 hidden flex items-center justify-center" style="z-index: 9999;">
+    <div class="modal-overlay absolute inset-0" onclick="closeDialog()"></div>
+    <div class="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <!-- Dialog header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+        <h2 class="text-base font-semibold text-gray-900 dark:text-white">Create Task</h2>
+        <button onclick="closeDialog()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+          <svg width="18" height="18" fill="none" viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <!-- Dialog body -->
+      <div class="px-6 py-5 flex flex-col gap-4">
+        <!-- Title input -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Task title <span class="text-red-500">*</span></label>
+          <input type="text" id="new-task-title" placeholder="Task title" class="w-full text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-md px-3 py-2.5 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"/>
+        </div>
+        <!-- Description -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Description</label>
+          <textarea placeholder="Describe the task…" rows="3" class="w-full text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-md px-3 py-2.5 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"></textarea>
+        </div>
+        <!-- Assignee + Due date row -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Assignee</label>
+            <select class="w-full text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-md px-3 py-2.5 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">Assign to…</option>
+              <option>John Doe</option>
+              <option>Alice M.</option>
+              <option>Sam R.</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+              Due date
+              <span class="ml-1 text-yellow-600 dark:text-yellow-400 font-normal" title="GAP: Chakra UI has no DatePicker component">⚠ GAP</span>
+            </label>
+            <input type="date" class="w-full text-sm border border-yellow-300 dark:border-yellow-700 bg-white dark:bg-gray-800 rounded-md px-3 py-2.5 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
+          </div>
+        </div>
+        <!-- Priority radio group -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">Priority</label>
+          <div class="flex gap-3 flex-wrap">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="priority" value="low" class="accent-green-500"/> <span class="text-sm text-gray-700 dark:text-gray-300">Low</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="priority" value="medium" class="accent-yellow-500" checked/> <span class="text-sm text-gray-700 dark:text-gray-300">Medium</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="priority" value="high" class="accent-orange-500"/> <span class="text-sm text-gray-700 dark:text-gray-300">High</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="priority" value="critical" class="accent-red-500"/> <span class="text-sm text-gray-700 dark:text-gray-300">Critical</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- Dialog footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+        <button onclick="closeDialog()" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors">Cancel</button>
+        <button onclick="submitTask()" id="submit-btn" class="px-4 py-2 text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-md transition-colors min-w-24 flex items-center justify-center gap-2">
+          <span id="submit-text">Create Task</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== JAVASCRIPT ======================== -->
+  <script>
+    // Dark mode
+    function toggleDark() {
+      document.documentElement.classList.toggle('dark');
+    }
+
+    // Tabs
+    function setTab(tab) {
+      document.querySelectorAll('[data-tab]').forEach(btn => btn.classList.remove('active'));
+      document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+    }
+
+    // Board state
+    function setState(state) {
+      const kanban = document.getElementById('kanban-view');
+      const empty = document.getElementById('empty-view');
+      const loading = document.getElementById('loading-view');
+      const error = document.getElementById('error-view');
+      const banner = document.getElementById('state-banner');
+      const bannerInner = document.getElementById('state-banner-inner');
+      const bannerText = document.getElementById('state-banner-text');
+
+      kanban.classList.add('hidden');
+      empty.classList.add('hidden');
+      loading.classList.add('hidden');
+      error.classList.add('hidden');
+
+      bannerInner.className = 'state-banner px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2';
+
+      if (state === 'success') {
+        kanban.classList.remove('hidden');
+        banner.classList.add('hidden');
+      } else if (state === 'empty') {
+        empty.classList.remove('hidden');
+        bannerInner.classList.add('empty');
+        bannerText.textContent = 'Viewing: empty state — no tasks in this project';
+        banner.classList.remove('hidden');
+      } else if (state === 'loading') {
+        loading.classList.remove('hidden');
+        bannerInner.classList.add('loading');
+        bannerText.textContent = 'Viewing: loading state — fetching tasks from API…';
+        banner.classList.remove('hidden');
+      } else if (state === 'error') {
+        error.classList.remove('hidden');
+        bannerInner.classList.add('error');
+        bannerText.textContent = 'Viewing: error state — API request failed (500)';
+        banner.classList.remove('hidden');
+      }
+    }
+
+    // Drawer
+    function openDrawer(title) {
+      document.getElementById('drawer-title').textContent = title || 'Task Detail';
+      const overlay = document.getElementById('drawer-overlay');
+      const panel = document.getElementById('drawer-panel');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      setTimeout(() => panel.classList.remove('translate-x-full'), 10);
+    }
+
+    function closeDrawer() {
+      const overlay = document.getElementById('drawer-overlay');
+      const panel = document.getElementById('drawer-panel');
+      panel.classList.add('translate-x-full');
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }, 300);
+    }
+
+    // Dialog
+    function openDialog() {
+      const overlay = document.getElementById('dialog-overlay');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      setTimeout(() => document.getElementById('new-task-title').focus(), 100);
+    }
+
+    function closeDialog() {
+      const overlay = document.getElementById('dialog-overlay');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+    }
+
+    function submitTask() {
+      const title = document.getElementById('new-task-title').value.trim();
+      const btn = document.getElementById('submit-btn');
+      const text = document.getElementById('submit-text');
+
+      if (!title) {
+        document.getElementById('new-task-title').classList.add('ring-2', 'ring-red-500', 'border-red-500');
+        return;
+      }
+
+      // Loading state
+      btn.disabled = true;
+      text.textContent = 'Creating…';
+      btn.innerHTML = '<svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg><span>Creating…</span>';
+
+      setTimeout(() => {
+        closeDialog();
+        btn.disabled = false;
+        btn.innerHTML = '<span id="submit-text">Create Task</span>';
+        document.getElementById('new-task-title').value = '';
+        document.getElementById('new-task-title').classList.remove('ring-2', 'ring-red-500', 'border-red-500');
+        // Show success feedback briefly
+        const banner = document.getElementById('state-banner');
+        const bannerInner = document.getElementById('state-banner-inner');
+        const bannerText = document.getElementById('state-banner-text');
+        bannerInner.className = 'state-banner px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2';
+        bannerText.textContent = '✓ Task "' + title + '" created and added to To Do';
+        banner.classList.remove('hidden');
+        setTimeout(() => banner.classList.add('hidden'), 3000);
+      }, 1200);
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDialog();
+        closeDrawer();
+      }
+    });
+  </script>
+</body>
+</html>

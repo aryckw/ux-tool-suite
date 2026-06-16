@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="900" viewBox="0 0 480 900">
+  <!-- Background -->
+  <rect width="480" height="900" fill="#F5F5F5"/>
+
+  <!-- Drawer Header -->
+  <rect x="0" y="0" width="480" height="64" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="24" y="38" font-family="sans-serif" font-size="14" fill="#333">Drawer header: Member name + close</text>
+
+  <!-- Hero Section -->
+  <rect x="0" y="64" width="480" height="160" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="240" y="120" font-family="sans-serif" font-size="13" fill="#333" text-anchor="middle">Avatar.Root (2xl) centered</text>
+  <text x="240" y="142" font-family="sans-serif" font-size="13" fill="#333" text-anchor="middle">+ name + role badge + status</text>
+
+  <!-- Contact Info -->
+  <rect x="16" y="240" width="448" height="120" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="240" y="275" font-family="sans-serif" font-size="13" fill="#333" text-anchor="middle">email</text>
+  <text x="240" y="298" font-family="sans-serif" font-size="13" fill="#333" text-anchor="middle">department</text>
+  <text x="240" y="321" font-family="sans-serif" font-size="13" fill="#333" text-anchor="middle">joined | last active</text>
+
+  <!-- Separator -->
+  <rect x="0" y="368" width="480" height="1" fill="#E0E0E0"/>
+
+  <!-- Tabs List -->
+  <rect x="0" y="376" width="480" height="40" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="240" y="401" font-family="sans-serif" font-size="13" fill="#333" text-anchor="middle">Tabs.List — Overview | Projects | Permissions</text>
+
+  <!-- Tab Content -->
+  <rect x="16" y="424" width="448" height="400" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="240" y="580" font-family="sans-serif" font-size="13" fill="#666" text-anchor="middle">Tab content area for selected tab</text>
+  <text x="240" y="600" font-family="sans-serif" font-size="11" fill="#999" text-anchor="middle">(bio / projects / permissions)</text>
+
+  <!-- Title label -->
+  <text x="240" y="888" font-family="sans-serif" font-size="12" fill="#666" text-anchor="middle">Screen: member-detail drawer | Chakra UI v3 | Stage: wireframe</text>
+</svg>

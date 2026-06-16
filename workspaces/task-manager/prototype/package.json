@@ -1,0 +1,16 @@
+{
+  "name": "task-manager-prototype",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter shell dev\" \"pnpm --filter board dev\"",
+    "build": "pnpm --filter './packages/*' build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

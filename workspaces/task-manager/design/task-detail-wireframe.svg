@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="900" viewBox="0 0 480 900" font-family="sans-serif">
+  <!-- Background -->
+  <rect width="480" height="900" fill="#F5F5F5"/>
+
+  <!-- Title -->
+  <text x="240" y="890" font-size="11" fill="#666" text-anchor="middle">Screen: task-detail drawer | Chakra UI v3 | Stage: wireframe</text>
+
+  <!-- 1. Drawer header -->
+  <rect x="0" y="0" width="480" height="64" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="240" y="37" font-size="13" fill="#333" text-anchor="middle" font-weight="bold">Drawer header: title + close Button</text>
+
+  <!-- 2. Status menu -->
+  <rect x="16" y="80" width="200" height="40" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="116" y="105" font-size="12" fill="#333" text-anchor="middle">Menu (subtle) — status selector</text>
+
+  <!-- 3. Priority badge -->
+  <rect x="232" y="80" width="100" height="40" fill="#FEF2F2" stroke="#EF4444" stroke-width="1" rx="4"/>
+  <text x="282" y="105" font-size="12" fill="#DC2626" text-anchor="middle">Badge — High</text>
+
+  <!-- 4. Assignee row -->
+  <rect x="16" y="136" width="448" height="56" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <circle cx="44" cy="164" r="18" fill="#E0E0E0"/>
+  <text x="44" y="169" font-size="9" fill="#666" text-anchor="middle">AV</text>
+  <text x="240" y="160" font-size="12" fill="#333" text-anchor="middle">Avatar (sm) + name</text>
+  <text x="240" y="178" font-size="12" fill="#666" text-anchor="middle">Tooltip (due date)</text>
+
+  <!-- 5. Labels row -->
+  <rect x="16" y="208" width="448" height="40" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="240" y="233" font-size="12" fill="#333" text-anchor="middle">Badge (outline) x N — labels</text>
+
+  <!-- 6. Description -->
+  <rect x="16" y="264" width="448" height="200" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="240" y="358" font-size="12" fill="#666" text-anchor="middle">Task description area</text>
+
+  <!-- 7. Comments -->
+  <rect x="16" y="480" width="448" height="300" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1" rx="4"/>
+  <text x="240" y="590" font-size="12" fill="#333" text-anchor="middle">Comments thread</text>
+  <text x="240" y="610" font-size="12" fill="#666" text-anchor="middle">Input — add comment | Button</text>
+</svg>

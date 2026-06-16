@@ -1,0 +1,12 @@
+{
+  "name": "weather-dashboard-prototype",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter shell dev\" \"pnpm --filter dashboard-remote dev\" \"pnpm --filter location-search-remote dev\"",
+    "build": "pnpm --filter './packages/*' build",
+    "install:all": "pnpm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

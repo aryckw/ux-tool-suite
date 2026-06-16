@@ -1,0 +1,428 @@
+{
+  "schema_version": "1.0",
+  "id": "settings-panel",
+  "version": 2,
+  "fidelity_stage": "interactive_prototype",
+  "knowledge_pack_ref": {
+    "library_name": "chakra-ui",
+    "library_version": "3.36.0"
+  },
+  "source": {
+    "request": "Settings and profile management page for a SaaS product"
+  },
+  "intent": {
+    "goal": "Settings and profile management page for a SaaS product — personal info, notifications, security",
+    "personas": [
+      {
+        "name": "End User",
+        "needs": "Update profile photo, display name, email, and notification preferences"
+      },
+      {
+        "name": "Admin",
+        "needs": "Manage security settings, connected apps, and account deletion"
+      }
+    ],
+    "success_criteria": [
+      "User can update profile info in under 30 seconds",
+      "Notification preferences auto-save on toggle",
+      "Password change requires confirmation and shows strength indicator",
+      "Settings sections are clearly separated and scannable"
+    ],
+    "constraints": {
+      "platforms": [
+        "web"
+      ],
+      "devices": [
+        "desktop",
+        "tablet"
+      ],
+      "a11y_target": "WCAG 2.2 AA",
+      "brand": "Neutral professional; light and dark mode"
+    },
+    "non_goals": [
+      "Billing management",
+      "Team management",
+      "API keys"
+    ]
+  },
+  "information_architecture": {
+    "screens": [
+      {
+        "id": "profile",
+        "name": "Profile",
+        "purpose": "Display name, avatar, bio, timezone"
+      },
+      {
+        "id": "notifications",
+        "name": "Notifications",
+        "purpose": "Email and in-app notification toggles by category"
+      },
+      {
+        "id": "security",
+        "name": "Security",
+        "purpose": "Password change, active sessions, 2FA toggle"
+      }
+    ],
+    "navigation": [
+      {
+        "from": "profile",
+        "to": "notifications",
+        "trigger": "Click Notifications tab"
+      },
+      {
+        "from": "notifications",
+        "to": "security",
+        "trigger": "Click Security tab"
+      }
+    ],
+    "flows": [
+      {
+        "name": "Update profile",
+        "steps": [
+          "Edit field",
+          "Click Save changes",
+          "See success Alert"
+        ]
+      },
+      {
+        "name": "Toggle notification",
+        "steps": [
+          "Toggle Switch",
+          "Auto-save",
+          "See subtle confirmation"
+        ]
+      }
+    ]
+  },
+  "data_model": {
+    "entities": [
+      {
+        "name": "UserProfile",
+        "fields": [
+          "id",
+          "name",
+          "email",
+          "avatarUrl",
+          "bio",
+          "timezone",
+          "language"
+        ]
+      },
+      {
+        "name": "NotificationPrefs",
+        "fields": [
+          "emailDigest",
+          "taskAssigned",
+          "taskDue",
+          "mentions",
+          "productUpdates",
+          "securityAlerts"
+        ]
+      },
+      {
+        "name": "SecurityInfo",
+        "fields": [
+          "lastPasswordChange",
+          "twoFactorEnabled",
+          "activeSessions"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "settings-api",
+        "kind": "mock",
+        "contract": "REST /api/settings"
+      }
+    ]
+  },
+  "composition": [
+    {
+      "screen_id": "profile",
+      "regions": [
+        {
+          "name": "page-header",
+          "responsive": "full width"
+        },
+        {
+          "name": "tabs-nav",
+          "responsive": "full width, sticky"
+        },
+        {
+          "name": "avatar-section",
+          "responsive": "centered, max-w-2xl"
+        },
+        {
+          "name": "profile-form",
+          "responsive": "max-w-2xl, single column"
+        },
+        {
+          "name": "save-actions",
+          "responsive": "right-aligned"
+        }
+      ],
+      "breakpoints": [
+        "md",
+        "lg"
+      ]
+    },
+    {
+      "screen_id": "notifications",
+      "regions": [
+        {
+          "name": "tabs-nav",
+          "responsive": "full width, sticky"
+        },
+        {
+          "name": "notification-groups",
+          "responsive": "max-w-2xl, stacked Cards"
+        }
+      ],
+      "breakpoints": [
+        "md"
+      ]
+    },
+    {
+      "screen_id": "security",
+      "regions": [
+        {
+          "name": "tabs-nav",
+          "responsive": "full width, sticky"
+        },
+        {
+          "name": "password-card",
+          "responsive": "max-w-2xl"
+        },
+        {
+          "name": "two-factor-card",
+          "responsive": "max-w-2xl"
+        },
+        {
+          "name": "sessions-card",
+          "responsive": "max-w-2xl"
+        }
+      ],
+      "breakpoints": [
+        "md"
+      ]
+    }
+  ],
+  "component_bindings": [
+    {
+      "screen_id": "profile",
+      "need": "Settings section navigation",
+      "component": "Tabs",
+      "variant": "line",
+      "gap": false
+    },
+    {
+      "screen_id": "profile",
+      "need": "Profile avatar with upload button",
+      "component": "Avatar",
+      "variant": "subtle",
+      "props": {
+        "size": "2xl"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "profile",
+      "need": "Display name input",
+      "component": "Input",
+      "variant": "outline",
+      "gap": false
+    },
+    {
+      "screen_id": "profile",
+      "need": "Bio textarea",
+      "component": "Input",
+      "variant": "outline",
+      "props": {
+        "as": "textarea"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "profile",
+      "need": "Timezone selector",
+      "component": "Select",
+      "variant": "outline",
+      "gap": false
+    },
+    {
+      "screen_id": "profile",
+      "need": "Language selector",
+      "component": "Select",
+      "variant": "outline",
+      "gap": false
+    },
+    {
+      "screen_id": "profile",
+      "need": "Save / Cancel buttons",
+      "component": "Button",
+      "variant": "solid",
+      "gap": false
+    },
+    {
+      "screen_id": "profile",
+      "need": "Success save alert",
+      "component": "Alert",
+      "variant": "subtle",
+      "props": {
+        "status": "success"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "notifications",
+      "need": "Notification category card",
+      "component": "Card",
+      "variant": "elevated",
+      "gap": false
+    },
+    {
+      "screen_id": "notifications",
+      "need": "Notification toggle",
+      "component": "Switch",
+      "variant": "solid",
+      "gap": false
+    },
+    {
+      "screen_id": "security",
+      "need": "Password change card",
+      "component": "Card",
+      "variant": "elevated",
+      "gap": false
+    },
+    {
+      "screen_id": "security",
+      "need": "Password input fields",
+      "component": "Input",
+      "variant": "outline",
+      "props": {
+        "type": "password"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "security",
+      "need": "Two-factor authentication toggle",
+      "component": "Switch",
+      "variant": "solid",
+      "gap": false
+    },
+    {
+      "screen_id": "security",
+      "need": "Active sessions list",
+      "component": "Card",
+      "variant": "subtle",
+      "gap": false
+    },
+    {
+      "screen_id": "security",
+      "need": "Danger zone — delete account",
+      "component": "Alert",
+      "variant": "subtle",
+      "props": {
+        "status": "error"
+      },
+      "gap": false
+    },
+    {
+      "screen_id": "security",
+      "need": "Confirm delete dialog",
+      "component": "Dialog",
+      "props": {
+        "size": "sm"
+      },
+      "gap": false
+    }
+  ],
+  "theming": {
+    "mode": "both"
+  },
+  "interaction_behavior": [
+    {
+      "screen_id": "profile",
+      "states": [
+        "idle",
+        "dirty",
+        "saving",
+        "success",
+        "error"
+      ],
+      "validation": [
+        "Name is required",
+        "Email must be valid"
+      ],
+      "transitions": [
+        "Save button enables when form is dirty",
+        "Success alert auto-dismisses after 3s"
+      ]
+    },
+    {
+      "screen_id": "notifications",
+      "states": [
+        "idle",
+        "saving"
+      ],
+      "validation": [],
+      "transitions": [
+        "Switch toggle triggers immediate save",
+        "Brief spinner on each Switch while saving"
+      ]
+    }
+  ],
+  "accessibility": {
+    "wcag_target": "WCAG 2.2 AA",
+    "keyboard_model": "Tab through form fields; Tabs navigable with arrow keys; Escape closes dialogs",
+    "focus_order": [
+      "tabs-nav",
+      "form-fields",
+      "save-actions"
+    ]
+  },
+  "assets": {
+    "wireframes": [
+      "design/settings-wireframe.svg",
+      "design/notifications-wireframe.svg"
+    ],
+    "mockups": [
+      "design/settings-mockup.html"
+    ],
+    "prototype": {
+      "path": "prototype/",
+      "run_cmd": "cd prototype && pnpm dev"
+    }
+  },
+  "elicitation_log": [
+    {
+      "stage": "designer",
+      "question": "Which screens are in scope?",
+      "answer": "Profile, Notifications, Security — as Tabs",
+      "status": "answered",
+      "timestamp": "2026-06-16T10:25:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "Auto-save or explicit save?",
+      "answer": "Switches auto-save; forms use explicit Save button",
+      "status": "answered",
+      "timestamp": "2026-06-16T10:25:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "Light/dark mode?",
+      "answer": "Both",
+      "status": "answered",
+      "timestamp": "2026-06-16T10:25:00Z"
+    },
+    {
+      "stage": "designer",
+      "question": "Avatar file upload — in scope?",
+      "answer": "Button shown but upload itself is a gap (no file input component in Chakra v3)",
+      "status": "assumed",
+      "timestamp": "2026-06-16T10:25:00Z"
+    }
+  ]
+}

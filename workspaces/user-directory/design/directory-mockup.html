@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Directory — Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', system-ui, sans-serif; }
+    .panel-enter { transform: translateX(100%); }
+    .panel-visible { transform: translateX(0); transition: transform 0.25s ease; }
+    .overlay-enter { opacity: 0; }
+    .overlay-visible { opacity: 1; transition: opacity 0.25s ease; }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen">
+
+<!-- TOP BAR -->
+<header class="fixed top-0 left-0 right-0 z-30 h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center px-6 gap-4 shadow-sm">
+  <div class="flex items-center gap-3 flex-1">
+    <h1 class="font-bold text-lg text-gray-900 dark:text-white">Team Directory</h1>
+    <span id="count-badge" class="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">12 members</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <button onclick="toggleDark()" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Toggle dark mode">
+      <svg id="dark-icon" class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+      <svg id="light-icon" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+    </button>
+    <button onclick="openInviteModal()" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+      + Invite Member
+    </button>
+  </div>
+</header>
+
+<!-- SEARCH + FILTER BAR -->
+<div class="fixed top-16 left-0 right-0 z-20 h-14 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center px-6 gap-3">
+  <div class="relative">
+    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+    </svg>
+    <input id="search-input" type="text" placeholder="Search members..."
+      class="pl-9 pr-4 py-1.5 w-64 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      oninput="applyFilters()" />
+  </div>
+  <select id="role-filter" onchange="applyFilters()"
+    class="text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <option value="">All Roles</option>
+    <option value="Admin">Admin</option>
+    <option value="Manager">Manager</option>
+    <option value="Member">Member</option>
+    <option value="Viewer">Viewer</option>
+  </select>
+  <select id="dept-filter" onchange="applyFilters()"
+    class="text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <option value="">All Departments</option>
+    <option value="Engineering">Engineering</option>
+    <option value="Design">Design</option>
+    <option value="Product">Product</option>
+    <option value="Marketing">Marketing</option>
+  </select>
+  <button id="clear-btn" onclick="clearFilters()" class="hidden text-sm text-blue-600 dark:text-blue-400 hover:underline px-2 py-1 rounded transition-colors">
+    Clear filters
+  </button>
+  <span id="filter-count" class="ml-auto text-xs text-gray-500 dark:text-gray-400 font-medium"></span>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="pt-32 px-6 pb-8">
+  <!-- Member Grid -->
+  <div id="member-grid" class="grid grid-cols-3 gap-4"></div>
+
+  <!-- Empty State -->
+  <div id="empty-state" class="hidden flex flex-col items-center justify-center py-24 text-center">
+    <div class="text-5xl mb-4">&#128269;</div>
+    <p class="font-semibold text-gray-900 dark:text-white text-lg mb-1">No members found</p>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Try adjusting your search or filters.</p>
+    <button onclick="clearFilters()" class="text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+      Clear filters
+    </button>
+  </div>
+</main>
+
+<!-- DETAIL DRAWER OVERLAY -->
+<div id="drawer-overlay" class="hidden fixed inset-0 bg-black/40 z-40" onclick="closeDrawer()"></div>
+
+<!-- DETAIL DRAWER -->
+<div id="detail-drawer" class="panel-enter fixed top-0 right-0 h-full w-96 bg-white dark:bg-gray-900 shadow-2xl z-50 overflow-y-auto flex flex-col">
+  <!-- Drawer Header -->
+  <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-900 z-10">
+    <h2 id="drawer-name" class="font-semibold text-gray-900 dark:text-white"></h2>
+    <button onclick="closeDrawer()" class="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Member Hero -->
+  <div class="flex flex-col items-center pt-8 pb-6 px-5 border-b border-gray-100 dark:border-gray-800">
+    <div id="drawer-avatar-lg" class="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4"></div>
+    <h3 id="drawer-fullname" class="font-semibold text-xl text-gray-900 dark:text-white mb-2"></h3>
+    <div class="flex gap-2">
+      <span id="drawer-role-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full"></span>
+      <span id="drawer-status-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full"></span>
+    </div>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="px-5 py-5 border-b border-gray-100 dark:border-gray-800 space-y-3">
+    <div class="flex items-center gap-3 text-sm">
+      <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+      </svg>
+      <span id="drawer-email" class="text-gray-700 dark:text-gray-300"></span>
+    </div>
+    <div class="flex items-center gap-3 text-sm">
+      <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+      </svg>
+      <span id="drawer-dept" class="text-gray-700 dark:text-gray-300"></span>
+    </div>
+    <div class="flex items-center gap-3 text-sm">
+      <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <span id="drawer-joined" class="text-gray-700 dark:text-gray-300"></span>
+    </div>
+    <div class="flex items-center gap-3 text-sm">
+      <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <span id="drawer-last-active" class="text-gray-700 dark:text-gray-300"></span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex-1 flex flex-col">
+    <div class="flex border-b border-gray-200 dark:border-gray-700 px-5">
+      <button onclick="switchTab('overview')" id="tab-overview"
+        class="tab-btn text-sm font-medium py-3 px-4 border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 -mb-px transition-colors">
+        Overview
+      </button>
+      <button onclick="switchTab('projects')" id="tab-projects"
+        class="tab-btn text-sm font-medium py-3 px-4 border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 -mb-px transition-colors">
+        Projects
+      </button>
+      <button onclick="switchTab('permissions')" id="tab-permissions"
+        class="tab-btn text-sm font-medium py-3 px-4 border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 -mb-px transition-colors">
+        Permissions
+      </button>
+    </div>
+
+    <!-- Tab: Overview -->
+    <div id="tab-content-overview" class="p-5 space-y-4">
+      <div>
+        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Bio</p>
+        <p id="drawer-bio" class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed"></p>
+      </div>
+      <div>
+        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Change Role</p>
+        <select id="drawer-role-select" class="w-full text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="Admin">Admin</option>
+          <option value="Manager">Manager</option>
+          <option value="Member">Member</option>
+          <option value="Viewer">Viewer</option>
+        </select>
+      </div>
+      <button class="w-full text-sm font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900 rounded-lg py-2 hover:bg-red-50 dark:hover:bg-red-950 transition-colors">
+        Deactivate Account
+      </button>
+    </div>
+
+    <!-- Tab: Projects -->
+    <div id="tab-content-projects" class="p-5 hidden">
+      <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Active Projects</p>
+      <div id="drawer-projects" class="flex flex-wrap gap-2"></div>
+    </div>
+
+    <!-- Tab: Permissions -->
+    <div id="tab-content-permissions" class="p-5 hidden">
+      <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Permissions</p>
+      <div class="space-y-3">
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="perm-view" checked class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+          <div>
+            <p class="text-sm font-medium text-gray-900 dark:text-white">Can view</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">View all content and members</p>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="perm-edit" class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+          <div>
+            <p class="text-sm font-medium text-gray-900 dark:text-white">Can edit</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Edit projects and settings</p>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="perm-admin" class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+          <div>
+            <p class="text-sm font-medium text-gray-900 dark:text-white">Admin access</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Manage members and billing</p>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INVITE MODAL OVERLAY -->
+<div id="invite-overlay" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
+  <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <h2 class="font-semibold text-gray-900 dark:text-white">Invite Member</h2>
+      <button onclick="closeInviteModal()" class="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div id="invite-body" class="px-6 py-5 space-y-5">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+          Email address <span class="text-red-500">*</span>
+        </label>
+        <input id="invite-email" type="email" placeholder="colleague@company.com"
+          class="w-full text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <p id="invite-email-error" class="hidden text-xs text-red-500 mt-1">Please enter a valid email address.</p>
+      </div>
+
+      <div>
+        <p class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Role <span class="text-red-500">*</span>
+        </p>
+        <div class="space-y-2">
+          <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+            <input type="radio" name="invite-role" value="Member" checked class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" />
+            <div>
+              <p class="text-sm font-medium text-gray-900 dark:text-white">Member</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Standard access</p>
+            </div>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+            <input type="radio" name="invite-role" value="Manager" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" />
+            <div>
+              <p class="text-sm font-medium text-gray-900 dark:text-white">Manager</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Can manage projects and team</p>
+            </div>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+            <input type="radio" name="invite-role" value="Viewer" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" />
+            <div>
+              <p class="text-sm font-medium text-gray-900 dark:text-white">Viewer</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Read-only access</p>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success State -->
+    <div id="invite-success" class="hidden px-6 py-8 text-center">
+      <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <p class="font-semibold text-gray-900 dark:text-white mb-1">Invite sent!</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">They'll receive an email shortly.</p>
+    </div>
+
+    <!-- Modal Footer -->
+    <div id="invite-footer" class="px-6 pb-5 flex gap-3">
+      <button onclick="closeInviteModal()" class="flex-1 text-sm font-medium border border-gray-300 dark:border-gray-600 rounded-lg py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+        Cancel
+      </button>
+      <button id="send-invite-btn" onclick="sendInvite()"
+        class="flex-1 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-2 transition-colors flex items-center justify-center gap-2">
+        Send Invite
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const MEMBERS = [
+    { id:1, name:'Jordan Davis', email:'jordan@co.com', role:'Admin', dept:'Engineering', status:'active', color:'#3B82F6', initials:'JD',
+      bio:'Platform engineering lead. Joined to build scalable infrastructure.', projects:['Platform Infra','DevOps Tooling','Auth Service'], joinedAt:'Joined Jan 2024', lastActive:'Last active 1h ago' },
+    { id:2, name:'Alex Morgan', email:'alex@co.com', role:'Member', dept:'Design', status:'active', color:'#8B5CF6', initials:'AM',
+      bio:'Product designer focused on design systems and accessibility.', projects:['Design System','Mobile App Redesign'], joinedAt:'Joined Mar 2024', lastActive:'Last active 30m ago' },
+    { id:3, name:'Sam Rivera', email:'sam@co.com', role:'Member', dept:'Engineering', status:'active', color:'#10B981', initials:'SR',
+      bio:'Full-stack engineer working on core product features.', projects:['Search v2','API Gateway','Analytics'], joinedAt:'Joined Feb 2024', lastActive:'Last active 2h ago' },
+    { id:4, name:'Casey Kim', email:'casey@co.com', role:'Manager', dept:'Product', status:'active', color:'#F59E0B', initials:'CK',
+      bio:'Product manager driving roadmap prioritisation and cross-team alignment.', projects:['Q3 Roadmap','Growth Initiatives'], joinedAt:'Joined Nov 2023', lastActive:'Last active 4h ago' },
+    { id:5, name:'Morgan Lee', email:'morgan@co.com', role:'Member', dept:'Design', status:'inactive', color:'#6B7280', initials:'ML',
+      bio:'UX researcher on leave. Expert in user testing and qualitative research.', projects:['User Research 2024'], joinedAt:'Joined Jun 2023', lastActive:'Last active 2w ago' },
+    { id:6, name:'Drew Chen', email:'drew@co.com', role:'Manager', dept:'Engineering', status:'active', color:'#EF4444', initials:'DC',
+      bio:'Engineering manager leading the backend platform team.', projects:['Platform Infra','Database Migration'], joinedAt:'Joined Sep 2023', lastActive:'Last active 45m ago' },
+    { id:7, name:'Riley Park', email:'riley@co.com', role:'Member', dept:'Product', status:'active', color:'#EC4899', initials:'RP',
+      bio:'Product manager focused on growth and monetisation features.', projects:['Billing v2','Onboarding Flow','Growth'], joinedAt:'Joined Apr 2024', lastActive:'Last active 3h ago' },
+    { id:8, name:'Taylor Brown', email:'taylor@co.com', role:'Member', dept:'Design', status:'active', color:'#14B8A6', initials:'TB',
+      bio:'Visual designer specialising in brand identity and marketing assets.', projects:['Brand Refresh','Marketing Site'], joinedAt:'Joined May 2024', lastActive:'Last active 1d ago' },
+    { id:9, name:'Quinn Adams', email:'quinn@co.com', role:'Viewer', dept:'Marketing', status:'active', color:'#F97316', initials:'QA',
+      bio:'Marketing lead managing campaigns and content strategy.', projects:['Q3 Campaign','Blog Redesign'], joinedAt:'Joined Jul 2024', lastActive:'Last active 6h ago' },
+    { id:10, name:'Blake Wilson', email:'blake@co.com', role:'Member', dept:'Engineering', status:'active', color:'#6366F1', initials:'BW',
+      bio:'Frontend engineer building component libraries and design token tooling.', projects:['Component Library','Token Pipeline','Docs Site'], joinedAt:'Joined Aug 2024', lastActive:'Last active 2h ago' },
+    { id:11, name:'Avery Martinez', email:'avery@co.com', role:'Viewer', dept:'Marketing', status:'inactive', color:'#6B7280', initials:'AV',
+      bio:'Content strategist currently on extended leave.', projects:['Content Strategy 2024'], joinedAt:'Joined Oct 2023', lastActive:'Last active 3w ago' },
+    { id:12, name:'Cameron Scott', email:'cam@co.com', role:'Manager', dept:'Product', status:'active', color:'#D97706', initials:'CS',
+      bio:'Senior product manager overseeing enterprise features and partnerships.', projects:['Enterprise Features','API Partnerships','Docs'], joinedAt:'Joined Dec 2023', lastActive:'Last active 20m ago' },
+  ]
+
+  const ROLE_COLORS = {
+    Admin: { bg: 'bg-blue-100 dark:bg-blue-900', text: 'text-blue-700 dark:text-blue-300' },
+    Manager: { bg: 'bg-purple-100 dark:bg-purple-900', text: 'text-purple-700 dark:text-purple-300' },
+    Member: { bg: 'bg-gray-100 dark:bg-gray-700', text: 'text-gray-700 dark:text-gray-300' },
+    Viewer: { bg: 'bg-yellow-100 dark:bg-yellow-900', text: 'text-yellow-700 dark:text-yellow-300' },
+  }
+
+  let currentMembers = [...MEMBERS]
+
+  function renderCards(members) {
+    const grid = document.getElementById('member-grid')
+    const empty = document.getElementById('empty-state')
+    grid.innerHTML = ''
+
+    if (members.length === 0) {
+      empty.classList.remove('hidden')
+      empty.classList.add('flex')
+      return
+    }
+    empty.classList.add('hidden')
+    empty.classList.remove('flex')
+
+    members.forEach(m => {
+      const rc = ROLE_COLORS[m.role]
+      const isInactive = m.status === 'inactive'
+      const card = document.createElement('div')
+      card.className = `bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5 cursor-pointer hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col items-center text-center gap-2 ${isInactive ? 'opacity-60' : ''}`
+      card.setAttribute('tabindex', '0')
+      card.setAttribute('role', 'button')
+      card.setAttribute('aria-label', `View ${m.name}'s profile`)
+      card.innerHTML = `
+        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg mb-1" style="background-color:${m.color}">${m.initials}</div>
+        <p class="font-medium text-sm text-gray-900 dark:text-white leading-tight">${m.name}</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">${m.email}</p>
+        <div class="flex gap-1.5 flex-wrap justify-center">
+          <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${rc.bg} ${rc.text}">${m.role}</span>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${isInactive ? 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400' : 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'}">
+            ${m.status === 'active' ? '&#9679; Active' : '&#9675; Inactive'}
+          </span>
+        </div>
+        <p class="text-xs text-gray-400 dark:text-gray-500">${m.dept}</p>
+      `
+      card.addEventListener('click', () => openDrawer(m))
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openDrawer(m) })
+      grid.appendChild(card)
+    })
+  }
+
+  function applyFilters() {
+    const search = document.getElementById('search-input').value.toLowerCase()
+    const role = document.getElementById('role-filter').value
+    const dept = document.getElementById('dept-filter').value
+    const clearBtn = document.getElementById('clear-btn')
+
+    const filtered = MEMBERS.filter(m => {
+      const matchSearch = !search || m.name.toLowerCase().includes(search) || m.email.toLowerCase().includes(search)
+      const matchRole = !role || m.role === role
+      const matchDept = !dept || m.dept === dept
+      return matchSearch && matchRole && matchDept
+    })
+
+    const hasFilters = search || role || dept
+    clearBtn.classList.toggle('hidden', !hasFilters)
+    document.getElementById('filter-count').textContent = `${filtered.length} of ${MEMBERS.length} members`
+    document.getElementById('count-badge').textContent = `${filtered.length} members`
+    renderCards(filtered)
+  }
+
+  function clearFilters() {
+    document.getElementById('search-input').value = ''
+    document.getElementById('role-filter').value = ''
+    document.getElementById('dept-filter').value = ''
+    applyFilters()
+  }
+
+  function openDrawer(member) {
+    const rc = ROLE_COLORS[member.role]
+    document.getElementById('drawer-name').textContent = member.name
+    document.getElementById('drawer-avatar-lg').style.backgroundColor = member.color
+    document.getElementById('drawer-avatar-lg').textContent = member.initials
+    document.getElementById('drawer-fullname').textContent = member.name
+    document.getElementById('drawer-email').textContent = member.email
+    document.getElementById('drawer-dept').textContent = member.dept
+    document.getElementById('drawer-joined').textContent = member.joinedAt
+    document.getElementById('drawer-last-active').textContent = member.lastActive
+    document.getElementById('drawer-bio').textContent = member.bio
+    document.getElementById('drawer-role-select').value = member.role
+
+    const roleBadge = document.getElementById('drawer-role-badge')
+    roleBadge.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${rc.bg} ${rc.text}`
+    roleBadge.textContent = member.role
+
+    const statusBadge = document.getElementById('drawer-status-badge')
+    const isActive = member.status === 'active'
+    statusBadge.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${isActive ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'}`
+    statusBadge.textContent = isActive ? 'Active' : 'Inactive'
+
+    const projectsEl = document.getElementById('drawer-projects')
+    projectsEl.innerHTML = member.projects.map(p =>
+      `<span class="text-xs font-medium bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 px-3 py-1 rounded-full">${p}</span>`
+    ).join('')
+
+    switchTab('overview')
+
+    document.getElementById('drawer-overlay').classList.remove('hidden')
+    const drawer = document.getElementById('detail-drawer')
+    drawer.classList.remove('hidden')
+    requestAnimationFrame(() => {
+      drawer.classList.remove('panel-enter')
+      drawer.classList.add('panel-visible')
+      document.getElementById('drawer-overlay').classList.add('overlay-visible')
+    })
+  }
+
+  function closeDrawer() {
+    const drawer = document.getElementById('detail-drawer')
+    const overlay = document.getElementById('drawer-overlay')
+    drawer.classList.remove('panel-visible')
+    drawer.classList.add('panel-enter')
+    overlay.classList.remove('overlay-visible')
+    setTimeout(() => {
+      drawer.classList.add('hidden')
+      overlay.classList.add('hidden')
+    }, 250)
+  }
+
+  function switchTab(tab) {
+    ['overview', 'projects', 'permissions'].forEach(t => {
+      const btn = document.getElementById(`tab-${t}`)
+      const content = document.getElementById(`tab-content-${t}`)
+      if (t === tab) {
+        btn.className = 'tab-btn text-sm font-medium py-3 px-4 border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 -mb-px transition-colors'
+        content.classList.remove('hidden')
+      } else {
+        btn.className = 'tab-btn text-sm font-medium py-3 px-4 border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 -mb-px transition-colors'
+        content.classList.add('hidden')
+      }
+    })
+  }
+
+  function openInviteModal() {
+    document.getElementById('invite-overlay').classList.remove('hidden')
+    document.getElementById('invite-body').classList.remove('hidden')
+    document.getElementById('invite-footer').classList.remove('hidden')
+    document.getElementById('invite-success').classList.add('hidden')
+    document.getElementById('invite-email').value = ''
+    document.getElementById('invite-email-error').classList.add('hidden')
+    document.querySelector('input[name="invite-role"][value="Member"]').checked = true
+    const btn = document.getElementById('send-invite-btn')
+    btn.disabled = false
+    btn.innerHTML = 'Send Invite'
+    btn.className = 'flex-1 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-2 transition-colors flex items-center justify-center gap-2'
+  }
+
+  function closeInviteModal() {
+    document.getElementById('invite-overlay').classList.add('hidden')
+  }
+
+  function sendInvite() {
+    const emailInput = document.getElementById('invite-email')
+    const emailError = document.getElementById('invite-email-error')
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!emailInput.value || !emailRegex.test(emailInput.value)) {
+      emailError.classList.remove('hidden')
+      emailInput.focus()
+      return
+    }
+    emailError.classList.add('hidden')
+
+    const btn = document.getElementById('send-invite-btn')
+    btn.disabled = true
+    btn.innerHTML = '<svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Sending...'
+    btn.className = 'flex-1 text-sm font-medium bg-blue-400 text-white rounded-lg py-2 transition-colors flex items-center justify-center gap-2 cursor-not-allowed'
+
+    setTimeout(() => {
+      document.getElementById('invite-body').classList.add('hidden')
+      document.getElementById('invite-footer').classList.add('hidden')
+      document.getElementById('invite-success').classList.remove('hidden')
+      setTimeout(() => closeInviteModal(), 2000)
+    }, 800)
+  }
+
+  function toggleDark() {
+    document.documentElement.classList.toggle('dark')
+  }
+
+  // Keyboard support for closing drawer
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (!document.getElementById('detail-drawer').classList.contains('hidden')) closeDrawer()
+      if (!document.getElementById('invite-overlay').classList.contains('hidden')) closeInviteModal()
+    }
+  })
+
+  // Initial render
+  renderCards(MEMBERS)
+  document.getElementById('filter-count').textContent = `${MEMBERS.length} of ${MEMBERS.length} members`
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#F5F5F5"/>
+
+  <!-- Title bar -->
+  <text x="720" y="24" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333" font-weight="bold">Screen: dashboard | Stage: wireframe</text>
+
+  <!-- AppShell top bar -->
+  <rect x="0" y="0" width="1440" height="64" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="38" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">AppShell — top-bar</text>
+
+  <!-- Location bar -->
+  <rect x="24" y="80" width="1392" height="48" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="109" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Input — location search</text>
+
+  <!-- Current conditions card -->
+  <rect x="24" y="144" width="480" height="280" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="264" y="290" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — current conditions | Stat ×3</text>
+
+  <!-- Hourly forecast strip -->
+  <rect x="24" y="440" width="1392" height="160" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="720" y="525" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — hourly strip | ChartPlaceholder</text>
+
+  <!-- 7-day forecast cards -->
+  <rect x="24" y="616" width="200" height="240" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="124" y="740" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — day 1</text>
+
+  <rect x="228" y="616" width="200" height="240" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="328" y="740" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — day 2</text>
+
+  <rect x="432" y="616" width="200" height="240" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="532" y="740" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — day 3</text>
+
+  <rect x="636" y="616" width="200" height="240" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="736" y="740" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — day 4</text>
+
+  <rect x="840" y="616" width="200" height="240" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="940" y="740" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — day 5</text>
+
+  <rect x="1044" y="616" width="200" height="240" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1144" y="740" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — day 6</text>
+
+  <rect x="1248" y="616" width="200" height="240" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1348" y="740" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#333">Card — day 7</text>
+</svg>

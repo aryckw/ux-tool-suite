@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="640" viewBox="0 0 560 640" font-family="sans-serif">
+  <!-- Background / Dialog border -->
+  <rect width="560" height="640" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2" rx="8"/>
+
+  <!-- Title -->
+  <text x="280" y="630" font-size="11" fill="#666" text-anchor="middle">Screen: create-task dialog | Chakra UI v3 | Stage: wireframe</text>
+
+  <!-- 1. Dialog header -->
+  <rect x="0" y="0" width="560" height="60" fill="#F9FAFB" stroke="#E0E0E0" stroke-width="1" rx="8"/>
+  <rect x="0" y="30" width="560" height="30" fill="#F9FAFB"/>
+  <text x="280" y="35" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">Dialog header: Create Task + close</text>
+
+  <!-- 2. Title input -->
+  <rect x="24" y="76" width="512" height="44" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1" rx="4"/>
+  <text x="280" y="103" font-size="12" fill="#6B7280" text-anchor="middle">Input (outline) — Task title *</text>
+
+  <!-- 3. Description input -->
+  <rect x="24" y="136" width="512" height="100" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1" rx="4"/>
+  <text x="280" y="190" font-size="12" fill="#6B7280" text-anchor="middle">Input (outline, multiline) — Description</text>
+
+  <!-- 4. Assignee select -->
+  <rect x="24" y="252" width="248" height="44" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1" rx="4"/>
+  <text x="148" y="279" font-size="12" fill="#6B7280" text-anchor="middle">Select (outline) — Assignee</text>
+
+  <!-- 5. Due date input + GAP warning -->
+  <rect x="288" y="252" width="248" height="44" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1" rx="4" stroke-dasharray="4,2"/>
+  <text x="412" y="272" font-size="11" fill="#92400E" text-anchor="middle">Input (outline) — Due date</text>
+  <text x="412" y="286" font-size="10" fill="#B45309" text-anchor="middle">[GAP: no DatePicker]</text>
+  <!-- Warning triangle icon -->
+  <text x="524" y="252" font-size="14" fill="#D97706">⚠</text>
+  <text x="536" y="252" font-size="9" fill="#D97706">GAP</text>
+
+  <!-- 6. Priority radio group -->
+  <rect x="24" y="312" width="512" height="64" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1" rx="4"/>
+  <text x="280" y="335" font-size="12" fill="#333" text-anchor="middle" font-weight="bold">RadioGroup — Priority</text>
+  <!-- Radio items -->
+  <circle cx="56" cy="356" r="7" fill="none" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="70" y="360" font-size="11" fill="#333">Low</text>
+  <circle cx="136" cy="356" r="7" fill="none" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="150" y="360" font-size="11" fill="#333">Medium</text>
+  <circle cx="232" cy="356" r="7" fill="#3B82F6" stroke="#3B82F6" stroke-width="1.5"/>
+  <circle cx="232" cy="356" r="3" fill="#FFFFFF"/>
+  <text x="246" y="360" font-size="11" fill="#333">High</text>
+  <circle cx="312" cy="356" r="7" fill="none" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="326" y="360" font-size="11" fill="#333">Critical</text>
+
+  <!-- 7. Dialog footer -->
+  <rect x="0" y="580" width="560" height="60" fill="#F9FAFB" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Cancel button -->
+  <rect x="360" y="594" width="88" height="36" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1" rx="4"/>
+  <text x="404" y="617" font-size="12" fill="#6B7280" text-anchor="middle">Cancel</text>
+  <!-- Create button -->
+  <rect x="460" y="594" width="80" height="36" fill="#3B82F6" stroke="#3B82F6" stroke-width="1" rx="4"/>
+  <text x="500" y="617" font-size="12" fill="#FFFFFF" text-anchor="middle">Create Task</text>
+</svg>
