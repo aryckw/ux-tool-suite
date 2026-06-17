@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#F5F5F5"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="1440" height="36" fill="#2D3748"/>
+  <text x="720" y="24" font-family="system-ui" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Reports / Data Table — Wireframe</text>
+
+  <!-- Left Sidebar (220px wide) -->
+  <rect x="0" y="36" width="220" height="864" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Logo area -->
+  <rect x="8" y="44" width="204" height="48" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="110" y="73" font-family="system-ui" font-size="14" font-weight="bold" fill="#333333" text-anchor="middle">AnalyticsPro Logo</text>
+
+  <!-- Nav items -->
+  <rect x="8" y="104" width="204" height="40" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="129" font-family="system-ui" font-size="13" fill="#333333">○ Dashboard</text>
+
+  <rect x="8" y="152" width="204" height="40" fill="#EBF8FF" stroke="#3b82f6" stroke-width="1"/>
+  <text x="40" y="177" font-family="system-ui" font-size="13" fill="#1A365D">● Reports (active)</text>
+
+  <rect x="8" y="200" width="204" height="40" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="225" font-family="system-ui" font-size="13" fill="#333333">○ Alert Center</text>
+
+  <rect x="8" y="248" width="204" height="40" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="273" font-family="system-ui" font-size="13" fill="#333333">○ Settings</text>
+
+  <text x="110" y="860" font-family="system-ui" font-size="11" fill="#a1a1aa" text-anchor="middle">Sidebar — Box (nav)</text>
+
+  <!-- Top Header -->
+  <rect x="220" y="36" width="1220" height="64" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="240" y="73" font-family="system-ui" font-size="13" fill="#333333">Home / Reports</text>
+  <rect x="1340" y="48" width="32" height="32" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1356" y="68" font-family="system-ui" font-size="16" fill="#333333" text-anchor="middle">🔔</text>
+  <circle cx="1369" cy="50" r="8" fill="#ef4444"/>
+  <text x="1369" y="54" font-family="system-ui" font-size="9" fill="white" text-anchor="middle">3</text>
+  <circle cx="1410" cy="68" r="20" fill="#e4e4e7" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1410" y="73" font-family="system-ui" font-size="12" fill="#333333" text-anchor="middle">JD</text>
+  <text x="830" y="80" font-family="system-ui" font-size="11" fill="#a1a1aa" text-anchor="middle">Header — Box + Avatar.Root + Button (ghost, icon)</text>
+
+  <!-- Table Toolbar -->
+  <rect x="228" y="108" width="1204" height="60" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="243" y="126" font-family="system-ui" font-size="11" fill="#71717a">Table Toolbar — Input + Button + Menu + Select</text>
+
+  <!-- Search input -->
+  <rect x="243" y="132" width="280" height="32" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="383" y="152" font-family="system-ui" font-size="12" fill="#a1a1aa" text-anchor="middle">🔍 Search records...</text>
+
+  <!-- Date range picker -->
+  <rect x="535" y="132" width="200" height="32" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="635" y="152" font-family="system-ui" font-size="12" fill="#71717a" text-anchor="middle">Jun 1 – Jun 17, 2026 ▾</text>
+
+  <!-- Column visibility menu -->
+  <rect x="747" y="132" width="140" height="32" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="817" y="152" font-family="system-ui" font-size="12" fill="#333333" text-anchor="middle">Columns ▾</text>
+
+  <!-- Export button -->
+  <rect x="899" y="132" width="100" height="32" fill="#3b82f6" stroke="#3b82f6" stroke-width="1"/>
+  <text x="949" y="152" font-family="system-ui" font-size="12" fill="white" text-anchor="middle">Export ↓</text>
+
+  <!-- Data Table -->
+  <rect x="228" y="176" width="1204" height="690" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="243" y="194" font-family="system-ui" font-size="11" fill="#71717a">Data Table — Table + Checkbox (row select)</text>
+
+  <!-- Table header row -->
+  <rect x="228" y="200" width="1204" height="36" fill="#f4f4f5" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Checkbox col header -->
+  <rect x="244" y="210" width="16" height="16" fill="white" stroke="#a1a1aa" stroke-width="1"/>
+  <text x="300" y="222" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Date ↑</text>
+  <text x="460" y="222" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Product</text>
+  <text x="640" y="222" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Region</text>
+  <text x="820" y="222" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Revenue</text>
+  <text x="980" y="222" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Conv. Rate</text>
+  <text x="1140" y="222" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Status</text>
+  <text x="1330" y="222" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Actions</text>
+
+  <!-- Data rows (8 rows) -->
+  <!-- Row 1 (selected) -->
+  <rect x="228" y="236" width="1204" height="40" fill="#eff6ff" stroke="#E0E0E0" stroke-width="0.5"/>
+  <rect x="244" y="246" width="16" height="16" fill="#3b82f6" stroke="#3b82f6" stroke-width="1"/>
+  <text x="255" y="258" font-family="system-ui" font-size="10" fill="white" text-anchor="middle">✓</text>
+  <text x="300" y="260" font-family="system-ui" font-size="12" fill="#333333">2026-06-17</text>
+  <text x="460" y="260" font-family="system-ui" font-size="12" fill="#333333">Analytics Pro</text>
+  <text x="640" y="260" font-family="system-ui" font-size="12" fill="#333333">North America</text>
+  <text x="820" y="260" font-family="system-ui" font-size="12" fill="#333333">$124,500</text>
+  <text x="980" y="260" font-family="system-ui" font-size="12" fill="#333333">4.21%</text>
+  <rect x="1120" y="244" width="56" height="20" fill="#f0fdf4" stroke="#22c55e" stroke-width="1"/>
+  <text x="1148" y="258" font-family="system-ui" font-size="11" fill="#22c55e" text-anchor="middle">Active</text>
+  <text x="1330" y="260" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">⋯</text>
+
+  <!-- Row 2 -->
+  <rect x="228" y="276" width="1204" height="40" fill="white" stroke="#E0E0E0" stroke-width="0.5"/>
+  <rect x="244" y="286" width="16" height="16" fill="white" stroke="#a1a1aa" stroke-width="1"/>
+  <text x="300" y="300" font-family="system-ui" font-size="12" fill="#333333">2026-06-16</text>
+  <text x="460" y="300" font-family="system-ui" font-size="12" fill="#333333">Dashboard SaaS</text>
+  <text x="640" y="300" font-family="system-ui" font-size="12" fill="#333333">Europe</text>
+  <text x="820" y="300" font-family="system-ui" font-size="12" fill="#333333">$98,200</text>
+  <text x="980" y="300" font-family="system-ui" font-size="12" fill="#333333">3.87%</text>
+  <rect x="1120" y="284" width="56" height="20" fill="#f0fdf4" stroke="#22c55e" stroke-width="1"/>
+  <text x="1148" y="298" font-family="system-ui" font-size="11" fill="#22c55e" text-anchor="middle">Active</text>
+  <text x="1330" y="300" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">⋯</text>
+
+  <!-- Row 3 -->
+  <rect x="228" y="316" width="1204" height="40" fill="white" stroke="#E0E0E0" stroke-width="0.5"/>
+  <rect x="244" y="326" width="16" height="16" fill="white" stroke="#a1a1aa" stroke-width="1"/>
+  <text x="300" y="340" font-family="system-ui" font-size="12" fill="#333333">2026-06-15</text>
+  <text x="460" y="340" font-family="system-ui" font-size="12" fill="#333333">BI Platform</text>
+  <text x="640" y="340" font-family="system-ui" font-size="12" fill="#333333">Asia Pacific</text>
+  <text x="820" y="340" font-family="system-ui" font-size="12" fill="#333333">$76,800</text>
+  <text x="980" y="340" font-family="system-ui" font-size="12" fill="#333333">2.95%</text>
+  <rect x="1120" y="324" width="72" height="20" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+  <text x="1156" y="338" font-family="system-ui" font-size="11" fill="#f97316" text-anchor="middle">At Risk</text>
+  <text x="1330" y="340" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">⋯</text>
+
+  <!-- Row 4 -->
+  <rect x="228" y="356" width="1204" height="40" fill="white" stroke="#E0E0E0" stroke-width="0.5"/>
+  <rect x="244" y="366" width="16" height="16" fill="white" stroke="#a1a1aa" stroke-width="1"/>
+  <text x="300" y="380" font-family="system-ui" font-size="12" fill="#333333">2026-06-14</text>
+  <text x="460" y="380" font-family="system-ui" font-size="12" fill="#333333">Analytics Pro</text>
+  <text x="640" y="380" font-family="system-ui" font-size="12" fill="#333333">Latin America</text>
+  <text x="820" y="380" font-family="system-ui" font-size="12" fill="#333333">$43,100</text>
+  <text x="980" y="380" font-family="system-ui" font-size="12" fill="#333333">1.72%</text>
+  <rect x="1120" y="364" width="56" height="20" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+  <text x="1148" y="378" font-family="system-ui" font-size="11" fill="#ef4444" text-anchor="middle">Churned</text>
+  <text x="1330" y="380" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">⋯</text>
+
+  <!-- Row 5 -->
+  <rect x="228" y="396" width="1204" height="40" fill="white" stroke="#E0E0E0" stroke-width="0.5"/>
+  <rect x="244" y="406" width="16" height="16" fill="white" stroke="#a1a1aa" stroke-width="1"/>
+  <text x="300" y="420" font-family="system-ui" font-size="12" fill="#333333">2026-06-13</text>
+  <text x="460" y="420" font-family="system-ui" font-size="12" fill="#333333">Dashboard SaaS</text>
+  <text x="640" y="420" font-family="system-ui" font-size="12" fill="#333333">North America</text>
+  <text x="820" y="420" font-family="system-ui" font-size="12" fill="#333333">$210,300</text>
+  <text x="980" y="420" font-family="system-ui" font-size="12" fill="#333333">5.63%</text>
+  <rect x="1120" y="404" width="56" height="20" fill="#f0fdf4" stroke="#22c55e" stroke-width="1"/>
+  <text x="1148" y="418" font-family="system-ui" font-size="11" fill="#22c55e" text-anchor="middle">Active</text>
+  <text x="1330" y="420" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">⋯</text>
+
+  <!-- Ellipsis rows indicator -->
+  <text x="830" y="460" font-family="system-ui" font-size="14" fill="#a1a1aa" text-anchor="middle">· · · additional rows · · ·</text>
+
+  <!-- Pagination -->
+  <rect x="228" y="830" width="1204" height="36" fill="#f4f4f5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="400" y="852" font-family="system-ui" font-size="12" fill="#333333">Showing 1–25 of 1,240 records</text>
+  <rect x="1200" y="838" width="64" height="22" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1232" y="853" font-family="system-ui" font-size="12" fill="#333333" text-anchor="middle">‹ Prev</text>
+  <rect x="1272" y="838" width="64" height="22" fill="#3b82f6" stroke="#3b82f6" stroke-width="1"/>
+  <text x="1304" y="853" font-family="system-ui" font-size="12" fill="white" text-anchor="middle">Next ›</text>
+</svg>

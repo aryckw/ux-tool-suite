@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "id": "data-analytics-dashboard",
-  "version": 3,
-  "fidelity_stage": "mockup",
+  "version": 2,
+  "fidelity_stage": "draft",
   "knowledge_pack_ref": {
     "library_name": "chakra-ui",
     "library_version": "3.36.0"

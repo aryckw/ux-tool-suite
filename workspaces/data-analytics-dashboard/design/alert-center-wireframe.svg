@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#F5F5F5"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="1440" height="36" fill="#2D3748"/>
+  <text x="720" y="24" font-family="system-ui" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Alert Center — Wireframe</text>
+
+  <!-- Left Sidebar (220px wide) -->
+  <rect x="0" y="36" width="220" height="864" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <!-- Logo area -->
+  <rect x="8" y="44" width="204" height="48" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="110" y="73" font-family="system-ui" font-size="14" font-weight="bold" fill="#333333" text-anchor="middle">AnalyticsPro Logo</text>
+
+  <!-- Nav items -->
+  <rect x="8" y="104" width="204" height="40" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="129" font-family="system-ui" font-size="13" fill="#333333">○ Dashboard</text>
+
+  <rect x="8" y="152" width="204" height="40" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="177" font-family="system-ui" font-size="13" fill="#333333">○ Reports</text>
+
+  <rect x="8" y="200" width="204" height="40" fill="#EBF8FF" stroke="#3b82f6" stroke-width="1"/>
+  <text x="40" y="225" font-family="system-ui" font-size="13" fill="#1A365D">● Alert Center (active)</text>
+
+  <rect x="8" y="248" width="204" height="40" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="273" font-family="system-ui" font-size="13" fill="#333333">○ Settings</text>
+
+  <text x="110" y="860" font-family="system-ui" font-size="11" fill="#a1a1aa" text-anchor="middle">Sidebar — Box (nav)</text>
+
+  <!-- Top Header -->
+  <rect x="220" y="36" width="1220" height="64" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="240" y="73" font-family="system-ui" font-size="13" fill="#333333">Home / Alert Center</text>
+  <rect x="1340" y="48" width="32" height="32" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1356" y="68" font-family="system-ui" font-size="16" fill="#333333" text-anchor="middle">🔔</text>
+  <circle cx="1369" cy="50" r="8" fill="#ef4444"/>
+  <text x="1369" y="54" font-family="system-ui" font-size="9" fill="white" text-anchor="middle">3</text>
+  <circle cx="1410" cy="68" r="20" fill="#e4e4e7" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1410" y="73" font-family="system-ui" font-size="12" fill="#333333" text-anchor="middle">JD</text>
+  <text x="830" y="80" font-family="system-ui" font-size="11" fill="#a1a1aa" text-anchor="middle">Header — Box + Avatar.Root + Button (ghost, icon)</text>
+
+  <!-- Alert Summary Bar -->
+  <rect x="228" y="108" width="780" height="80" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="243" y="126" font-family="system-ui" font-size="11" fill="#71717a">Alert Summary Bar — Badge (solid) x3</text>
+
+  <!-- Critical badge -->
+  <rect x="243" y="134" width="140" height="44" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+  <text x="313" y="153" font-family="system-ui" font-size="11" fill="#ef4444" text-anchor="middle" font-weight="bold">CRITICAL</text>
+  <text x="313" y="170" font-family="system-ui" font-size="20" fill="#ef4444" text-anchor="middle" font-weight="bold">3</text>
+
+  <!-- Warning badge -->
+  <rect x="397" y="134" width="140" height="44" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+  <text x="467" y="153" font-family="system-ui" font-size="11" fill="#f97316" text-anchor="middle" font-weight="bold">WARNING</text>
+  <text x="467" y="170" font-family="system-ui" font-size="20" fill="#f97316" text-anchor="middle" font-weight="bold">7</text>
+
+  <!-- Info badge -->
+  <rect x="551" y="134" width="140" height="44" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="621" y="153" font-family="system-ui" font-size="11" fill="#3b82f6" text-anchor="middle" font-weight="bold">INFO</text>
+  <text x="621" y="170" font-family="system-ui" font-size="20" fill="#3b82f6" text-anchor="middle" font-weight="bold">12</text>
+
+  <!-- Filter Tabs -->
+  <rect x="228" y="196" width="780" height="44" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="243" y="212" font-family="system-ui" font-size="11" fill="#71717a">Filter Tabs — Tabs.Root (line variant)</text>
+  <!-- Tab triggers -->
+  <rect x="243" y="216" width="80" height="22" fill="white" stroke="#3b82f6" stroke-width="0" stroke-dasharray="0"/>
+  <text x="283" y="230" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">All (22)</text>
+  <line x1="243" y1="238" x2="323" y2="238" stroke="#3b82f6" stroke-width="2"/>
+
+  <rect x="335" y="216" width="90" height="22" fill="white"/>
+  <text x="380" y="230" font-family="system-ui" font-size="12" fill="#71717a" text-anchor="middle">Critical (3)</text>
+
+  <rect x="437" y="216" width="96" height="22" fill="white"/>
+  <text x="485" y="230" font-family="system-ui" font-size="12" fill="#71717a" text-anchor="middle">Warning (7)</text>
+
+  <rect x="545" y="216" width="72" height="22" fill="white"/>
+  <text x="581" y="230" font-family="system-ui" font-size="12" fill="#71717a" text-anchor="middle">Info (12)</text>
+
+  <rect x="629" y="216" width="88" height="22" fill="white"/>
+  <text x="673" y="230" font-family="system-ui" font-size="12" fill="#71717a" text-anchor="middle">Resolved</text>
+
+  <!-- Alert List -->
+  <rect x="228" y="248" width="780" height="616" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="243" y="266" font-family="system-ui" font-size="11" fill="#71717a">Alert List — Alert.Root (Card-style) cards</text>
+
+  <!-- Alert Card 1: Critical -->
+  <rect x="240" y="274" width="756" height="100" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+  <rect x="240" y="274" width="4" height="100" fill="#ef4444"/>
+  <rect x="1208" y="285" width="72" height="22" fill="#ef4444" stroke="#ef4444" stroke-width="1"/>
+  <text x="1244" y="300" font-family="system-ui" font-size="11" fill="white" text-anchor="middle">CRITICAL</text>
+  <text x="264" y="298" font-family="system-ui" font-size="13" fill="#333333" font-weight="bold">Revenue threshold breached — $1.8M daily limit exceeded</text>
+  <text x="264" y="318" font-family="system-ui" font-size="12" fill="#71717a">Triggered: 2026-06-17 09:42 UTC · Metric: Revenue · Threshold: $1.8M/day</text>
+  <rect x="264" y="334" width="100" height="28" fill="#ef4444" stroke="#ef4444" stroke-width="1"/>
+  <text x="314" y="352" font-family="system-ui" font-size="12" fill="white" text-anchor="middle">Acknowledge</text>
+  <rect x="374" y="334" width="72" height="28" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="410" y="352" font-family="system-ui" font-size="12" fill="#333333" text-anchor="middle">Snooze</text>
+  <rect x="456" y="334" width="88" height="28" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="500" y="352" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">View Details →</text>
+
+  <!-- Alert Card 2: Warning -->
+  <rect x="240" y="382" width="756" height="100" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+  <rect x="240" y="382" width="4" height="100" fill="#f97316"/>
+  <rect x="1208" y="393" width="72" height="22" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="1244" y="408" font-family="system-ui" font-size="11" fill="white" text-anchor="middle">WARNING</text>
+  <text x="264" y="406" font-family="system-ui" font-size="13" fill="#333333" font-weight="bold">Churn rate approaching warning level — currently 2.4%</text>
+  <text x="264" y="426" font-family="system-ui" font-size="12" fill="#71717a">Triggered: 2026-06-16 14:15 UTC · Metric: Churn Rate · Threshold: 2.5%</text>
+  <rect x="264" y="442" width="100" height="28" fill="#f97316" stroke="#f97316" stroke-width="1"/>
+  <text x="314" y="460" font-family="system-ui" font-size="12" fill="white" text-anchor="middle">Acknowledge</text>
+  <rect x="374" y="442" width="72" height="28" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="410" y="460" font-family="system-ui" font-size="12" fill="#333333" text-anchor="middle">Snooze</text>
+  <rect x="456" y="442" width="88" height="28" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="500" y="460" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">View Details →</text>
+
+  <!-- Alert Card 3: Info -->
+  <rect x="240" y="490" width="756" height="100" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="240" y="490" width="4" height="100" fill="#3b82f6"/>
+  <rect x="1208" y="501" width="72" height="22" fill="#3b82f6" stroke="#3b82f6" stroke-width="1"/>
+  <text x="1244" y="516" font-family="system-ui" font-size="11" fill="white" text-anchor="middle">INFO</text>
+  <text x="264" y="514" font-family="system-ui" font-size="13" fill="#333333" font-weight="bold">Active users spike detected — +2,100 new sessions in 1 hour</text>
+  <text x="264" y="534" font-family="system-ui" font-size="12" fill="#71717a">Triggered: 2026-06-15 11:30 UTC · Metric: Active Users · Normal range</text>
+  <rect x="264" y="550" width="100" height="28" fill="#3b82f6" stroke="#3b82f6" stroke-width="1"/>
+  <text x="314" y="568" font-family="system-ui" font-size="12" fill="white" text-anchor="middle">Acknowledge</text>
+  <rect x="374" y="550" width="72" height="28" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="410" y="568" font-family="system-ui" font-size="12" fill="#333333" text-anchor="middle">Snooze</text>
+  <rect x="456" y="550" width="88" height="28" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="500" y="568" font-family="system-ui" font-size="12" fill="#3b82f6" text-anchor="middle">View Details →</text>
+
+  <!-- More alert rows ellipsis -->
+  <text x="618" y="620" font-family="system-ui" font-size="13" fill="#a1a1aa" text-anchor="middle">· · · additional alerts · · ·</text>
+
+  <!-- Right Panel: Alert Detail Drawer (visible as panel on wireframe) -->
+  <rect x="1016" y="108" width="416" height="756" fill="white" stroke="#3b82f6" stroke-width="2"/>
+  <!-- Drawer header -->
+  <rect x="1016" y="108" width="416" height="56" fill="#f4f4f5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1031" y="130" font-family="system-ui" font-size="13" fill="#333333" font-weight="bold">Alert Detail</text>
+  <text x="1031" y="150" font-family="system-ui" font-size="11" fill="#71717a">Drawer.Root (placement=end)</text>
+  <text x="1416" y="137" font-family="system-ui" font-size="14" fill="#71717a" text-anchor="middle">✕</text>
+
+  <!-- Drawer body -->
+  <rect x="1031" y="174" width="385" height="64" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+  <text x="1048" y="196" font-family="system-ui" font-size="13" fill="#ef4444" font-weight="bold">CRITICAL — Revenue Breach</text>
+  <text x="1048" y="214" font-family="system-ui" font-size="11" fill="#333333">$2.4M daily revenue — limit $1.8M</text>
+  <text x="1048" y="230" font-family="system-ui" font-size="11" fill="#71717a">Triggered: 2026-06-17 09:42 UTC</text>
+
+  <!-- Metric detail section -->
+  <text x="1031" y="262" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Metric: Revenue</text>
+  <rect x="1031" y="270" width="385" height="80" fill="#f4f4f5" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1224" y="315" font-family="system-ui" font-size="12" fill="#a1a1aa" text-anchor="middle">Mini trend chart (recharts — GAP)</text>
+
+  <!-- Alert history -->
+  <text x="1031" y="372" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Alert History</text>
+  <rect x="1031" y="380" width="385" height="100" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1048" y="400" font-family="system-ui" font-size="11" fill="#333333">09:42 UTC — Alert triggered</text>
+  <text x="1048" y="420" font-family="system-ui" font-size="11" fill="#71717a">09:45 UTC — Escalated to team lead</text>
+  <text x="1048" y="440" font-family="system-ui" font-size="11" fill="#71717a">09:50 UTC — Notification sent</text>
+  <text x="1048" y="460" font-family="system-ui" font-size="11" fill="#71717a">...</text>
+
+  <!-- Assignee section -->
+  <text x="1031" y="502" font-family="system-ui" font-size="12" fill="#333333" font-weight="bold">Assignee</text>
+  <circle cx="1055" cy="525" r="16" fill="#e4e4e7" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1055" y="530" font-family="system-ui" font-size="10" fill="#333333" text-anchor="middle">JD</text>
+  <text x="1080" y="528" font-family="system-ui" font-size="12" fill="#333333">Jane Doe (Analyst)</text>
+
+  <!-- Drawer footer actions -->
+  <rect x="1016" y="816" width="416" height="48" fill="#f4f4f5" stroke="#E0E0E0" stroke-width="1"/>
+  <rect x="1031" y="826" width="120" height="28" fill="#ef4444" stroke="#ef4444" stroke-width="1"/>
+  <text x="1091" y="844" font-family="system-ui" font-size="12" fill="white" text-anchor="middle">Acknowledge</text>
+  <rect x="1163" y="826" width="80" height="28" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1203" y="844" font-family="system-ui" font-size="12" fill="#333333" text-anchor="middle">Snooze</text>
+  <rect x="1255" y="826" width="80" height="28" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="1295" y="844" font-family="system-ui" font-size="12" fill="#71717a" text-anchor="middle">Dismiss</text>
+</svg>
