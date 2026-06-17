@@ -1,10 +1,10 @@
 {
   "latestErrorEvent": {
     "code": "TYPE-001",
-    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx tsc --project /home/user/ux-tool-suite/workspaces/task-manager/prototype/packages/board/node_modules/.federation/tsconfig.813f963d2270ef6a036c157519b5e208.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
+    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx tsc --project /home/user/ux-tool-suite/workspaces/task-manager/prototype/packages/board/node_modules/.federation/tsconfig.e9770c9dc64581aff05429672b363469.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
     "args": {
-      "cmd": "npx tsc --project /home/user/ux-tool-suite/workspaces/task-manager/prototype/packages/board/node_modules/.federation/tsconfig.813f963d2270ef6a036c157519b5e208.json"
+      "cmd": "npx tsc --project /home/user/ux-tool-suite/workspaces/task-manager/prototype/packages/board/node_modules/.federation/tsconfig.e9770c9dc64581aff05429672b363469.json"
     },
-    "timestamp": 1781571519243
+    "timestamp": 1781715358862
   }
 }
