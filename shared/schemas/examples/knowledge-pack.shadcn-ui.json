@@ -1,0 +1,2168 @@
+{
+  "$schema": "https://company.example/schemas/knowledge-pack.schema.json",
+  "meta": {
+    "library_name": "shadcn-ui",
+    "library_version": "v4 (canary, Tailwind v4 / React 19)",
+    "source_commit": "main",
+    "generated_at": "2026-06-17T00:00:00Z",
+    "extractor_version": "0.1.0",
+    "coverage_confidence": 0.85
+  },
+  "tech_stack": {
+    "framework": {
+      "name": "react",
+      "version": ">=18"
+    },
+    "language": "ts",
+    "bundler": "vite",
+    "package_manager": "pnpm",
+    "node_version": ">=18.0.0",
+    "styling_system": "tailwind",
+    "peer_dependencies": [
+      "react@>=18",
+      "react-dom@>=18",
+      "tailwindcss@^4",
+      "radix-ui@^1.4",
+      "class-variance-authority@^0.7",
+      "clsx@^2",
+      "tailwind-merge@^2",
+      "lucide-react@^0.400",
+      "next-themes@^0.4"
+    ],
+    "build_commands": {
+      "dev": "pnpm dev",
+      "build": "pnpm build",
+      "test": "pnpm test"
+    },
+    "supported_targets": [
+      "web",
+      "ssr",
+      "next.js",
+      "vite",
+      "remix",
+      "astro"
+    ]
+  },
+  "design_tokens": {
+    "source": {
+      "file": "apps/v4/app/globals.css",
+      "format": "css-custom-properties"
+    },
+    "color": {
+      "light": {
+        "--background": "oklch(1 0 0)",
+        "--foreground": "oklch(0% 0 0)",
+        "--card": "oklch(1 0 0)",
+        "--card-foreground": "oklch(0% 0 0)",
+        "--popover": "oklch(1 0 0)",
+        "--popover-foreground": "oklch(0% 0 0)",
+        "--primary": "oklch(0% 0 0)",
+        "--primary-foreground": "oklch(0.985 0 0)",
+        "--secondary": "oklch(0.97 0 0)",
+        "--secondary-foreground": "oklch(0.205 0 0)",
+        "--muted": "oklch(0.97 0 0)",
+        "--muted-foreground": "oklch(0.556 0 0)",
+        "--accent": "oklch(0.97 0 0)",
+        "--accent-foreground": "oklch(0.205 0 0)",
+        "--destructive": "oklch(0.577 0.245 27.325)",
+        "--destructive-foreground": "oklch(0.97 0.01 17)",
+        "--border": "oklch(0.922 0 0)",
+        "--input": "oklch(0.922 0 0)",
+        "--ring": "oklch(0.708 0 0)",
+        "--sidebar": "oklch(0.985 0 0)",
+        "--sidebar-foreground": "oklch(0% 0 0)",
+        "--sidebar-primary": "oklch(0.205 0 0)",
+        "--sidebar-primary-foreground": "oklch(0.985 0 0)",
+        "--sidebar-accent": "oklch(0.97 0 0)",
+        "--sidebar-accent-foreground": "oklch(0.205 0 0)",
+        "--sidebar-border": "oklch(0.922 0 0)",
+        "--sidebar-ring": "oklch(0.708 0 0)"
+      },
+      "dark": {
+        "--background": "oklch(0.145 0 0)",
+        "--foreground": "oklch(0.985 0 0)",
+        "--card": "oklch(0.205 0 0)",
+        "--card-foreground": "oklch(0.985 0 0)",
+        "--popover": "oklch(0.205 0 0)",
+        "--popover-foreground": "oklch(0.985 0 0)",
+        "--primary": "oklch(0.922 0 0)",
+        "--primary-foreground": "oklch(0.205 0 0)",
+        "--secondary": "oklch(0.269 0 0)",
+        "--secondary-foreground": "oklch(0.985 0 0)",
+        "--muted": "oklch(0.269 0 0)",
+        "--muted-foreground": "oklch(0.708 0 0)",
+        "--accent": "oklch(0.371 0 0)",
+        "--accent-foreground": "oklch(0.985 0 0)",
+        "--destructive": "oklch(0.704 0.191 22.216)",
+        "--destructive-foreground": "oklch(0.58 0.22 27)",
+        "--border": "oklch(1 0 0 / 10%)",
+        "--input": "oklch(1 0 0 / 15%)",
+        "--ring": "oklch(0.556 0 0)",
+        "--sidebar": "oklch(0.205 0 0)",
+        "--sidebar-foreground": "oklch(0.985 0 0)",
+        "--sidebar-primary": "oklch(0.488 0.243 264.376)",
+        "--sidebar-primary-foreground": "oklch(0.985 0 0)",
+        "--sidebar-accent": "oklch(0.269 0 0)",
+        "--sidebar-accent-foreground": "oklch(0.985 0 0)",
+        "--sidebar-border": "oklch(1 0 0 / 10%)",
+        "--sidebar-ring": "oklch(0.439 0 0)"
+      }
+    },
+    "radius": {
+      "--radius": "0.625rem"
+    }
+  },
+  "design_principles": {
+    "principles": [
+      "Copy-paste ownership: components are copied into your project via CLI, not imported from npm — you own the source",
+      "Radix UI primitives provide accessible behavior; shadcn adds Tailwind styling on top",
+      "Tailwind CSS v4 + CSS custom properties (oklch) for all design tokens",
+      "class-variance-authority (CVA) for type-safe variant props",
+      "cn() utility (clsx + tailwind-merge) for conditional className composition",
+      "data-slot attributes on every component enable precise CSS targeting without hacks",
+      "Dark mode via next-themes ThemeProvider with attribute='class' — toggled by adding 'dark' class to <html>"
+    ],
+    "voice_tone": "developer-focused and minimal",
+    "density": "comfortable",
+    "layout_grids": [
+      "Tailwind CSS grid and flex utilities — no grid system built-in",
+      "Sidebar component for app shell layouts"
+    ],
+    "brand_constraints": "Design tokens defined as CSS custom properties in globals.css; swap themes by changing token values",
+    "do": [
+      "Run `npx shadcn@latest add <component>` to copy component into components/ui/",
+      "Import components from '@/components/ui/<name>' (path alias required in tsconfig)",
+      "Use cn() from '@/lib/utils' for conditional className merging",
+      "Wrap app with ThemeProvider from next-themes for dark mode support",
+      "Use the Form component (react-hook-form wrapper) for accessible form validation"
+    ],
+    "dont": [
+      "Don't import from an npm package — shadcn components are local files in your project",
+      "Don't modify Radix primitives directly — wrap or extend via className and data-slot targeting",
+      "Don't skip the cn() utility — raw className concatenation breaks Tailwind deduplication",
+      "Don't forget to configure path alias '@' in tsconfig.json pointing to './src' or '.'"
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "aliases": ["btn", "cta", "action-button", "icon-button"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Button",
+        "path": "@/components/ui/button"
+      },
+      "anatomy": {
+        "parts": ["Button"]
+      },
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "default",
+          "enum": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+          "description": "Visual style variant"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "default",
+          "enum": ["default", "xs", "sm", "lg", "icon", "icon-xs", "icon-sm", "icon-lg"],
+          "description": "Button size controlling height, padding, and font size"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Render as child element via Radix Slot (polymorphic)"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables button interaction"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes merged via cn()"
+        }
+      ],
+      "variants": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+      "states": ["default", "hover", "focus", "active", "disabled"],
+      "behaviors": [
+        { "trigger": "click", "result": "Fires onClick handler; no-op when disabled" },
+        { "trigger": "asChild=true", "result": "Renders as immediate child element via Radix Slot.Root" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter", "action": "Activates the button" },
+        { "key": "Space", "action": "Activates the button" },
+        { "key": "Tab", "action": "Moves focus to next focusable element" }
+      ],
+      "accessibility": {
+        "role": "button",
+        "aria": ["aria-disabled (when disabled)"],
+        "focus_management": "Receives focus via Tab; focus-visible ring rendered with ring-ring color",
+        "wcag_notes": "SC 4.1.2 requires accessible name; use aria-label for icon-only buttons"
+      },
+      "composition": {
+        "composed_of": ["Radix Slot"],
+        "commonly_used_with": ["Dialog", "Sheet", "Card", "Form", "DropdownMenu"]
+      },
+      "examples": [
+        {
+          "title": "Default Button",
+          "code": "import { Button } from '@/components/ui/button'\n\n<Button>Click me</Button>"
+        },
+        {
+          "title": "Variants",
+          "code": "import { Button } from '@/components/ui/button'\n\n<Button variant=\"outline\">Outline</Button>\n<Button variant=\"destructive\">Delete</Button>\n<Button variant=\"ghost\">Ghost</Button>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/button.tsx"
+      ]
+    },
+    {
+      "name": "Input",
+      "aliases": ["text-input", "text-field"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Input",
+        "path": "@/components/ui/input"
+      },
+      "anatomy": {
+        "parts": ["Input"]
+      },
+      "props": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": false,
+          "default": "text",
+          "description": "HTML input type attribute"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the input"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "focus", "disabled", "invalid"],
+      "behaviors": [
+        { "trigger": "aria-invalid=true", "result": "Applies destructive border color via aria-invalid:border-destructive" },
+        { "trigger": "focus", "result": "Shows focus ring via focus-visible:border-ring" }
+      ],
+      "keyboard_map": [
+        { "key": "Tab", "action": "Moves focus into/out of the input" }
+      ],
+      "accessibility": {
+        "role": "textbox",
+        "aria": ["aria-invalid (when invalid)", "aria-label or aria-labelledby (required)", "aria-describedby (for helper/error text)"],
+        "focus_management": "Receives focus via Tab; visible focus ring; use Label component to associate label",
+        "wcag_notes": "SC 4.1.2 requires programmatic label; pair with Label component"
+      },
+      "composition": {
+        "composed_of": [],
+        "commonly_used_with": ["Label", "Form", "Button"]
+      },
+      "examples": [
+        {
+          "title": "Input with Label",
+          "code": "import { Input } from '@/components/ui/input'\nimport { Label } from '@/components/ui/label'\n\n<div className=\"grid gap-2\">\n  <Label htmlFor=\"email\">Email</Label>\n  <Input id=\"email\" type=\"email\" placeholder=\"Enter email\" />\n</div>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/input.tsx"
+      ]
+    },
+    {
+      "name": "Textarea",
+      "aliases": ["text-area", "multiline-input"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Textarea",
+        "path": "@/components/ui/textarea"
+      },
+      "anatomy": {
+        "parts": ["Textarea"]
+      },
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the textarea"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "focus", "disabled", "invalid"],
+      "behaviors": [
+        { "trigger": "focus", "result": "Shows focus ring" },
+        { "trigger": "disabled", "result": "Prevents interaction" }
+      ],
+      "keyboard_map": [
+        { "key": "Tab", "action": "Moves focus into/out of textarea" }
+      ],
+      "accessibility": {
+        "role": "textbox",
+        "aria": ["aria-label or aria-labelledby (required)", "aria-multiline=true (implicit)"],
+        "focus_management": "Receives focus via Tab; pair with Label for accessible name",
+        "wcag_notes": "SC 4.1.2 requires accessible name"
+      },
+      "composition": {
+        "composed_of": [],
+        "commonly_used_with": ["Label", "Form"]
+      },
+      "examples": [
+        {
+          "title": "Basic Textarea",
+          "code": "import { Textarea } from '@/components/ui/textarea'\nimport { Label } from '@/components/ui/label'\n\n<div className=\"grid gap-2\">\n  <Label htmlFor=\"message\">Message</Label>\n  <Textarea id=\"message\" placeholder=\"Type your message\" />\n</div>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/textarea.tsx"
+      ]
+    },
+    {
+      "name": "Label",
+      "aliases": ["form-label"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Label",
+        "path": "@/components/ui/label"
+      },
+      "anatomy": {
+        "parts": ["Label"]
+      },
+      "props": [
+        {
+          "name": "htmlFor",
+          "type": "string",
+          "required": false,
+          "description": "Associates label with a form control by ID"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "disabled"],
+      "behaviors": [
+        { "trigger": "peer-disabled", "result": "Reduces opacity via peer-disabled: Tailwind variant" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "label",
+        "aria": ["for / htmlFor (required to associate with control)"],
+        "focus_management": "Not focusable; clicking label focuses associated control",
+        "wcag_notes": "SC 1.3.1 requires programmatic association between label and control"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-label via radix-ui"],
+        "commonly_used_with": ["Input", "Checkbox", "RadioGroup", "Switch", "Select"]
+      },
+      "examples": [
+        {
+          "title": "Label with Input",
+          "code": "import { Label } from '@/components/ui/label'\nimport { Input } from '@/components/ui/input'\n\n<Label htmlFor=\"name\">Name</Label>\n<Input id=\"name\" />"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/label.tsx"
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "aliases": ["check", "checkbox-input"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Checkbox",
+        "path": "@/components/ui/checkbox"
+      },
+      "anatomy": {
+        "parts": ["Checkbox", "CheckboxIndicator"]
+      },
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean | 'indeterminate'",
+          "required": false,
+          "description": "Controlled checked state"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial checked state"
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(checked: boolean | 'indeterminate') => void",
+          "required": false,
+          "description": "Callback when checked state changes"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the checkbox"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "checked", "unchecked", "indeterminate", "hover", "focus", "disabled"],
+      "behaviors": [
+        { "trigger": "click / Space", "result": "Toggles checked state; fires onCheckedChange" },
+        { "trigger": "checked='indeterminate'", "result": "Shows minus icon indicator" }
+      ],
+      "keyboard_map": [
+        { "key": "Space", "action": "Toggles checked state" },
+        { "key": "Tab", "action": "Moves focus to/from checkbox" }
+      ],
+      "accessibility": {
+        "role": "checkbox",
+        "aria": ["aria-checked (true | false | mixed)", "aria-disabled", "aria-required"],
+        "focus_management": "Receives focus via Tab; focus-visible ring on control element",
+        "wcag_notes": "SC 4.1.2; native Radix hidden input preserves form compatibility"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-checkbox via radix-ui", "lucide-react CheckIcon"],
+        "commonly_used_with": ["Label", "Form"]
+      },
+      "examples": [
+        {
+          "title": "Checkbox with Label",
+          "code": "import { Checkbox } from '@/components/ui/checkbox'\nimport { Label } from '@/components/ui/label'\n\n<div className=\"flex items-center gap-2\">\n  <Checkbox id=\"terms\" />\n  <Label htmlFor=\"terms\">Accept terms</Label>\n</div>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/checkbox.tsx"
+      ]
+    },
+    {
+      "name": "RadioGroup",
+      "aliases": ["radio", "radio-group", "radio-buttons"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "RadioGroup",
+        "path": "@/components/ui/radio-group"
+      },
+      "anatomy": {
+        "parts": ["RadioGroup", "RadioGroupItem"]
+      },
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled selected value"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Uncontrolled initial selected value"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback on value change"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables all radio items"
+        },
+        {
+          "name": "orientation",
+          "type": "string",
+          "required": false,
+          "default": "vertical",
+          "enum": ["horizontal", "vertical"],
+          "description": "Layout direction"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "selected", "unselected", "hover", "focus", "disabled"],
+      "behaviors": [
+        { "trigger": "item clicked / Space", "result": "Selects item; fires onValueChange" },
+        { "trigger": "Arrow keys", "result": "Navigates between items and selects" }
+      ],
+      "keyboard_map": [
+        { "key": "ArrowDown / ArrowRight", "action": "Selects next radio item" },
+        { "key": "ArrowUp / ArrowLeft", "action": "Selects previous radio item" },
+        { "key": "Tab", "action": "Moves focus to/from group" }
+      ],
+      "accessibility": {
+        "role": "radiogroup",
+        "aria": ["role=radiogroup (root)", "role=radio (items)", "aria-checked", "aria-disabled"],
+        "focus_management": "Tab enters group; arrow keys move between items",
+        "wcag_notes": "SC 4.1.2; group label via aria-label or aria-labelledby on root"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-radio-group via radix-ui", "lucide-react CircleIcon"],
+        "commonly_used_with": ["Label", "Form"]
+      },
+      "examples": [
+        {
+          "title": "Basic RadioGroup",
+          "code": "import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'\nimport { Label } from '@/components/ui/label'\n\n<RadioGroup defaultValue=\"react\">\n  <div className=\"flex items-center gap-2\">\n    <RadioGroupItem value=\"react\" id=\"r1\" />\n    <Label htmlFor=\"r1\">React</Label>\n  </div>\n  <div className=\"flex items-center gap-2\">\n    <RadioGroupItem value=\"vue\" id=\"r2\" />\n    <Label htmlFor=\"r2\">Vue</Label>\n  </div>\n</RadioGroup>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/radio-group.tsx"
+      ]
+    },
+    {
+      "name": "Switch",
+      "aliases": ["toggle-switch", "on-off-toggle"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Switch",
+        "path": "@/components/ui/switch"
+      },
+      "anatomy": {
+        "parts": ["Switch", "SwitchThumb"]
+      },
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled checked state"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial state"
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(checked: boolean) => void",
+          "required": false,
+          "description": "Callback on state change"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the switch"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "default",
+          "enum": ["default", "sm"],
+          "description": "Switch size"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "checked", "unchecked", "hover", "focus", "disabled"],
+      "behaviors": [
+        { "trigger": "click / Space", "result": "Toggles state; fires onCheckedChange; thumb slides" }
+      ],
+      "keyboard_map": [
+        { "key": "Space", "action": "Toggles switch state" },
+        { "key": "Tab", "action": "Moves focus to/from the switch" }
+      ],
+      "accessibility": {
+        "role": "switch",
+        "aria": ["role=switch", "aria-checked (true | false)", "aria-disabled", "aria-label or aria-labelledby"],
+        "focus_management": "Receives focus via Tab; focus-visible ring on control",
+        "wcag_notes": "SC 4.1.2; role=switch extends checkbox semantics for on/off toggles"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-switch via radix-ui"],
+        "commonly_used_with": ["Label", "Form"]
+      },
+      "examples": [
+        {
+          "title": "Switch with Label",
+          "code": "import { Switch } from '@/components/ui/switch'\nimport { Label } from '@/components/ui/label'\n\n<div className=\"flex items-center gap-2\">\n  <Switch id=\"notifications\" />\n  <Label htmlFor=\"notifications\">Enable notifications</Label>\n</div>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/switch.tsx"
+      ]
+    },
+    {
+      "name": "Select",
+      "aliases": ["dropdown-select", "combobox-select"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Select",
+        "path": "@/components/ui/select"
+      },
+      "anatomy": {
+        "parts": [
+          "Select",
+          "SelectTrigger",
+          "SelectValue",
+          "SelectContent",
+          "SelectItem",
+          "SelectGroup",
+          "SelectLabel",
+          "SelectSeparator",
+          "SelectScrollUpButton",
+          "SelectScrollDownButton"
+        ]
+      },
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled selected value"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Uncontrolled initial value"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback on selection change"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the select"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "open", "closed", "disabled", "invalid"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Opens dropdown listbox" },
+        { "trigger": "item selected", "result": "Updates value, closes dropdown, fires onValueChange" },
+        { "trigger": "Escape key", "result": "Closes dropdown" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter / Space", "action": "Opens select; selects highlighted item" },
+        { "key": "ArrowDown", "action": "Opens select; moves highlight to next item" },
+        { "key": "ArrowUp", "action": "Moves highlight to previous item" },
+        { "key": "Escape", "action": "Closes the dropdown" }
+      ],
+      "accessibility": {
+        "role": "combobox",
+        "aria": ["role=combobox (trigger)", "role=listbox (content)", "role=option (items)", "aria-expanded", "aria-haspopup=listbox"],
+        "focus_management": "Focus stays on trigger; aria-activedescendant tracks active item",
+        "wcag_notes": "SC 4.1.2; use Label component for accessible name"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-select via radix-ui", "lucide-react ChevronUpIcon ChevronDownIcon CheckIcon"],
+        "commonly_used_with": ["Label", "Form"]
+      },
+      "examples": [
+        {
+          "title": "Basic Select",
+          "code": "import {\n  Select, SelectContent, SelectItem,\n  SelectTrigger, SelectValue\n} from '@/components/ui/select'\n\n<Select>\n  <SelectTrigger className=\"w-[180px]\">\n    <SelectValue placeholder=\"Select framework\" />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value=\"react\">React</SelectItem>\n    <SelectItem value=\"vue\">Vue</SelectItem>\n    <SelectItem value=\"svelte\">Svelte</SelectItem>\n  </SelectContent>\n</Select>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/select.tsx"
+      ]
+    },
+    {
+      "name": "Slider",
+      "aliases": ["range-slider", "range-input"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Slider",
+        "path": "@/components/ui/slider"
+      },
+      "anatomy": {
+        "parts": ["Slider", "SliderTrack", "SliderRange", "SliderThumb"]
+      },
+      "props": [
+        {
+          "name": "value",
+          "type": "number[]",
+          "required": false,
+          "description": "Controlled value(s)"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number[]",
+          "required": false,
+          "description": "Uncontrolled initial value(s)"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": 0,
+          "description": "Minimum value"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": 100,
+          "description": "Maximum value"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": 1,
+          "description": "Step increment"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disables the slider"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: number[]) => void",
+          "required": false,
+          "description": "Callback on value change"
+        },
+        {
+          "name": "orientation",
+          "type": "string",
+          "required": false,
+          "default": "horizontal",
+          "enum": ["horizontal", "vertical"],
+          "description": "Slider orientation"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "hover", "focus", "disabled"],
+      "behaviors": [
+        { "trigger": "drag thumb", "result": "Updates value; fires onValueChange" },
+        { "trigger": "click on track", "result": "Jumps value to clicked position" }
+      ],
+      "keyboard_map": [
+        { "key": "ArrowRight / ArrowUp", "action": "Increases value by step" },
+        { "key": "ArrowLeft / ArrowDown", "action": "Decreases value by step" },
+        { "key": "Home", "action": "Sets value to minimum" },
+        { "key": "End", "action": "Sets value to maximum" }
+      ],
+      "accessibility": {
+        "role": "slider",
+        "aria": ["role=slider", "aria-valuenow", "aria-valuemin", "aria-valuemax", "aria-disabled"],
+        "focus_management": "Thumb receives focus via Tab; arrow keys adjust value",
+        "wcag_notes": "SC 4.1.2; provide aria-label or aria-labelledby for accessible name"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-slider via radix-ui"],
+        "commonly_used_with": ["Label", "Form"]
+      },
+      "examples": [
+        {
+          "title": "Basic Slider",
+          "code": "import { Slider } from '@/components/ui/slider'\n\n<Slider defaultValue={[50]} max={100} step={1} className=\"w-[60%]\" />"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/slider.tsx"
+      ]
+    },
+    {
+      "name": "Card",
+      "aliases": ["content-card", "panel"],
+      "category": "display",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Card",
+        "path": "@/components/ui/card"
+      },
+      "anatomy": {
+        "parts": ["Card", "CardHeader", "CardTitle", "CardDescription", "CardContent", "CardFooter", "CardAction"]
+      },
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default"],
+      "behaviors": [],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "region (when aria-label provided) or generic",
+        "aria": ["aria-label (recommended when used as landmark region)"],
+        "focus_management": "Not focusable; interactive children manage their own focus",
+        "wcag_notes": "SC 1.3.6 if used as landmark, provide accessible name"
+      },
+      "composition": {
+        "composed_of": [],
+        "commonly_used_with": ["Button", "Badge", "Avatar"]
+      },
+      "examples": [
+        {
+          "title": "Basic Card",
+          "code": "import {\n  Card, CardContent, CardDescription,\n  CardFooter, CardHeader, CardTitle\n} from '@/components/ui/card'\nimport { Button } from '@/components/ui/button'\n\n<Card className=\"w-[350px]\">\n  <CardHeader>\n    <CardTitle>Card Title</CardTitle>\n    <CardDescription>Card description text.</CardDescription>\n  </CardHeader>\n  <CardContent>\n    <p>Card body content here.</p>\n  </CardContent>\n  <CardFooter>\n    <Button>Action</Button>\n  </CardFooter>\n</Card>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/card.tsx"
+      ]
+    },
+    {
+      "name": "Badge",
+      "aliases": ["tag", "chip", "label-badge"],
+      "category": "display",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Badge",
+        "path": "@/components/ui/badge"
+      },
+      "anatomy": {
+        "parts": ["Badge"]
+      },
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "default",
+          "enum": ["default", "secondary", "destructive", "outline", "ghost", "link"],
+          "description": "Visual style variant"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Render as child via Radix Slot"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": ["default", "secondary", "destructive", "outline", "ghost", "link"],
+      "states": ["default"],
+      "behaviors": [],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "status or generic (depends on context)",
+        "aria": ["aria-label (when badge conveys non-text meaning)"],
+        "focus_management": "Not focusable",
+        "wcag_notes": "SC 1.4.1 color must not be the sole means of conveying information"
+      },
+      "composition": {
+        "composed_of": ["Radix Slot (when asChild=true)"],
+        "commonly_used_with": ["Avatar", "Card", "Table"]
+      },
+      "examples": [
+        {
+          "title": "Badge Variants",
+          "code": "import { Badge } from '@/components/ui/badge'\n\n<Badge>Default</Badge>\n<Badge variant=\"secondary\">Secondary</Badge>\n<Badge variant=\"destructive\">Destructive</Badge>\n<Badge variant=\"outline\">Outline</Badge>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/badge.tsx"
+      ]
+    },
+    {
+      "name": "Avatar",
+      "aliases": ["user-avatar", "profile-picture"],
+      "category": "display",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Avatar",
+        "path": "@/components/ui/avatar"
+      },
+      "anatomy": {
+        "parts": ["Avatar", "AvatarImage", "AvatarFallback", "AvatarBadge", "AvatarGroup", "AvatarGroupCount"]
+      },
+      "props": [
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "default",
+          "enum": ["sm", "default", "lg"],
+          "description": "Avatar size"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["image-loaded", "image-error", "fallback"],
+      "behaviors": [
+        { "trigger": "image fails to load", "result": "Shows AvatarFallback (initials or icon)" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "img",
+        "aria": ["alt (on AvatarImage)", "aria-label (on Avatar when used as interactive element)"],
+        "focus_management": "Not focusable unless wrapped in interactive element",
+        "wcag_notes": "SC 1.1.1 requires text alternative; provide alt text on AvatarImage or aria-label on wrapper"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-avatar via radix-ui"],
+        "commonly_used_with": ["Card", "Badge", "NavigationMenu"]
+      },
+      "examples": [
+        {
+          "title": "Avatar with Fallback",
+          "code": "import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'\n\n<Avatar>\n  <AvatarImage src=\"https://example.com/photo.jpg\" alt=\"Jane Doe\" />\n  <AvatarFallback>JD</AvatarFallback>\n</Avatar>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/avatar.tsx"
+      ]
+    },
+    {
+      "name": "Alert",
+      "aliases": ["notification-banner", "message-box"],
+      "category": "feedback",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Alert",
+        "path": "@/components/ui/alert"
+      },
+      "anatomy": {
+        "parts": ["Alert", "AlertTitle", "AlertDescription"]
+      },
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "required": false,
+          "default": "default",
+          "enum": ["default", "destructive"],
+          "description": "Visual style; destructive shows red text"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": ["default", "destructive"],
+      "states": ["default"],
+      "behaviors": [
+        { "trigger": "rendered with icon SVG", "result": "Grid layout adjusts to accommodate icon in column 1" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "alert",
+        "aria": ["role=alert (built-in; creates live region)"],
+        "focus_management": "Static; not focusable; role=alert announces dynamically inserted content",
+        "wcag_notes": "SC 4.1.3 status messages must be programmatically determinable"
+      },
+      "composition": {
+        "composed_of": [],
+        "commonly_used_with": ["Button", "Dialog", "Form"]
+      },
+      "examples": [
+        {
+          "title": "Default Alert",
+          "code": "import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'\nimport { InfoIcon } from 'lucide-react'\n\n<Alert>\n  <InfoIcon className=\"h-4 w-4\" />\n  <AlertTitle>Heads up!</AlertTitle>\n  <AlertDescription>You can change this in settings.</AlertDescription>\n</Alert>"
+        },
+        {
+          "title": "Destructive Alert",
+          "code": "import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'\nimport { OctagonXIcon } from 'lucide-react'\n\n<Alert variant=\"destructive\">\n  <OctagonXIcon className=\"h-4 w-4\" />\n  <AlertTitle>Error</AlertTitle>\n  <AlertDescription>Something went wrong.</AlertDescription>\n</Alert>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/alert.tsx"
+      ]
+    },
+    {
+      "name": "Progress",
+      "aliases": ["progress-bar", "loading-bar"],
+      "category": "feedback",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Progress",
+        "path": "@/components/ui/progress"
+      },
+      "anatomy": {
+        "parts": ["Progress", "ProgressIndicator"]
+      },
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "default": 0,
+          "description": "Progress percentage (0-100)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "indeterminate"],
+      "behaviors": [
+        { "trigger": "value changes", "result": "Indicator width animates via translateX transform" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "progressbar",
+        "aria": ["role=progressbar", "aria-valuenow", "aria-valuemin=0", "aria-valuemax=100"],
+        "focus_management": "Not focusable",
+        "wcag_notes": "SC 4.1.2 requires name; provide aria-label for accessible name"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-progress via radix-ui"],
+        "commonly_used_with": ["Skeleton", "Card"]
+      },
+      "examples": [
+        {
+          "title": "Basic Progress",
+          "code": "import { Progress } from '@/components/ui/progress'\n\n<Progress value={60} className=\"w-[60%]\" />"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/progress.tsx"
+      ]
+    },
+    {
+      "name": "Skeleton",
+      "aliases": ["loading-skeleton", "placeholder"],
+      "category": "feedback",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Skeleton",
+        "path": "@/components/ui/skeleton"
+      },
+      "anatomy": {
+        "parts": ["Skeleton"]
+      },
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Width/height Tailwind classes to size the skeleton"
+        }
+      ],
+      "variants": [],
+      "states": ["loading"],
+      "behaviors": [
+        { "trigger": "rendered", "result": "Pulses with animate-pulse; shows accent background" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "generic",
+        "aria": ["aria-busy=true on parent container while loading"],
+        "focus_management": "Not focusable",
+        "wcag_notes": "SC 4.1.3 loading state should be communicated via aria-busy on parent"
+      },
+      "composition": {
+        "composed_of": [],
+        "commonly_used_with": ["Card", "Avatar"]
+      },
+      "examples": [
+        {
+          "title": "Skeleton Placeholder",
+          "code": "import { Skeleton } from '@/components/ui/skeleton'\n\n<div className=\"flex items-center gap-4\">\n  <Skeleton className=\"h-12 w-12 rounded-full\" />\n  <div className=\"space-y-2\">\n    <Skeleton className=\"h-4 w-[250px]\" />\n    <Skeleton className=\"h-4 w-[200px]\" />\n  </div>\n</div>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/skeleton.tsx"
+      ]
+    },
+    {
+      "name": "Tabs",
+      "aliases": ["tab-panel", "tab-view"],
+      "category": "navigation",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Tabs",
+        "path": "@/components/ui/tabs"
+      },
+      "anatomy": {
+        "parts": ["Tabs", "TabsList", "TabsTrigger", "TabsContent"]
+      },
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled active tab value"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Uncontrolled initial active tab"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when active tab changes"
+        },
+        {
+          "name": "orientation",
+          "type": "string",
+          "required": false,
+          "default": "horizontal",
+          "enum": ["horizontal", "vertical"],
+          "description": "Tabs orientation"
+        }
+      ],
+      "variants": ["default", "line"],
+      "states": ["active", "inactive", "disabled"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Activates corresponding tab panel; fires onValueChange" }
+      ],
+      "keyboard_map": [
+        { "key": "ArrowRight / ArrowDown", "action": "Moves focus to next tab trigger" },
+        { "key": "ArrowLeft / ArrowUp", "action": "Moves focus to previous tab trigger" },
+        { "key": "Home", "action": "Moves focus to first tab trigger" },
+        { "key": "End", "action": "Moves focus to last tab trigger" }
+      ],
+      "accessibility": {
+        "role": "tablist",
+        "aria": ["role=tablist (TabsList)", "role=tab (TabsTrigger)", "role=tabpanel (TabsContent)", "aria-selected", "aria-controls"],
+        "focus_management": "Tab moves focus to active trigger; arrow keys move between triggers",
+        "wcag_notes": "SC 4.1.2; ARIA tabs pattern; triggers control panels via aria-controls"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-tabs via radix-ui"],
+        "commonly_used_with": ["Card", "Form", "Table"]
+      },
+      "examples": [
+        {
+          "title": "Basic Tabs",
+          "code": "import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'\n\n<Tabs defaultValue=\"account\" className=\"w-[400px]\">\n  <TabsList>\n    <TabsTrigger value=\"account\">Account</TabsTrigger>\n    <TabsTrigger value=\"password\">Password</TabsTrigger>\n  </TabsList>\n  <TabsContent value=\"account\">Account settings.</TabsContent>\n  <TabsContent value=\"password\">Change password.</TabsContent>\n</Tabs>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/tabs.tsx"
+      ]
+    },
+    {
+      "name": "NavigationMenu",
+      "aliases": ["nav-menu", "main-navigation"],
+      "category": "navigation",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "NavigationMenu",
+        "path": "@/components/ui/navigation-menu"
+      },
+      "anatomy": {
+        "parts": [
+          "NavigationMenu",
+          "NavigationMenuList",
+          "NavigationMenuItem",
+          "NavigationMenuTrigger",
+          "NavigationMenuContent",
+          "NavigationMenuLink",
+          "NavigationMenuViewport",
+          "NavigationMenuIndicator"
+        ]
+      },
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "open", "closed"],
+      "behaviors": [
+        { "trigger": "trigger hovered/clicked", "result": "Opens content dropdown with animations" },
+        { "trigger": "Escape key", "result": "Closes open menu" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter / Space", "action": "Opens/closes trigger" },
+        { "key": "ArrowDown", "action": "Moves focus into content" },
+        { "key": "Escape", "action": "Closes the menu" },
+        { "key": "Tab", "action": "Moves focus to next focusable element" }
+      ],
+      "accessibility": {
+        "role": "navigation",
+        "aria": ["role=navigation", "aria-expanded (on trigger)", "aria-haspopup"],
+        "focus_management": "Focus moves into content on open; chevron rotates 180deg on open",
+        "wcag_notes": "SC 2.1.1 all navigation via keyboard; ARIA navigation menu pattern"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-navigation-menu via radix-ui", "lucide-react ChevronDownIcon"],
+        "commonly_used_with": ["Button", "Avatar"]
+      },
+      "examples": [
+        {
+          "title": "Navigation Menu",
+          "code": "import {\n  NavigationMenu, NavigationMenuContent,\n  NavigationMenuItem, NavigationMenuLink,\n  NavigationMenuList, NavigationMenuTrigger\n} from '@/components/ui/navigation-menu'\n\n<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href=\"/docs\">Documentation</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n</NavigationMenu>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/navigation-menu.tsx"
+      ]
+    },
+    {
+      "name": "Dialog",
+      "aliases": ["modal", "dialog-modal"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Dialog",
+        "path": "@/components/ui/dialog"
+      },
+      "anatomy": {
+        "parts": [
+          "Dialog",
+          "DialogTrigger",
+          "DialogPortal",
+          "DialogClose",
+          "DialogOverlay",
+          "DialogContent",
+          "DialogHeader",
+          "DialogFooter",
+          "DialogTitle",
+          "DialogDescription"
+        ]
+      },
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Uncontrolled initial open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to show the X close button in DialogContent"
+        }
+      ],
+      "variants": [],
+      "states": ["open", "closed"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Opens dialog; traps focus; shows overlay" },
+        { "trigger": "Escape key", "result": "Closes dialog (Radix default)" },
+        { "trigger": "click outside overlay", "result": "Closes dialog (Radix default)" },
+        { "trigger": "dialog closes", "result": "Returns focus to the trigger element" }
+      ],
+      "keyboard_map": [
+        { "key": "Escape", "action": "Closes the dialog" },
+        { "key": "Tab", "action": "Cycles focus through focusable elements inside dialog" },
+        { "key": "Shift+Tab", "action": "Cycles focus backwards" }
+      ],
+      "accessibility": {
+        "role": "dialog",
+        "aria": ["aria-modal=true", "aria-labelledby (points to DialogTitle)", "aria-describedby (points to DialogDescription)"],
+        "focus_management": "Focus trapped inside when open; returns to trigger on close; first focusable element receives focus",
+        "wcag_notes": "SC 2.1.2 intentional focus trap for modal; SC 2.4.3 focus order must be logical"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-dialog via radix-ui", "lucide-react XIcon", "Button"],
+        "commonly_used_with": ["Button", "Form", "Alert"]
+      },
+      "examples": [
+        {
+          "title": "Basic Dialog",
+          "code": "import {\n  Dialog, DialogContent, DialogDescription,\n  DialogFooter, DialogHeader, DialogTitle, DialogTrigger\n} from '@/components/ui/dialog'\nimport { Button } from '@/components/ui/button'\n\n<Dialog>\n  <DialogTrigger asChild>\n    <Button>Open Dialog</Button>\n  </DialogTrigger>\n  <DialogContent className=\"sm:max-w-[425px]\">\n    <DialogHeader>\n      <DialogTitle>Edit Profile</DialogTitle>\n      <DialogDescription>Make changes to your profile here.</DialogDescription>\n    </DialogHeader>\n    <DialogFooter>\n      <Button type=\"submit\">Save changes</Button>\n    </DialogFooter>\n  </DialogContent>\n</Dialog>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/dialog.tsx"
+      ]
+    },
+    {
+      "name": "Sheet",
+      "aliases": ["drawer", "slide-over", "side-panel"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Sheet",
+        "path": "@/components/ui/sheet"
+      },
+      "anatomy": {
+        "parts": [
+          "Sheet",
+          "SheetTrigger",
+          "SheetClose",
+          "SheetContent",
+          "SheetHeader",
+          "SheetFooter",
+          "SheetTitle",
+          "SheetDescription"
+        ]
+      },
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        },
+        {
+          "name": "side",
+          "type": "string",
+          "required": false,
+          "default": "right",
+          "enum": ["top", "right", "bottom", "left"],
+          "description": "Side from which the sheet slides in (on SheetContent)"
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to show X close button"
+        }
+      ],
+      "variants": [],
+      "states": ["open", "closed"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Sheet slides in from side with animation" },
+        { "trigger": "Escape key", "result": "Closes sheet" },
+        { "trigger": "click outside", "result": "Closes sheet" }
+      ],
+      "keyboard_map": [
+        { "key": "Escape", "action": "Closes the sheet" },
+        { "key": "Tab", "action": "Cycles focus through focusable elements inside sheet" },
+        { "key": "Shift+Tab", "action": "Cycles focus backwards" }
+      ],
+      "accessibility": {
+        "role": "dialog",
+        "aria": ["aria-modal=true", "aria-labelledby (points to SheetTitle)", "aria-describedby (points to SheetDescription)"],
+        "focus_management": "Focus trapped inside when open; returns to trigger on close",
+        "wcag_notes": "Built on Radix Dialog — same accessibility requirements as Dialog"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-dialog via radix-ui", "lucide-react XIcon"],
+        "commonly_used_with": ["Button", "NavigationMenu"]
+      },
+      "examples": [
+        {
+          "title": "Right Sheet",
+          "code": "import {\n  Sheet, SheetContent, SheetDescription,\n  SheetHeader, SheetTitle, SheetTrigger\n} from '@/components/ui/sheet'\nimport { Button } from '@/components/ui/button'\n\n<Sheet>\n  <SheetTrigger asChild>\n    <Button variant=\"outline\">Open Sheet</Button>\n  </SheetTrigger>\n  <SheetContent>\n    <SheetHeader>\n      <SheetTitle>Edit Profile</SheetTitle>\n      <SheetDescription>Make changes here.</SheetDescription>\n    </SheetHeader>\n  </SheetContent>\n</Sheet>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/sheet.tsx"
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "aliases": ["hint", "tooltip-popup"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Tooltip",
+        "path": "@/components/ui/tooltip"
+      },
+      "anatomy": {
+        "parts": ["TooltipProvider", "Tooltip", "TooltipTrigger", "TooltipContent"]
+      },
+      "props": [
+        {
+          "name": "delayDuration",
+          "type": "number",
+          "required": false,
+          "default": 0,
+          "description": "Delay before tooltip shows (on TooltipProvider)"
+        },
+        {
+          "name": "sideOffset",
+          "type": "number",
+          "required": false,
+          "default": 0,
+          "description": "Distance from trigger (on TooltipContent)"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        }
+      ],
+      "variants": [],
+      "states": ["open", "closed"],
+      "behaviors": [
+        { "trigger": "hover over trigger", "result": "Shows tooltip after delayDuration" },
+        { "trigger": "focus trigger", "result": "Shows tooltip" },
+        { "trigger": "blur / mouse leaves", "result": "Hides tooltip" }
+      ],
+      "keyboard_map": [
+        { "key": "Tab (focus)", "action": "Shows tooltip when trigger is focused" },
+        { "key": "Escape", "action": "Hides tooltip" }
+      ],
+      "accessibility": {
+        "role": "tooltip",
+        "aria": ["role=tooltip (content)", "aria-describedby (on trigger pointing to content)"],
+        "focus_management": "Tooltip appears on hover and focus of trigger; not keyboard-operable independently",
+        "wcag_notes": "SC 1.4.13 content on hover/focus must be dismissible, hoverable, and persistent"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-tooltip via radix-ui"],
+        "commonly_used_with": ["Button", "IconButton"]
+      },
+      "examples": [
+        {
+          "title": "Basic Tooltip",
+          "code": "import {\n  Tooltip, TooltipContent,\n  TooltipProvider, TooltipTrigger\n} from '@/components/ui/tooltip'\nimport { Button } from '@/components/ui/button'\n\n<TooltipProvider>\n  <Tooltip>\n    <TooltipTrigger asChild>\n      <Button variant=\"outline\">Hover me</Button>\n    </TooltipTrigger>\n    <TooltipContent>\n      <p>Add to library</p>\n    </TooltipContent>\n  </Tooltip>\n</TooltipProvider>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/tooltip.tsx"
+      ]
+    },
+    {
+      "name": "Popover",
+      "aliases": ["floating-panel", "popover-panel"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Popover",
+        "path": "@/components/ui/popover"
+      },
+      "anatomy": {
+        "parts": [
+          "Popover",
+          "PopoverTrigger",
+          "PopoverContent",
+          "PopoverAnchor",
+          "PopoverHeader",
+          "PopoverTitle",
+          "PopoverDescription"
+        ]
+      },
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        },
+        {
+          "name": "align",
+          "type": "string",
+          "required": false,
+          "default": "center",
+          "enum": ["start", "center", "end"],
+          "description": "Alignment of content relative to trigger (on PopoverContent)"
+        },
+        {
+          "name": "sideOffset",
+          "type": "number",
+          "required": false,
+          "default": 4,
+          "description": "Distance from trigger (on PopoverContent)"
+        }
+      ],
+      "variants": [],
+      "states": ["open", "closed"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Toggles popover open/closed" },
+        { "trigger": "click outside", "result": "Closes popover" },
+        { "trigger": "Escape key", "result": "Closes popover" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter / Space", "action": "Toggles popover from trigger" },
+        { "key": "Escape", "action": "Closes popover; focus returns to trigger" },
+        { "key": "Tab", "action": "Moves focus into popover content" }
+      ],
+      "accessibility": {
+        "role": "dialog",
+        "aria": ["aria-expanded (on trigger)", "aria-haspopup=dialog"],
+        "focus_management": "Focus moves into content on open; returns to trigger on close",
+        "wcag_notes": "SC 4.1.2; unlike Tooltip, Popover is interactive and uses dialog role"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-popover via radix-ui"],
+        "commonly_used_with": ["Button", "Command", "Calendar"]
+      },
+      "examples": [
+        {
+          "title": "Basic Popover",
+          "code": "import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'\nimport { Button } from '@/components/ui/button'\n\n<Popover>\n  <PopoverTrigger asChild>\n    <Button variant=\"outline\">Open Popover</Button>\n  </PopoverTrigger>\n  <PopoverContent className=\"w-80\">\n    <p>Popover content here.</p>\n  </PopoverContent>\n</Popover>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/popover.tsx"
+      ]
+    },
+    {
+      "name": "DropdownMenu",
+      "aliases": ["dropdown", "context-menu", "action-menu"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "DropdownMenu",
+        "path": "@/components/ui/dropdown-menu"
+      },
+      "anatomy": {
+        "parts": [
+          "DropdownMenu",
+          "DropdownMenuTrigger",
+          "DropdownMenuContent",
+          "DropdownMenuItem",
+          "DropdownMenuCheckboxItem",
+          "DropdownMenuRadioItem",
+          "DropdownMenuRadioGroup",
+          "DropdownMenuLabel",
+          "DropdownMenuSeparator",
+          "DropdownMenuGroup",
+          "DropdownMenuSub",
+          "DropdownMenuSubTrigger",
+          "DropdownMenuSubContent",
+          "DropdownMenuPortal",
+          "DropdownMenuShortcut"
+        ]
+      },
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled open state"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "description": "Callback when open state changes"
+        },
+        {
+          "name": "modal",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether dropdown is modal"
+        }
+      ],
+      "variants": ["default", "destructive"],
+      "states": ["open", "closed", "item-focused", "item-disabled"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Opens menu near trigger" },
+        { "trigger": "item clicked", "result": "Fires item's onClick; closes menu" },
+        { "trigger": "Escape key", "result": "Closes menu; focus returns to trigger" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter / Space", "action": "Opens menu; selects focused item" },
+        { "key": "ArrowDown", "action": "Opens menu; moves focus to next item" },
+        { "key": "ArrowUp", "action": "Moves focus to previous item" },
+        { "key": "Escape", "action": "Closes menu" },
+        { "key": "Tab", "action": "Closes menu" },
+        { "key": "typeahead", "action": "Jumps focus to item matching typed characters" }
+      ],
+      "accessibility": {
+        "role": "menu",
+        "aria": ["role=menu (content)", "role=menuitem (items)", "role=menuitemcheckbox", "role=menuitemradio", "aria-expanded (trigger)", "aria-haspopup=menu"],
+        "focus_management": "Focus moves to first item on open; returns to trigger on close; arrow keys navigate items",
+        "wcag_notes": "SC 2.1.1 all functionality via keyboard; ARIA menu button pattern"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-dropdown-menu via radix-ui", "lucide-react CheckIcon CircleIcon ChevronRightIcon"],
+        "commonly_used_with": ["Button", "Avatar"]
+      },
+      "examples": [
+        {
+          "title": "Basic Dropdown Menu",
+          "code": "import {\n  DropdownMenu, DropdownMenuContent,\n  DropdownMenuItem, DropdownMenuLabel,\n  DropdownMenuSeparator, DropdownMenuTrigger\n} from '@/components/ui/dropdown-menu'\nimport { Button } from '@/components/ui/button'\n\n<DropdownMenu>\n  <DropdownMenuTrigger asChild>\n    <Button variant=\"outline\">Open</Button>\n  </DropdownMenuTrigger>\n  <DropdownMenuContent className=\"w-56\">\n    <DropdownMenuLabel>My Account</DropdownMenuLabel>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Profile</DropdownMenuItem>\n    <DropdownMenuItem>Settings</DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem className=\"text-destructive\">Log out</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/dropdown-menu.tsx"
+      ]
+    },
+    {
+      "name": "Command",
+      "aliases": ["command-palette", "search-command", "combobox"],
+      "category": "overlay",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Command",
+        "path": "@/components/ui/command"
+      },
+      "anatomy": {
+        "parts": [
+          "Command",
+          "CommandDialog",
+          "CommandInput",
+          "CommandList",
+          "CommandEmpty",
+          "CommandGroup",
+          "CommandItem",
+          "CommandSeparator",
+          "CommandShortcut"
+        ]
+      },
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes on Command root"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "searching", "empty"],
+      "behaviors": [
+        { "trigger": "type in CommandInput", "result": "Filters CommandItems matching input" },
+        { "trigger": "no matching items", "result": "CommandEmpty content is shown" },
+        { "trigger": "item selected (Enter)", "result": "Fires item's onSelect callback" }
+      ],
+      "keyboard_map": [
+        { "key": "ArrowDown", "action": "Moves focus to next item" },
+        { "key": "ArrowUp", "action": "Moves focus to previous item" },
+        { "key": "Enter", "action": "Selects focused item" },
+        { "key": "Escape", "action": "Closes CommandDialog" }
+      ],
+      "accessibility": {
+        "role": "combobox",
+        "aria": ["role=combobox (input)", "role=listbox (list)", "role=option (items)", "aria-expanded"],
+        "focus_management": "Input focused on open; arrow keys navigate items",
+        "wcag_notes": "SC 4.1.2; built on cmdk which follows ARIA combobox pattern"
+      },
+      "composition": {
+        "composed_of": ["cmdk", "Dialog", "lucide-react SearchIcon"],
+        "commonly_used_with": ["Dialog", "Popover", "Button"]
+      },
+      "examples": [
+        {
+          "title": "Command Palette in Dialog",
+          "code": "import {\n  CommandDialog, CommandEmpty, CommandGroup,\n  CommandInput, CommandItem, CommandList\n} from '@/components/ui/command'\n\n<CommandDialog>\n  <CommandInput placeholder=\"Type a command or search...\" />\n  <CommandList>\n    <CommandEmpty>No results found.</CommandEmpty>\n    <CommandGroup heading=\"Suggestions\">\n      <CommandItem>Calendar</CommandItem>\n      <CommandItem>Search</CommandItem>\n      <CommandItem>Settings</CommandItem>\n    </CommandGroup>\n  </CommandList>\n</CommandDialog>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/command.tsx"
+      ]
+    },
+    {
+      "name": "Accordion",
+      "aliases": ["collapsible", "expandable-list"],
+      "category": "display",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Accordion",
+        "path": "@/components/ui/accordion"
+      },
+      "anatomy": {
+        "parts": ["Accordion", "AccordionItem", "AccordionTrigger", "AccordionContent"]
+      },
+      "props": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "enum": ["single", "multiple"],
+          "description": "Whether one or multiple items can be open simultaneously"
+        },
+        {
+          "name": "value",
+          "type": "string | string[]",
+          "required": false,
+          "description": "Controlled open item value(s)"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "description": "Uncontrolled initial open item value(s)"
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "When type=single, allows closing by clicking open item"
+        }
+      ],
+      "variants": [],
+      "states": ["open", "closed"],
+      "behaviors": [
+        { "trigger": "trigger clicked", "result": "Expands/collapses AccordionContent; chevron rotates 180deg" },
+        { "trigger": "type=single", "result": "Opening one item closes previously open item (unless collapsible=true)" }
+      ],
+      "keyboard_map": [
+        { "key": "Enter / Space", "action": "Toggles focused accordion item" },
+        { "key": "ArrowDown", "action": "Moves focus to next trigger" },
+        { "key": "ArrowUp", "action": "Moves focus to previous trigger" },
+        { "key": "Home", "action": "Moves focus to first trigger" },
+        { "key": "End", "action": "Moves focus to last trigger" }
+      ],
+      "accessibility": {
+        "role": "region",
+        "aria": ["aria-expanded (on trigger)", "aria-controls (trigger points to content)", "aria-labelledby (content points to trigger)"],
+        "focus_management": "Triggers are focusable via Tab; arrow keys move between triggers",
+        "wcag_notes": "SC 4.1.2; ARIA disclosure pattern; content panels are landmark regions"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-accordion via radix-ui", "lucide-react ChevronDownIcon"],
+        "commonly_used_with": ["Card", "NavigationMenu"]
+      },
+      "examples": [
+        {
+          "title": "Basic Accordion",
+          "code": "import {\n  Accordion, AccordionContent,\n  AccordionItem, AccordionTrigger\n} from '@/components/ui/accordion'\n\n<Accordion type=\"single\" collapsible className=\"w-full\">\n  <AccordionItem value=\"item-1\">\n    <AccordionTrigger>Is it accessible?</AccordionTrigger>\n    <AccordionContent>Yes. It adheres to the WAI-ARIA design pattern.</AccordionContent>\n  </AccordionItem>\n  <AccordionItem value=\"item-2\">\n    <AccordionTrigger>Is it styled?</AccordionTrigger>\n    <AccordionContent>Yes. It comes with default styles that you can override.</AccordionContent>\n  </AccordionItem>\n</Accordion>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/accordion.tsx"
+      ]
+    },
+    {
+      "name": "Table",
+      "aliases": ["data-table", "grid"],
+      "category": "data",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Table",
+        "path": "@/components/ui/table"
+      },
+      "anatomy": {
+        "parts": [
+          "Table",
+          "TableHeader",
+          "TableBody",
+          "TableFooter",
+          "TableHead",
+          "TableRow",
+          "TableCell",
+          "TableCaption"
+        ]
+      },
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "row-selected", "row-hover"],
+      "behaviors": [
+        { "trigger": "TableRow data-[state=selected]", "result": "Applies muted background to selected row" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "table",
+        "aria": ["role=table", "role=rowgroup (thead/tbody)", "role=row (TableRow)", "role=columnheader (TableHead)", "role=cell (TableCell)"],
+        "focus_management": "Not focusable by default; interactive cells manage their own focus",
+        "wcag_notes": "SC 1.3.1 table structure must be programmatically determinable; use TableCaption for table summary"
+      },
+      "composition": {
+        "composed_of": [],
+        "commonly_used_with": ["Checkbox", "Badge", "Button", "DropdownMenu"]
+      },
+      "examples": [
+        {
+          "title": "Basic Table",
+          "code": "import {\n  Table, TableBody, TableCaption, TableCell,\n  TableHead, TableHeader, TableRow\n} from '@/components/ui/table'\n\n<Table>\n  <TableCaption>A list of recent invoices.</TableCaption>\n  <TableHeader>\n    <TableRow>\n      <TableHead>Invoice</TableHead>\n      <TableHead>Status</TableHead>\n      <TableHead className=\"text-right\">Amount</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow>\n      <TableCell>INV001</TableCell>\n      <TableCell>Paid</TableCell>\n      <TableCell className=\"text-right\">$250.00</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/table.tsx"
+      ]
+    },
+    {
+      "name": "Separator",
+      "aliases": ["divider", "hr"],
+      "category": "layout",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Separator",
+        "path": "@/components/ui/separator"
+      },
+      "anatomy": {
+        "parts": ["Separator"]
+      },
+      "props": [
+        {
+          "name": "orientation",
+          "type": "string",
+          "required": false,
+          "default": "horizontal",
+          "enum": ["horizontal", "vertical"],
+          "description": "Direction of the separator line"
+        },
+        {
+          "name": "decorative",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "When true, hidden from screen readers (role=none)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Additional Tailwind classes"
+        }
+      ],
+      "variants": [],
+      "states": ["default"],
+      "behaviors": [],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "separator (when decorative=false) or none (when decorative=true)",
+        "aria": ["role=separator (semantic) or role=none (decorative)"],
+        "focus_management": "Not focusable",
+        "wcag_notes": "SC 1.3.1 use decorative=false for structural separators that convey meaning"
+      },
+      "composition": {
+        "composed_of": ["@radix-ui/react-separator via radix-ui"],
+        "commonly_used_with": ["DropdownMenu", "Card", "NavigationMenu"]
+      },
+      "examples": [
+        {
+          "title": "Horizontal Separator",
+          "code": "import { Separator } from '@/components/ui/separator'\n\n<Separator className=\"my-4\" />"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/separator.tsx"
+      ]
+    },
+    {
+      "name": "Sonner",
+      "aliases": ["toast", "notification-toast", "toaster"],
+      "category": "feedback",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Toaster",
+        "path": "@/components/ui/sonner"
+      },
+      "anatomy": {
+        "parts": ["Toaster"]
+      },
+      "props": [
+        {
+          "name": "theme",
+          "type": "string",
+          "required": false,
+          "description": "Theme override; defaults to system via next-themes useTheme()"
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "required": false,
+          "default": "bottom-right",
+          "enum": ["top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"],
+          "description": "Toast stack position (passed through to Sonner)"
+        }
+      ],
+      "variants": [],
+      "states": ["success", "error", "warning", "info", "loading"],
+      "behaviors": [
+        { "trigger": "toast() called imperatively", "result": "Shows toast notification with auto-dismiss" },
+        { "trigger": "theme changes", "result": "Toaster reads next-themes to apply correct color scheme" }
+      ],
+      "keyboard_map": [
+        { "key": "Escape", "action": "Dismisses focused toast" }
+      ],
+      "accessibility": {
+        "role": "status",
+        "aria": ["role=status (toast region)", "aria-live=polite"],
+        "focus_management": "Toasts are announced via ARIA live region; not focused automatically",
+        "wcag_notes": "SC 4.1.3 status messages must be programmatically determinable"
+      },
+      "composition": {
+        "composed_of": ["sonner library", "next-themes useTheme", "lucide-react icons"],
+        "commonly_used_with": ["Button", "Form"]
+      },
+      "examples": [
+        {
+          "title": "Setup Toaster + trigger toast",
+          "code": "// In root layout:\nimport { Toaster } from '@/components/ui/sonner'\n<Toaster />\n\n// In component:\nimport { toast } from 'sonner'\n\n<Button onClick={() => toast.success('Saved successfully!')}>Save</Button>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/sonner.tsx"
+      ]
+    },
+    {
+      "name": "Form",
+      "aliases": ["react-hook-form", "form-wrapper"],
+      "category": "form",
+      "status": "stable",
+      "import": {
+        "package": "@/components/ui",
+        "export": "Form",
+        "path": "@/components/ui/form"
+      },
+      "anatomy": {
+        "parts": [
+          "Form",
+          "FormField",
+          "FormItem",
+          "FormLabel",
+          "FormControl",
+          "FormDescription",
+          "FormMessage"
+        ]
+      },
+      "props": [
+        {
+          "name": "form",
+          "type": "UseFormReturn",
+          "required": true,
+          "description": "react-hook-form form instance from useForm()"
+        }
+      ],
+      "variants": [],
+      "states": ["default", "invalid"],
+      "behaviors": [
+        { "trigger": "validation error", "result": "FormMessage shows error; FormLabel turns destructive; aria-invalid set on control" }
+      ],
+      "keyboard_map": [],
+      "accessibility": {
+        "role": "form",
+        "aria": ["aria-describedby (dynamic: description + error IDs)", "aria-invalid (on control when error exists)"],
+        "focus_management": "Standard form focus flow; error state communicated via aria-describedby",
+        "wcag_notes": "SC 3.3.1 error identification; SC 3.3.3 error suggestion; SC 1.3.1 label association"
+      },
+      "composition": {
+        "composed_of": ["react-hook-form FormProvider Controller", "@radix-ui/react-label via radix-ui", "Slot"],
+        "commonly_used_with": ["Input", "Select", "Checkbox", "Switch", "RadioGroup", "Button"]
+      },
+      "examples": [
+        {
+          "title": "Form with Validation",
+          "code": "import { useForm } from 'react-hook-form'\nimport { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'\nimport { Input } from '@/components/ui/input'\nimport { Button } from '@/components/ui/button'\n\nconst form = useForm({ defaultValues: { username: '' } })\n\n<Form {...form}>\n  <form onSubmit={form.handleSubmit(onSubmit)}>\n    <FormField control={form.control} name=\"username\" render={({ field }) => (\n      <FormItem>\n        <FormLabel>Username</FormLabel>\n        <FormControl><Input placeholder=\"Enter username\" {...field} /></FormControl>\n        <FormMessage />\n      </FormItem>\n    )} />\n    <Button type=\"submit\">Submit</Button>\n  </form>\n</Form>"
+        }
+      ],
+      "source_refs": [
+        "https://raw.githubusercontent.com/shadcn-ui/ui/main/apps/v4/registry/new-york-v4/ui/form.tsx"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "Command-in-Popover (Combobox pattern)",
+      "description": "Combine Popover + Command to build an accessible combobox with filtering",
+      "components": ["Popover", "PopoverTrigger", "PopoverContent", "Command", "CommandInput", "CommandList", "CommandItem"]
+    },
+    {
+      "name": "Form with react-hook-form",
+      "description": "Form + FormField + FormControl wraps any shadcn input with validation and accessible error messages",
+      "components": ["Form", "FormField", "FormItem", "FormLabel", "FormControl", "FormMessage", "Input", "Button"]
+    },
+    {
+      "name": "Data Table",
+      "description": "Table with TanStack Table for sorting, filtering, pagination. shadcn Table provides HTML structure; TanStack provides logic",
+      "components": ["Table", "TableHeader", "TableBody", "TableRow", "TableHead", "TableCell", "Checkbox", "DropdownMenu", "Button"]
+    },
+    {
+      "name": "Sheet Navigation Drawer",
+      "description": "Sheet component used as mobile navigation sidebar that slides in from left",
+      "components": ["Sheet", "SheetTrigger", "SheetContent", "NavigationMenu", "Button"]
+    }
+  ],
+  "app_shell": {
+    "routing_lib": "react-router-dom or Next.js App Router",
+    "theme_provider": "ThemeProvider",
+    "layout_primitives": [],
+    "recommended_structure": "Wrap app root with ThemeProvider (from next-themes, shadcn wraps it with attribute='class', defaultTheme='system', enableSystem). Add <Toaster /> at root for toast notifications. Components live in components/ui/ as copied source files, imported via @/components/ui/<name> path alias. Configure @/lib/utils.ts with cn() (clsx + tailwind-merge). Add tailwind.config.ts and globals.css with CSS custom property tokens."
+  },
+  "capabilities": [
+    "25+ production-quality UI components with accessible Radix UI primitives",
+    "Full Tailwind CSS v4 styling with CSS custom property (oklch) design tokens",
+    "Dark mode via next-themes ThemeProvider with class-based toggling",
+    "Form management via react-hook-form integration (Form component)",
+    "Command palette / combobox pattern via cmdk",
+    "Toast notifications via sonner",
+    "Compound component patterns — named re-exports from Radix (e.g. Dialog, DialogTrigger, DialogContent)",
+    "Type-safe variant props via class-variance-authority (CVA) and buttonVariants, badgeVariants",
+    "Composable layouts — Tailwind flex/grid utilities, Sidebar component for app shells",
+    "Copy-paste ownership model — no npm runtime dependency, components are local source files",
+    "Full keyboard navigation and ARIA roles inherited from Radix UI primitives",
+    "WCAG 2.1 AA compliant baseline via Radix accessibility layer",
+    "Polymorphic rendering via asChild prop (Radix Slot.Root)",
+    "data-slot attributes on all components for precise CSS targeting"
+  ],
+  "gaps": [
+    "No built-in date picker — use react-day-picker (shadcn provides Calendar component built on it, but no DatePicker combination out of the box)",
+    "No data grid / virtual scroll — use TanStack Table (shadcn Table is HTML-only, no sorting/pagination built-in)",
+    "No chart components built-in — use Recharts (shadcn Chart component is a thin Recharts wrapper)",
+    "No rich text editor — use Tiptap or Lexical",
+    "No file upload with preview — build custom or use react-dropzone",
+    "No drag and drop — use @dnd-kit/core",
+    "No layout primitives (Box, Stack, Grid) — use Tailwind utility classes directly",
+    "No color palette prop (unlike Chakra UI) — colors are baked into CSS custom properties and Tailwind config; customization requires editing globals.css or tailwind.config.ts",
+    "No animation library built-in beyond tailwindcss-animate — use Framer Motion for complex animations",
+    "Not an npm importable package — components must be copied via CLI (npx shadcn@latest add <name>); this is intentional by design",
+    "No Image component — use Next.js Image or standard <img>",
+    "No virtual select / multi-select — use react-select or cmdk with custom logic",
+    "Sidebar component requires specific layout structure and CSS variables for width/animation"
+  ],
+  "coverage_report": [
+    { "component": "Button", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Input", "extracted": true, "confidence": 0.9, "missing": ["no size prop — size via className only"] },
+    { "component": "Textarea", "extracted": true, "confidence": 0.9, "missing": [] },
+    { "component": "Label", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Checkbox", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "RadioGroup", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Switch", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Select", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Slider", "extracted": true, "confidence": 0.8, "missing": [] },
+    { "component": "Card", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Badge", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Avatar", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Alert", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Progress", "extracted": true, "confidence": 0.9, "missing": [] },
+    { "component": "Skeleton", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Tabs", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "NavigationMenu", "extracted": true, "confidence": 0.8, "missing": [] },
+    { "component": "Dialog", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Sheet", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Tooltip", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Popover", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "DropdownMenu", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Command", "extracted": true, "confidence": 0.9, "missing": [] },
+    { "component": "Accordion", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Table", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Separator", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Sonner", "extracted": true, "confidence": 1.0, "missing": [] },
+    { "component": "Form", "extracted": true, "confidence": 0.9, "missing": [] }
+  ]
+}
