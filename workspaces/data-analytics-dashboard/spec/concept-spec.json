@@ -1,0 +1,205 @@
+{
+  "schema_version": "1.0",
+  "id": "data-analytics-dashboard",
+  "version": 2,
+  "fidelity_stage": "draft",
+  "knowledge_pack_ref": {
+    "library_name": "chakra-ui",
+    "library_version": "3.36.0"
+  },
+  "intent": {
+    "goal": "Analytics dashboard for business intelligence: KPI cards, trend charts, filterable data tables, and alert management",
+    "personas": [
+      { "name": "Business Analyst", "needs": "Power user, daily use, needs deep drill-down into data and configurable views" },
+      { "name": "Executive", "needs": "Occasional user, mobile-friendly, needs high-level KPI overview and trend summaries" }
+    ],
+    "success_criteria": [
+      "KPI metrics visible above the fold",
+      "Charts render trend data for configurable time range",
+      "Data table supports column sort and row filter",
+      "Alert center shows active threshold violations"
+    ],
+    "constraints": {
+      "platforms": ["web"],
+      "devices": ["desktop-1440px", "tablet-768px"],
+      "a11y_target": "WCAG 2.1 AA",
+      "brand": "Chakra UI v3 design tokens"
+    },
+    "non_goals": [
+      "Mobile-native",
+      "Real-time websocket push",
+      "Admin/settings screens"
+    ]
+  },
+  "elicitation_log": [
+    {
+      "stage": "draft",
+      "question": "What is the primary goal of this dashboard?",
+      "answer": "Business intelligence: monitor KPIs, spot trends, drill into data",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "Who are the target personas?",
+      "answer": "Business Analyst (power user, daily), Executive (occasional, mobile-friendly)",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "What are the key screens?",
+      "answer": "1. Main Dashboard, 2. Reports/Data Table, 3. Alert Center",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "What breakpoints should be supported?",
+      "answer": "Desktop-first (1440px) with tablet support (768px)",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "What data domain does this dashboard cover?",
+      "answer": "Sales and revenue metrics: revenue, conversion rate, active users, churn",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "Should the dashboard support dark/light mode?",
+      "answer": "Both (toggle)",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "What is the accessibility target?",
+      "answer": "WCAG 2.1 AA",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "What are the key constraints?",
+      "answer": "Must use Chakra UI components; charts are a gap (no native chart component)",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    },
+    {
+      "stage": "draft",
+      "question": "What are the non-goals?",
+      "answer": "Mobile-native, real-time websocket, admin/settings screens",
+      "status": "answered",
+      "timestamp": "2026-06-17T00:00:00Z"
+    }
+  ],
+  "information_architecture": {
+    "screens": [
+      { "id": "main-dashboard", "name": "Main Dashboard", "purpose": "KPI overview, trend charts, quick filters" },
+      { "id": "reports", "name": "Reports / Data Table", "purpose": "Tabular breakdown with sort/filter/export" },
+      { "id": "alert-center", "name": "Alert Center", "purpose": "Active threshold violations and notification history" }
+    ],
+    "navigation": [
+      { "from": "main-dashboard", "to": "reports", "trigger": "Sidebar nav item click" },
+      { "from": "main-dashboard", "to": "alert-center", "trigger": "Sidebar nav item click or notification bell" },
+      { "from": "reports", "to": "main-dashboard", "trigger": "Sidebar nav item click" },
+      { "from": "alert-center", "to": "main-dashboard", "trigger": "Sidebar nav item click" }
+    ],
+    "flows": [
+      {
+        "name": "KPI drill-down",
+        "steps": ["View KPI card on main dashboard", "Click KPI card", "Navigate to filtered Reports view"]
+      },
+      {
+        "name": "Alert triage",
+        "steps": ["See notification badge on bell", "Navigate to Alert Center", "Review alert details in drawer", "Acknowledge or snooze alert"]
+      }
+    ]
+  },
+  "composition": [
+    {
+      "screen_id": "main-dashboard",
+      "regions": [
+        { "name": "sidebar", "responsive": "hidden on mobile, 220px on desktop" },
+        { "name": "header", "responsive": "full width, 64px height" },
+        { "name": "kpi-row", "responsive": "4-col grid on desktop, 2-col on tablet" },
+        { "name": "charts-row", "responsive": "2/3 + 1/3 split on desktop, stacked on tablet" },
+        { "name": "filters-row", "responsive": "inline flex on desktop, stacked on tablet" },
+        { "name": "recent-events-table", "responsive": "full width" }
+      ],
+      "breakpoints": ["1440px", "768px"]
+    },
+    {
+      "screen_id": "reports",
+      "regions": [
+        { "name": "sidebar", "responsive": "hidden on mobile, 220px on desktop" },
+        { "name": "header", "responsive": "full width, 64px height" },
+        { "name": "table-toolbar", "responsive": "full width" },
+        { "name": "data-table", "responsive": "full width, horizontally scrollable on tablet" }
+      ],
+      "breakpoints": ["1440px", "768px"]
+    },
+    {
+      "screen_id": "alert-center",
+      "regions": [
+        { "name": "sidebar", "responsive": "hidden on mobile, 220px on desktop" },
+        { "name": "header", "responsive": "full width, 64px height" },
+        { "name": "alert-summary-bar", "responsive": "full width" },
+        { "name": "alert-list", "responsive": "full width" },
+        { "name": "alert-detail-drawer", "responsive": "end drawer, full height" }
+      ],
+      "breakpoints": ["1440px", "768px"]
+    }
+  ],
+  "component_bindings": [
+    { "screen_id": "main-dashboard", "need": "Navigation sidebar", "component": "Box", "variant": "solid", "gap": false },
+    { "screen_id": "main-dashboard", "need": "Top header bar", "component": "Box", "gap": false },
+    { "screen_id": "main-dashboard", "need": "User avatar in header", "component": "Avatar", "variant": "subtle", "gap": false },
+    { "screen_id": "main-dashboard", "need": "Notification bell", "component": "Button", "variant": "ghost", "gap": false },
+    { "screen_id": "main-dashboard", "need": "KPI stat cards", "component": "Card", "variant": "elevated", "gap": false },
+    { "screen_id": "main-dashboard", "need": "KPI change badge (positive/negative)", "component": "Badge", "variant": "subtle", "gap": false },
+    { "screen_id": "main-dashboard", "need": "Trend line chart", "component": "recharts/LineChart", "gap": true },
+    { "screen_id": "main-dashboard", "need": "Distribution donut chart", "component": "recharts/PieChart", "gap": true },
+    { "screen_id": "main-dashboard", "need": "Date range filter", "component": "Button", "variant": "outline", "gap": false },
+    { "screen_id": "main-dashboard", "need": "Metric selector dropdown", "component": "Select", "variant": "outline", "gap": false },
+    { "screen_id": "main-dashboard", "need": "Dark/light mode toggle", "component": "Switch", "gap": false },
+    { "screen_id": "main-dashboard", "need": "Recent events table", "component": "Table", "gap": false },
+    { "screen_id": "main-dashboard", "need": "Row status badge", "component": "Badge", "variant": "subtle", "gap": false },
+    { "screen_id": "reports", "need": "Data table with sort/filter", "component": "Table", "gap": false },
+    { "screen_id": "reports", "need": "Virtualized/large data grid", "component": "data-grid/virtual-scroll", "gap": true },
+    { "screen_id": "reports", "need": "Column visibility menu", "component": "Menu", "gap": false },
+    { "screen_id": "reports", "need": "Search input", "component": "Input", "variant": "outline", "gap": false },
+    { "screen_id": "reports", "need": "Export button", "component": "Button", "variant": "solid", "gap": false },
+    { "screen_id": "reports", "need": "Date range picker", "component": "Select", "variant": "outline", "gap": false },
+    { "screen_id": "reports", "need": "Row checkbox selection", "component": "Checkbox", "gap": false },
+    { "screen_id": "alert-center", "need": "Alert summary stat badges", "component": "Badge", "variant": "solid", "gap": false },
+    { "screen_id": "alert-center", "need": "Alert cards", "component": "Alert", "variant": "subtle", "gap": false },
+    { "screen_id": "alert-center", "need": "Alert status badge", "component": "Badge", "variant": "solid", "gap": false },
+    { "screen_id": "alert-center", "need": "Alert filter tabs", "component": "Tabs", "variant": "line", "gap": false },
+    { "screen_id": "alert-center", "need": "Alert detail drawer", "component": "Drawer", "gap": false },
+    { "screen_id": "alert-center", "need": "Acknowledge/snooze actions", "component": "Button", "variant": "solid", "gap": false },
+    { "screen_id": "alert-center", "need": "Alert detail tooltip", "component": "Tooltip", "gap": false }
+  ],
+  "theming": {
+    "mode": "both",
+    "token_overrides": {}
+  },
+  "accessibility": {
+    "wcag_target": "WCAG 2.1 AA",
+    "keyboard_model": "Full keyboard navigation with visible focus rings; sidebar nav via Tab; tables via arrow keys",
+    "focus_order": ["sidebar-nav", "header-actions", "main-content-filters", "kpi-cards", "charts", "data-table"]
+  },
+  "assets": {
+    "wireframes": [
+      "design/main-dashboard-wireframe.svg",
+      "design/reports-wireframe.svg",
+      "design/alert-center-wireframe.svg"
+    ],
+    "mockups": [
+      "design/main-dashboard-mockup.html"
+    ]
+  }
+}
