@@ -1,6 +1,5 @@
 packages:
   - 'packages/*'
 
-pnpm:
-  onlyBuiltDependencies:
-    - esbuild
+onlyBuiltDependencies:
+  - esbuild
