@@ -1,7 +1,6 @@
 {
   "name": "user-directory-prototype",
   "private": true,
-  "pnpm": { "onlyBuiltDependencies": ["esbuild"] },
   "scripts": {
     "dev": "concurrently \"pnpm --filter shell dev\" \"pnpm --filter directory dev\""
   },

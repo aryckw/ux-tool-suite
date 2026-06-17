@@ -1,7 +1,6 @@
 {
   "name": "settings-panel-prototype",
   "private": true,
-  "pnpm": { "onlyBuiltDependencies": ["esbuild"] },
   "scripts": {
     "dev": "concurrently \"pnpm --filter shell dev\" \"pnpm --filter settings dev\""
   },
