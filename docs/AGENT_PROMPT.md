@@ -135,36 +135,36 @@ documents consistent and you treat the architectural invariants as inviolable.
 
 ## IMPLEMENTATION ORDER
 
-Internal build phases for the **current roadmap phase (Phase 5 — R1
-remediation)**. Lettered so they never collide with the roadmap's numbered
-phases. Apply the net layout → schema → lifecycle changes first, then the rest.
+Internal build phases for the **current roadmap phase (Phase 0 — integrate the
+organization's actual UI suite)**. Lettered so they never collide with the
+roadmap's numbered phases. Run when `/internal_ui_stack` is mounted read-only in
+a local agentic session.
 
-- [ ] **Phase A — Directory split.** Introduce tracked `concepts/<id>/` vs.
-  ephemeral `workspaces/<id>/`; update `.gitignore` (ignore `workspaces/`, keep
-  `concepts/`); update `Workspace` so canonical artifacts resolve under
-  `concepts/<id>/`.
-- [ ] **Phase B — Schema 2.0.** Bump `concept-spec.schema.json` and
-  `knowledge-pack.schema.json` to `schema_version 2.0`; set `additionalProperties:
-  false` on all objects except `sdaad`; add `runtime_mode` (required), the
-  single `component_gaps[]`, `generative` (+ `captured`/`capture_diff_ref`), and
-  `build_provenance`; remove `component_bindings[].gap`.
-- [ ] **Phase C — Lifecycle + `migrate.py`.** Add `ux_suite/migrate.py`
-  (`1.0 → 2.0`, migrate-then-validate, snapshot first); add the pack-drift gate,
-  binding/props validation, gap gate (`flagged` blocks `built`), and capture gate.
-- [ ] **Phase D — Migrate examples.** Upgrade both example documents to `2.0`; add
-  a worked `component_gaps[]` + capture example; confirm they validate closed.
-- [ ] **Phase E — Lifecycle/eligibility docs.** Add
-  `shared/docs/knowledge-pack-lifecycle.md`, `shared/docs/generative-capture.md`,
-  and the default-deny `shared/generative-allowlist.yaml`.
-- [ ] **Phase F — Builder freeze.** Write frozen build source under
-  `concepts/<id>/build/src/`; commit visual baselines; add `build_provenance` +
-  the explicit `--regenerate` diff/re-baseline action.
-- [ ] **Phase G — Escape hatch.** Support `component_gaps[].status: escape_hatch`
-  (isolated, labeled, logged one-off under `build/_escape_hatch/`; static-only;
-  never offered to the generative path).
-- [ ] **Phase H — Sync hardening + CI.** Add `sync_shared.py --check`, the
-  generated-file banner, `.pre-commit-config.yaml`, and a CI sync-check job; then
-  re-run `sync_shared.py`.
+- [ ] **Phase A — Confirm mount & inventory.** Verify `/internal_ui_stack` is
+  mounted read-only; inventory `package.json`/lockfile, `tsconfig`, token
+  sources, components, `*.stories.*`, and docs per
+  `shared/docs/knowledge-pack-extraction.md`.
+- [ ] **Phase B — Extract the Knowledge Pack.** Map findings to
+  `knowledge-pack.schema.json` (meta, tech_stack, design_tokens,
+  design_principles, components in open-ui shape, patterns, app_shell,
+  capabilities, gaps, coverage_report). `source_refs` provenance is mandatory;
+  unknown facts go to `coverage_report[].missing` with low confidence — never
+  invented (INV-1).
+- [ ] **Phase C — Validate the real pack.** `KnowledgePack.load` validates it
+  against the schema; surface `library_name`/`library_version`, the component
+  list, and `coverage_confidence`.
+- [ ] **Phase D — Swap out the mock.** Point Knowledge Pack resolution at the real
+  pack; confirm **no skill or kernel code changes** are required (INV-1).
+- [ ] **Phase E — End-to-end pipeline proof.** Run a sample concept through
+  designer → prototyper → builder against the real pack; confirm the spec
+  validates, the prototype boots, and the build gates run.
+- [ ] **Phase F — Retire the mock.** Remove `reference-lib/` and
+  `knowledge-pack.mock-lib.json` (and update any references); if the test suite
+  depends on the mock pack, migrate those tests to a minimal local fixture.
+
+R1 remediation (its own lettered build list — `concepts/` split, schema 2.0 +
+`migrate.py`, gates, build freeze, escape hatch, sync hardening) follows as the
+next phase; see `docs/roadmap.md` Phase 5.
 
 ## HOW TO WORK
 
@@ -208,6 +208,9 @@ categories — always ask first:
 - how a `component_gaps[]` entry is resolved (the `decision` object, `deferred`
   vs `escape_hatch` vs `resolved`);
 - the `concepts/` vs `workspaces/` tracked/ephemeral boundary (INV-9);
+- the real library's component facts during Phase 0 extraction — if a prop,
+  behavior, or token is unclear, record it in `coverage_report[].missing` with low
+  confidence; never invent it (INV-1);
 - anything that would alter or reinterpret an architectural invariant.
 
 ## CURRENT PHASE CONTEXT
@@ -216,18 +219,21 @@ categories — always ask first:
 
 - **Completed:** Phases 1–4 at the **v1.0** baseline — the foundational shared
   kernel (schemas, `ux_suite` lib, scripts, elicitation protocol, shared docs) and
-  all three `SKILL.md` bundles (designer, prototyper MF2 path, static builder).
-  (Confirm with `pytest` before relying on this.)
-- **Current phase:** **Phase 5 — R1 remediation** (bring the kernel from `1.0` to
-  the `2.0` contract this SDD describes). Acceptance criteria: a `1.0` spec
-  migrates cleanly to `2.0` and validates closed; a tracked `concepts/<id>/` is
-  produced while `workspaces/<id>/` is gitignored; a bindings-vs-pack mismatch is
-  caught by the pack-drift gate; a `flagged` gap blocks `built` while an
-  `escape_hatch` gap (with decision) passes; a re-run build reproduces from the
-  frozen source; `sync_shared.py --check` fails on injected drift.
-- **Next file:** Phase A — the `concepts/` vs `workspaces/` split (`.gitignore`
-  + `ux_suite/workspace.py`), then Phase B (`concept-spec.schema.json` → `2.0`).
-  Covered by SDD §4.3, §3, and §10.
+  all three `SKILL.md` bundles (designer, prototyper MF2 path, static builder),
+  built and validated **against the mock library**. (Confirm with `pytest` before
+  relying on this.)
+- **Current phase:** **Phase 0 — integrate the organization's actual UI suite.**
+  Run when `/internal_ui_stack` is mounted read-only in a local agentic session.
+  Acceptance criteria: the emitted Knowledge Pack validates against
+  `knowledge-pack.schema.json`; provenance is complete and unknowns are recorded
+  in `coverage_report[].missing` (never invented); the designer → prototyper →
+  builder pipeline runs end-to-end against the real pack with **no skill-code
+  change**; the mock library is retired. R1 remediation (Phase 5 — schema `2.0`,
+  `concepts/` split, gates) follows next.
+- **Next file:** Phase A — confirm the `/internal_ui_stack` mount and inventory it
+  per `shared/docs/knowledge-pack-extraction.md`; then Phase B produces the real
+  pack validated against `shared/schemas/knowledge-pack.schema.json`. Covered by
+  SDD §4.2, §5, and §10.
 
 ## DONE MEANS
 

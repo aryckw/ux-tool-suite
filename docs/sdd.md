@@ -6,7 +6,10 @@ architectural invariants for the whole suite, and specifies the **foundational
 shared kernel** (roadmap Phase 1) in detail. Feature-skill internals (Phases
 2–4), R1 remediation mechanics (Phase 5), and the generative path (Phase 6) are
 referenced here and gain detailed component sections in `§4` as they are
-implemented.
+implemented. Real-library ingestion (Phase 0 — integrate the organization's actual
+UI suite) is the next phase; it produces the Knowledge Pack data artifact via the
+extraction methodology and retires the mock, with **no change to the kernel's
+types or invariants** (hence no SDD version bump).
 
 ## Changelog
 
@@ -390,3 +393,10 @@ Each skill bundle mirrors `shared/schemas|elicitation|docs` into
 - **Non-interactive elicitation:** when there is no human in the loop, do not
   block — choose conservative defaults, mark them `assumed`, and surface them in
   the summary (this is behavior, not an invariant).
+- **Phase 0 (real-library ingestion):** when `/internal_ui_stack` is mounted
+  read-only in a local agentic session, extraction produces a schema-valid
+  Knowledge Pack per `shared/docs/knowledge-pack-extraction.md`; `source_refs`
+  provenance is mandatory and unknown facts go to `coverage_report[].missing`
+  (never invented — INV-1). The `KnowledgePack` consumer (§4.2) is unchanged:
+  swapping the real pack for the mock requires no skill or kernel code change, and
+  the mock library (`reference-lib/`) is retired once the real pack is integrated.

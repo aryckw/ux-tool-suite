@@ -74,7 +74,7 @@ verification gates. No model runs in a delivered application.**
 
 ## 4. Domain Model
 
-- **Knowledge Pack** — the internal component library expressed in
+- **Knowledge Pack** — the organization's internal component library expressed in
   [open-ui.org](https://open-ui.org) shape (anatomy → parts → states → behaviors
   → accessibility), plus tech stack, design tokens, design principles, patterns,
   app-shell conventions, and a coverage report. Produced by **Phase 0** library
@@ -182,8 +182,8 @@ company-ux-suite/
 ├── scripts/                   # sync_shared.py, new_concept.py
 ├── concepts/<id>/             # TRACKED baseline of record (planned, R1)
 ├── workspaces/<id>/           # EPHEMERAL throwaway output (gitignored)
-├── reference-lib/             # tiny MOCK internal library for pipeline de-risking
-└── internal_ui_stack/         # READ-ONLY Phase 0 mount (gitignored; not yet present)
+├── reference-lib/             # MOCK internal library — de-risking fixture, retired after Phase 0
+└── internal_ui_stack/         # READ-ONLY mount of the organization's actual UI suite (Phase 0; gitignored)
 ```
 
 > ASSUMPTION: `concepts/<id>/` (the tracked baseline split) is introduced by the

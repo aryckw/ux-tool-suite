@@ -9,7 +9,9 @@ inside an organization's sanctioned component library, coordinated by one
 progressively-enriched Concept Spec. The current release consolidates the locked
 baseline of record — **v1.0 + v2.1 + R1** — into a buildable, reproducible
 pipeline whose delivered output is always static, deterministic, and
-verification-gated, with generative UI confined to the prototype loop.
+verification-gated, with generative UI confined to the prototype loop. The
+immediate next phase integrates the organization's **actual** UI suite (Phase 0),
+replacing the mock library the pipeline was de-risked against.
 
 ## 2. Development Workflow
 
@@ -39,7 +41,8 @@ The steps for taking a phase from selection to merge:
 
 | Phase | Capability | Status | Completion notes |
 |-------|-----------|--------|------------------|
-| 0 | Internal library ingestion (Phase 0 Knowledge Pack extraction) | Planned | Schema + extraction methodology defined; awaits `/internal_ui_stack` mount. Mock library (`reference-lib/`) stands in. |
+| 0 | Internal library ingestion — integrate the organization's actual UI suite (real Knowledge Pack + end-to-end pipeline proof) | In progress | Schema + extraction methodology defined and **de-risked against the mock** (`reference-lib/`). Mock de-risking is complete; **real-suite ingestion is NOT done.** Actionable when `/internal_ui_stack` is mounted in a local agentic session; the mock is retired on completion. |
+| 0.5 | Spec Reconciliation — realign README, roadmap, SDD, and agent prompt | Planned | Run after the real suite is integrated: retire mock references, refresh Knowledge Pack examples, confirm SDD + agent-prompt versions stay aligned. |
 | 1 | Foundational shared kernel (schemas, `ux_suite` lib, workspace/scripts, elicitation protocol, shared docs) | Done (v1.0) | Built at the v1.0 baseline; schema is `1.0`. R1 upgrades (2.0 schema, `concepts/` split, gates) pending in Phase 5. |
 | 2 | `company-ux-designer` skill (SVG wireframes + HTML/Tailwind mockups + Concept Spec authoring) | Done (v1.0) | `SKILL.md` present and synced; produces specs to `mockup`. |
 | 2.5 | Spec Reconciliation — realign README, roadmap, SDD, and agent prompt | Done | Folded into the initial canonical-doc generation (2026-06). |
@@ -58,21 +61,28 @@ The steps for taking a phase from selection to merge:
 
 > ASSUMPTION: Phases 1–4 are recorded as "Done (v1.0)" from the presence of the
 > schemas, the `ux_suite` library, the three `SKILL.md` bundles, and example
-> workspaces. A full `pytest` pass was not re-run as part of doc generation —
-> confirm before relying on the status.
+> workspaces. They were built and validated against the **mock** library; the
+> real-suite proof is Phase 0. A full `pytest` pass was not re-run as part of doc
+> generation — confirm before relying on the status.
 
 ## 4. Execution Sequence
 
-Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6
-(with Phase 0 runnable at any point once `/internal_ui_stack` is mounted, and a
-reconciliation phase after each feature phase).
+Built so far (against the mock library): Phase 1 → Phase 2 → Phase 3 → Phase 4.
 
-- The foundational kernel (Phase 1) precedes all feature skills because the
+Remaining: **Phase 0 → Phase 5 → Phase 6**, with a reconciliation phase after each.
+
+- The foundational kernel (Phase 1) preceded all feature skills because the
   Concept Spec and Knowledge Pack schemas plus the `ux_suite` library are the
   contracts every skill consumes.
-- **Phase 0 is order-independent**: the suite is de-risked against the mock
-  library, so ingestion of the real library can run before or after the feature
-  skills without changing skill code.
+- **Phase 0 (real-library ingestion) is the next phase**, even though its number
+  is lowest. The three skills were built and de-risked against the mock library;
+  Phase 0 could only run once the organization's actual UI suite became available
+  (mounted at `/internal_ui_stack` during a local agentic session). Phase numbers
+  are stable identifiers — this is exactly why execution order is stated
+  separately from numbering.
+- **Phase 0 precedes R1 (Phase 5)** so that R1 hardens the 2.0 schema, lifecycle,
+  gates, and reproducibility against the **real** Knowledge Pack rather than the
+  mock. The mock library is retired on Phase 0 completion.
 - **R1 (Phase 5) precedes the generative path (Phase 6)** because Phase 6 depends
   on the 2.0 schema, the single `component_gaps[]` model, the `generative_eligible`
   allowlist, and the capture gate that R1 introduces.
@@ -105,16 +115,23 @@ detail in `docs/sdd.md §3`):
 
 ## 6. Phased Feature Plan
 
-### Phase 0 — Internal library ingestion
-- **Goal:** extract the internal React library into a schema-valid Knowledge Pack.
-- **Acceptance criteria:** the emitted pack validates against
+### Phase 0 — Internal library ingestion (integrate the organization's actual UI suite)
+- **Goal:** ingest the organization's **actual** UI suite into a schema-valid
+  Knowledge Pack and prove the full pipeline runs against it, replacing the mock.
+- **Acceptance criteria:** the suite is read read-only from `/internal_ui_stack`
+  during a local agentic session; the emitted pack validates against
   `knowledge-pack.schema.json`; every component carries `source_refs` provenance;
   unknown facts are recorded in `coverage_report[].missing` with low confidence
-  (never invented); skills run against the real pack with **no skill code change**.
-- **Completed items:** _(none — methodology and schema defined; mock library
-  stands in via `reference-lib/`.)_
-- **Verification steps:** validate the produced pack; run the mock pipeline
-  unchanged after swapping in the real pack.
+  (never invented); the designer → prototyper → builder pipeline runs end-to-end
+  against the real pack with **no skill-code change**; the mock library
+  (`reference-lib/` + `knowledge-pack.mock-lib.json`) is **retired**.
+- **Completed items:** _(mock de-risking only — the mock pipeline runs; real-suite
+  ingestion is pending the mount.)_
+- **Verification steps:** validate the produced pack; run a sample concept through
+  all three skills against the real pack; confirm the mock is removed and no skill
+  code changed.
+- **Out of scope (remain open R2 gaps):** single design-token artifact (G13),
+  adapter / anti-corruption layer (G14), Knowledge Pack lifecycle + drift (G3).
 
 ### Phase 1 — Foundational shared kernel
 - **Goal:** establish the schemas, the `ux_suite` Python library, the workspace
@@ -195,7 +212,7 @@ detail in `docs/sdd.md §3`):
   than re-deriving these checks here.
 
 Phases 2.5 / 3.5 / 4.5 were satisfied by the initial generation of this canonical
-doc set (2026-06). Phases 5.5 / 6.5 are planned per the template above.
+doc set (2026-06). Phases 0.5 / 5.5 / 6.5 are planned per the template above.
 
 ## 7. Decisions and Open Questions
 
@@ -217,6 +234,12 @@ doc set (2026-06). Phases 5.5 / 6.5 are planned per the template above.
   excluded from the certifiable-library claim.
 - **Adopt `@openuidev/lang-core` (pinned, MIT)** (D22) — verified by the §8 spike,
   not forked.
+- **Real-suite integration folds into Phase 0** (not a new phase number) — the
+  expanded Phase 0 ingests the organization's actual UI suite and proves the
+  pipeline end-to-end; the mock library (`reference-lib/`) was only a de-risking
+  stand-in and is retired on completion. Sequenced **before R1** so the hardening
+  work targets the real pack. *Rationale:* preserves phase-number stability while
+  making real integration the next actionable phase.
 
 ### Open questions (gap register; R2 candidates)
 G11 CI/execution environment · G12 MF2 cross-remote state & screen→remote mapping
