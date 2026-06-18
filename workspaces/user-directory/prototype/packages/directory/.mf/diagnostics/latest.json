@@ -1,0 +1,10 @@
+{
+  "latestErrorEvent": {
+    "code": "TYPE-001",
+    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx tsc --project \\\"C:\\\\\\\\Users\\\\\\\\ewatz\\\\\\\\OneDrive - aptima\\\\\\\\Documents\\\\\\\\_code\\\\\\\\_eric\\\\\\\\ux-tool-suite\\\\\\\\workspaces\\\\\\\\user-directory\\\\\\\\prototype\\\\\\\\packages\\\\\\\\directory\\\\\\\\node_modules\\\\\\\\.federation\\\\\\\\tsconfig.3baa8c53610db8161bd6d0ed060c8f07.json\\\"\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
+    "args": {
+      "cmd": "npx tsc --project \"C:\\\\Users\\\\ewatz\\\\OneDrive - aptima\\\\Documents\\\\_code\\\\_eric\\\\ux-tool-suite\\\\workspaces\\\\user-directory\\\\prototype\\\\packages\\\\directory\\\\node_modules\\\\.federation\\\\tsconfig.3baa8c53610db8161bd6d0ed060c8f07.json\""
+    },
+    "timestamp": 1781694449416
+  }
+}
