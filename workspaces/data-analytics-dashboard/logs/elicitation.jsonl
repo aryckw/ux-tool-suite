@@ -1,0 +1,9 @@
+{"question": "Primary goal?", "answer": "Business intelligence: monitor KPIs, spot trends, drill into data", "source": "user-brief"}
+{"question": "Personas?", "answer": "Business Analyst (power user, daily), Executive (occasional, mobile-friendly)", "source": "user-brief"}
+{"question": "Key screens?", "answer": "1. Main Dashboard, 2. Reports/Data Table, 3. Alert Center", "source": "user-brief"}
+{"question": "Breakpoints?", "answer": "Desktop-first (1440px) with tablet support (768px)", "source": "user-brief"}
+{"question": "Data domain?", "answer": "Sales & revenue metrics: revenue, conversion rate, active users, churn", "source": "user-brief"}
+{"question": "Dark/light mode?", "answer": "Both (toggle)", "source": "user-brief"}
+{"question": "A11y target?", "answer": "WCAG 2.1 AA", "source": "user-brief"}
+{"question": "Key constraints?", "answer": "Must use Chakra UI components; charts are a gap (no native chart component)", "source": "user-brief"}
+{"question": "Non-goals?", "answer": "Mobile-native, real-time websocket, admin/settings screens", "source": "user-brief"}

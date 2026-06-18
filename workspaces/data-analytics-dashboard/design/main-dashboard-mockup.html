@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main Dashboard — AnalyticsPro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            /* Chakra UI v3 design token hex values from knowledge pack */
+            /* Gray scale */
+            'ck-black':    '#09090B',
+            'ck-white':    '#FFFFFF',
+            'ck-gray-50':  '#fafafa',
+            'ck-gray-100': '#f4f4f5',
+            'ck-gray-200': '#e4e4e7',
+            'ck-gray-300': '#d4d4d8',
+            'ck-gray-400': '#a1a1aa',
+            'ck-gray-500': '#71717a',
+            'ck-gray-600': '#52525b',
+            'ck-gray-700': '#3f3f46',
+            'ck-gray-800': '#27272a',
+            'ck-gray-900': '#18181b',
+            'ck-gray-950': '#111111',
+            /* Blue (brand) */
+            'ck-blue-50':  '#eff6ff',
+            'ck-blue-500': '#3b82f6',
+            'ck-blue-950': '#0c142e',
+            /* Teal (secondary brand) */
+            'ck-teal-50':  '#f0fdfa',
+            'ck-teal-500': '#14b8a6',
+            /* Green (success) */
+            'ck-green-50':  '#f0fdf4',
+            'ck-green-500': '#22c55e',
+            'ck-green-950': '#03190c',
+            /* Red (error/danger) */
+            'ck-red-50':   '#fef2f2',
+            'ck-red-500':  '#ef4444',
+            'ck-red-950':  '#1f0808',
+            /* Orange (warning) */
+            'ck-orange-50':  '#fff7ed',
+            'ck-orange-500': '#f97316',
+            /* Yellow */
+            'ck-yellow-50':  '#fefce8',
+            'ck-yellow-500': '#eab308',
+            /* Purple */
+            'ck-purple-50':  '#faf5ff',
+            'ck-purple-500': '#a855f7',
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
+            mono: ['SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+          },
+          boxShadow: {
+            'ck-sm': '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)',
+            'ck-md': '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)',
+            'ck-lg': '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)',
+          },
+          borderRadius: {
+            'ck-sm': '0.25rem',
+            'ck-md': '0.375rem',
+            'ck-lg': '0.5rem',
+            'ck-xl': '0.75rem',
+            'ck-2xl': '1rem',
+            'ck-full': '9999px',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Transition for dark mode */
+    body { transition: background-color 0.2s ease, color 0.2s ease; }
+    .sidebar-nav-item { transition: background-color 0.15s ease; }
+    .kpi-card { transition: box-shadow 0.15s ease; }
+    .kpi-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body class="bg-ck-gray-100 dark:bg-ck-gray-900 font-sans h-screen overflow-hidden">
+
+  <!-- Layout: fixed sidebar + scrollable main -->
+  <div class="flex h-screen">
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="w-56 flex-shrink-0 flex flex-col bg-ck-gray-900 dark:bg-ck-black border-r border-ck-gray-800 h-screen overflow-y-auto z-10">
+      <!-- Logo area -->
+      <div class="px-4 py-5 border-b border-ck-gray-800">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-ck-md bg-ck-blue-500 flex items-center justify-center">
+            <span class="text-ck-white text-xs font-bold">AP</span>
+          </div>
+          <span class="text-ck-white font-semibold text-sm">AnalyticsPro</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 px-2 py-4 space-y-1">
+        <!-- Dashboard (active) -->
+        <a href="#" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-ck-md bg-ck-blue-500 text-ck-white text-sm font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          Dashboard
+        </a>
+        <!-- Reports -->
+        <a href="#" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-ck-md text-ck-gray-400 hover:bg-ck-gray-800 hover:text-ck-white text-sm font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Reports
+        </a>
+        <!-- Alert Center -->
+        <a href="#" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-ck-md text-ck-gray-400 hover:bg-ck-gray-800 hover:text-ck-white text-sm font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+          Alert Center
+          <span class="ml-auto bg-ck-red-500 text-ck-white text-xs font-bold px-1.5 py-0.5 rounded-ck-full">3</span>
+        </a>
+        <!-- Settings -->
+        <a href="#" class="sidebar-nav-item flex items-center gap-3 px-3 py-2 rounded-ck-md text-ck-gray-400 hover:bg-ck-gray-800 hover:text-ck-white text-sm font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          Settings
+        </a>
+      </nav>
+
+      <!-- User section bottom -->
+      <div class="px-3 py-4 border-t border-ck-gray-800">
+        <div class="flex items-center gap-3">
+          <!-- Avatar.Root compound pattern -->
+          <div class="w-8 h-8 rounded-ck-full bg-ck-blue-500 flex items-center justify-center flex-shrink-0" role="img" aria-label="Jane Doe avatar">
+            <span class="text-ck-white text-xs font-semibold">JD</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-ck-white text-xs font-medium truncate">Jane Doe</p>
+            <p class="text-ck-gray-400 text-xs truncate">Business Analyst</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========== MAIN AREA ========== -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+      <!-- ========== HEADER ========== -->
+      <header class="flex-shrink-0 h-16 bg-ck-white dark:bg-ck-gray-800 border-b border-ck-gray-200 dark:border-ck-gray-700 flex items-center px-6 gap-4 z-10">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="flex items-center text-sm text-ck-gray-500 dark:text-ck-gray-400 gap-1">
+          <span>Home</span>
+          <span class="text-ck-gray-300 dark:text-ck-gray-600">/</span>
+          <span class="text-ck-gray-800 dark:text-ck-gray-100 font-medium">Dashboard</span>
+        </nav>
+
+        <!-- Page title -->
+        <h1 class="text-sm font-semibold text-ck-gray-800 dark:text-ck-gray-100 hidden md:block">Main Dashboard</h1>
+
+        <div class="ml-auto flex items-center gap-3">
+          <!-- Date range (quick select) -->
+          <select class="text-xs bg-ck-white dark:bg-ck-gray-700 border border-ck-gray-200 dark:border-ck-gray-600 text-ck-gray-700 dark:text-ck-gray-200 rounded-ck-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-ck-blue-500" aria-label="Date range">
+            <option>Last 30 days</option>
+            <option>Last 7 days</option>
+            <option>Last 90 days</option>
+            <option>Custom range</option>
+          </select>
+
+          <!-- Dark mode toggle (Switch compound) -->
+          <button
+            id="darkModeToggle"
+            onclick="toggleDark()"
+            class="relative inline-flex items-center gap-2 text-xs text-ck-gray-600 dark:text-ck-gray-300 bg-ck-gray-100 dark:bg-ck-gray-700 hover:bg-ck-gray-200 dark:hover:bg-ck-gray-600 px-2.5 py-1.5 rounded-ck-md transition-colors focus:outline-none focus:ring-2 focus:ring-ck-blue-500"
+            aria-label="Toggle dark mode"
+            role="switch"
+            aria-checked="false"
+          >
+            <span id="darkIcon">🌙</span>
+            <span id="darkLabel">Dark</span>
+          </button>
+
+          <!-- Notification bell (Button ghost + badge) -->
+          <button class="relative p-2 rounded-ck-md text-ck-gray-600 dark:text-ck-gray-300 hover:bg-ck-gray-100 dark:hover:bg-ck-gray-700 focus:outline-none focus:ring-2 focus:ring-ck-blue-500" aria-label="Notifications — 3 unread">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <!-- Badge -->
+            <span class="absolute top-1 right-1 w-4 h-4 bg-ck-red-500 text-ck-white text-xs font-bold rounded-ck-full flex items-center justify-center" aria-hidden="true">3</span>
+          </button>
+
+          <!-- User Avatar (Avatar.Root pattern) -->
+          <div class="w-8 h-8 rounded-ck-full bg-ck-blue-500 flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-ck-blue-500 hover:ring-offset-2 focus:outline-none focus:ring-2 focus:ring-ck-blue-500" role="img" aria-label="User menu: Jane Doe" tabindex="0">
+            <span class="text-ck-white text-xs font-semibold">JD</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ========== SCROLLABLE CONTENT AREA ========== -->
+      <main class="flex-1 overflow-y-auto p-6 bg-ck-gray-100 dark:bg-ck-gray-900" id="mainContent">
+
+        <!-- ===== ROW 1: KPI Cards ===== -->
+        <section aria-label="Key Performance Indicators" class="mb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+
+            <!-- KPI Card 1: Revenue (Card.Root elevated) -->
+            <article class="kpi-card bg-ck-white dark:bg-ck-gray-800 rounded-ck-lg border border-ck-gray-200 dark:border-ck-gray-700 p-5 shadow-ck-sm" aria-label="Revenue KPI">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <p class="text-xs font-medium text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide">Revenue</p>
+                  <p class="text-2xl font-bold text-ck-gray-900 dark:text-ck-gray-50 mt-1">$2.4M</p>
+                </div>
+                <div class="w-9 h-9 rounded-ck-md bg-ck-blue-50 dark:bg-ck-blue-950 flex items-center justify-center" aria-hidden="true">
+                  <svg class="w-5 h-5 text-ck-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+              </div>
+              <!-- Badge (green positive) -->
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-green-50 text-ck-green-500 border border-ck-green-500" aria-label="12.3% increase vs last period">
+                  ↑ +12.3%
+                </span>
+                <span class="text-xs text-ck-gray-400 dark:text-ck-gray-500">vs last period</span>
+              </div>
+              <!-- Sparkline placeholder -->
+              <div class="mt-3 h-10 bg-ck-gray-100 dark:bg-ck-gray-700 rounded-ck-sm flex items-end px-1 gap-0.5" aria-hidden="true">
+                <div class="flex-1 bg-ck-blue-500 opacity-40 rounded-sm" style="height: 40%"></div>
+                <div class="flex-1 bg-ck-blue-500 opacity-50 rounded-sm" style="height: 55%"></div>
+                <div class="flex-1 bg-ck-blue-500 opacity-55 rounded-sm" style="height: 48%"></div>
+                <div class="flex-1 bg-ck-blue-500 opacity-60 rounded-sm" style="height: 65%"></div>
+                <div class="flex-1 bg-ck-blue-500 opacity-65 rounded-sm" style="height: 70%"></div>
+                <div class="flex-1 bg-ck-blue-500 opacity-70 rounded-sm" style="height: 62%"></div>
+                <div class="flex-1 bg-ck-blue-500 opacity-80 rounded-sm" style="height: 80%"></div>
+                <div class="flex-1 bg-ck-blue-500 rounded-sm" style="height: 100%"></div>
+              </div>
+            </article>
+
+            <!-- KPI Card 2: Active Users -->
+            <article class="kpi-card bg-ck-white dark:bg-ck-gray-800 rounded-ck-lg border border-ck-gray-200 dark:border-ck-gray-700 p-5 shadow-ck-sm" aria-label="Active Users KPI">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <p class="text-xs font-medium text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide">Active Users</p>
+                  <p class="text-2xl font-bold text-ck-gray-900 dark:text-ck-gray-50 mt-1">84,210</p>
+                </div>
+                <div class="w-9 h-9 rounded-ck-md bg-ck-teal-50 dark:bg-ck-gray-700 flex items-center justify-center" aria-hidden="true">
+                  <svg class="w-5 h-5 text-ck-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-green-50 text-ck-green-500 border border-ck-green-500" aria-label="5.7% increase">
+                  ↑ +5.7%
+                </span>
+                <span class="text-xs text-ck-gray-400 dark:text-ck-gray-500">vs last period</span>
+              </div>
+              <div class="mt-3 h-10 bg-ck-gray-100 dark:bg-ck-gray-700 rounded-ck-sm flex items-end px-1 gap-0.5" aria-hidden="true">
+                <div class="flex-1 bg-ck-teal-500 opacity-40 rounded-sm" style="height: 50%"></div>
+                <div class="flex-1 bg-ck-teal-500 opacity-50 rounded-sm" style="height: 60%"></div>
+                <div class="flex-1 bg-ck-teal-500 opacity-55 rounded-sm" style="height: 55%"></div>
+                <div class="flex-1 bg-ck-teal-500 opacity-60 rounded-sm" style="height: 70%"></div>
+                <div class="flex-1 bg-ck-teal-500 opacity-70 rounded-sm" style="height: 75%"></div>
+                <div class="flex-1 bg-ck-teal-500 opacity-80 rounded-sm" style="height: 80%"></div>
+                <div class="flex-1 bg-ck-teal-500 opacity-90 rounded-sm" style="height: 88%"></div>
+                <div class="flex-1 bg-ck-teal-500 rounded-sm" style="height: 100%"></div>
+              </div>
+            </article>
+
+            <!-- KPI Card 3: Conversion Rate (negative — red badge) -->
+            <article class="kpi-card bg-ck-white dark:bg-ck-gray-800 rounded-ck-lg border border-ck-gray-200 dark:border-ck-gray-700 p-5 shadow-ck-sm" aria-label="Conversion Rate KPI">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <p class="text-xs font-medium text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide">Conversion Rate</p>
+                  <p class="text-2xl font-bold text-ck-gray-900 dark:text-ck-gray-50 mt-1">3.42%</p>
+                </div>
+                <div class="w-9 h-9 rounded-ck-md bg-ck-orange-50 dark:bg-ck-gray-700 flex items-center justify-center" aria-hidden="true">
+                  <svg class="w-5 h-5 text-ck-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-red-50 text-ck-red-500 border border-ck-red-500" aria-label="0.8% decrease">
+                  ↓ -0.8%
+                </span>
+                <span class="text-xs text-ck-gray-400 dark:text-ck-gray-500">vs last period</span>
+              </div>
+              <div class="mt-3 h-10 bg-ck-gray-100 dark:bg-ck-gray-700 rounded-ck-sm flex items-end px-1 gap-0.5" aria-hidden="true">
+                <div class="flex-1 bg-ck-red-500 opacity-40 rounded-sm" style="height: 100%"></div>
+                <div class="flex-1 bg-ck-red-500 opacity-50 rounded-sm" style="height: 90%"></div>
+                <div class="flex-1 bg-ck-red-500 opacity-55 rounded-sm" style="height: 85%"></div>
+                <div class="flex-1 bg-ck-red-500 opacity-60 rounded-sm" style="height: 80%"></div>
+                <div class="flex-1 bg-ck-red-500 opacity-70 rounded-sm" style="height: 72%"></div>
+                <div class="flex-1 bg-ck-red-500 opacity-80 rounded-sm" style="height: 65%"></div>
+                <div class="flex-1 bg-ck-red-500 opacity-90 rounded-sm" style="height: 58%"></div>
+                <div class="flex-1 bg-ck-red-500 rounded-sm" style="height: 50%"></div>
+              </div>
+            </article>
+
+            <!-- KPI Card 4: Churn Rate (green = lower churn is good) -->
+            <article class="kpi-card bg-ck-white dark:bg-ck-gray-800 rounded-ck-lg border border-ck-gray-200 dark:border-ck-gray-700 p-5 shadow-ck-sm" aria-label="Churn Rate KPI">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <p class="text-xs font-medium text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide">Churn Rate</p>
+                  <p class="text-2xl font-bold text-ck-gray-900 dark:text-ck-gray-50 mt-1">2.1%</p>
+                </div>
+                <div class="w-9 h-9 rounded-ck-md bg-ck-purple-50 dark:bg-ck-gray-700 flex items-center justify-center" aria-hidden="true">
+                  <svg class="w-5 h-5 text-ck-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-green-50 text-ck-green-500 border border-ck-green-500" aria-label="0.3% decrease — lower churn is positive">
+                  ↓ -0.3%
+                </span>
+                <span class="text-xs text-ck-gray-400 dark:text-ck-gray-500">vs last period</span>
+              </div>
+              <div class="mt-3 h-10 bg-ck-gray-100 dark:bg-ck-gray-700 rounded-ck-sm flex items-end px-1 gap-0.5" aria-hidden="true">
+                <div class="flex-1 bg-ck-purple-500 opacity-40 rounded-sm" style="height: 100%"></div>
+                <div class="flex-1 bg-ck-purple-500 opacity-50 rounded-sm" style="height: 85%"></div>
+                <div class="flex-1 bg-ck-purple-500 opacity-55 rounded-sm" style="height: 78%"></div>
+                <div class="flex-1 bg-ck-purple-500 opacity-60 rounded-sm" style="height: 70%"></div>
+                <div class="flex-1 bg-ck-purple-500 opacity-70 rounded-sm" style="height: 60%"></div>
+                <div class="flex-1 bg-ck-purple-500 opacity-80 rounded-sm" style="height: 50%"></div>
+                <div class="flex-1 bg-ck-purple-500 opacity-90 rounded-sm" style="height: 42%"></div>
+                <div class="flex-1 bg-ck-purple-500 rounded-sm" style="height: 35%"></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ===== ROW 2: Charts ===== -->
+        <section aria-label="Charts" class="mb-6">
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+
+            <!-- Trend Chart (2/3 width) -->
+            <div class="xl:col-span-2 bg-ck-white dark:bg-ck-gray-800 rounded-ck-lg border border-ck-gray-200 dark:border-ck-gray-700 p-5 shadow-ck-sm">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h2 class="text-sm font-semibold text-ck-gray-800 dark:text-ck-gray-100">Revenue Trend</h2>
+                  <p class="text-xs text-ck-gray-400 dark:text-ck-gray-500">Jun 1 – Jun 17, 2026</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-ck-full bg-ck-blue-500 inline-block" aria-hidden="true"></span>
+                  <span class="text-xs text-ck-gray-500 dark:text-ck-gray-400">Revenue</span>
+                  <span class="w-3 h-3 rounded-ck-full bg-ck-teal-500 inline-block ml-3" aria-hidden="true"></span>
+                  <span class="text-xs text-ck-gray-500 dark:text-ck-gray-400">Target</span>
+                </div>
+              </div>
+              <!-- Chart placeholder (recharts gap) -->
+              <div class="h-56 bg-ck-gray-50 dark:bg-ck-gray-900 rounded-ck-md flex flex-col items-center justify-center border border-dashed border-ck-gray-200 dark:border-ck-gray-700" role="img" aria-label="Trend chart placeholder — requires recharts library">
+                <!-- Mock SVG chart lines -->
+                <svg class="w-full h-full opacity-30 dark:opacity-20" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true">
+                  <polyline points="0,160 60,140 120,150 180,120 240,100 300,90 360,75 420,65 480,50 540,40 600,30" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                  <polyline points="0,140 60,135 120,138 180,130 240,125 300,120 360,115 420,110 480,105 540,100 600,95" fill="none" stroke="#14b8a6" stroke-width="2" stroke-dasharray="4 2"/>
+                </svg>
+                <div class="absolute flex flex-col items-center">
+                  <span class="text-3xl mb-1" role="presentation">📈</span>
+                  <p class="text-sm font-medium text-ck-gray-500 dark:text-ck-gray-400">Trend Chart</p>
+                  <p class="text-xs text-ck-gray-400 dark:text-ck-gray-500 mt-0.5">recharts LineChart — gap (no Chakra native)</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Distribution Chart (1/3 width) -->
+            <div class="bg-ck-white dark:bg-ck-gray-800 rounded-ck-lg border border-ck-gray-200 dark:border-ck-gray-700 p-5 shadow-ck-sm">
+              <div class="mb-4">
+                <h2 class="text-sm font-semibold text-ck-gray-800 dark:text-ck-gray-100">Revenue Distribution</h2>
+                <p class="text-xs text-ck-gray-400 dark:text-ck-gray-500">By region</p>
+              </div>
+              <!-- Donut placeholder -->
+              <div class="h-56 bg-ck-gray-50 dark:bg-ck-gray-900 rounded-ck-md flex flex-col items-center justify-center border border-dashed border-ck-gray-200 dark:border-ck-gray-700" role="img" aria-label="Distribution donut chart placeholder — requires recharts">
+                <!-- Mock donut ring -->
+                <svg class="w-32 h-32 opacity-40 dark:opacity-25 mb-2" viewBox="0 0 100 100" aria-hidden="true">
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#3b82f6" stroke-width="14" stroke-dasharray="110 110" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#22c55e" stroke-width="14" stroke-dasharray="55 165" stroke-dashoffset="-110" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#f97316" stroke-width="14" stroke-dasharray="28 192" stroke-dashoffset="-165" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="#a855f7" stroke-width="14" stroke-dasharray="27 193" stroke-dashoffset="-193" transform="rotate(-90 50 50)"/>
+                </svg>
+                <p class="text-xs font-medium text-ck-gray-500 dark:text-ck-gray-400">🍩 Distribution</p>
+                <p class="text-xs text-ck-gray-400 dark:text-ck-gray-500 mt-0.5 text-center">recharts PieChart<br/>gap (no Chakra native)</p>
+              </div>
+              <!-- Legend -->
+              <div class="mt-3 space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-ck-blue-500 inline-block" aria-hidden="true"></span><span class="text-ck-gray-600 dark:text-ck-gray-400">North America</span></span>
+                  <span class="font-medium text-ck-gray-800 dark:text-ck-gray-200">50%</span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-ck-green-500 inline-block" aria-hidden="true"></span><span class="text-ck-gray-600 dark:text-ck-gray-400">Europe</span></span>
+                  <span class="font-medium text-ck-gray-800 dark:text-ck-gray-200">25%</span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-ck-orange-500 inline-block" aria-hidden="true"></span><span class="text-ck-gray-600 dark:text-ck-gray-400">Asia Pacific</span></span>
+                  <span class="font-medium text-ck-gray-800 dark:text-ck-gray-200">13%</span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-ck-purple-500 inline-block" aria-hidden="true"></span><span class="text-ck-gray-600 dark:text-ck-gray-400">Other</span></span>
+                  <span class="font-medium text-ck-gray-800 dark:text-ck-gray-200">12%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== ROW 3: Filter Bar ===== -->
+        <section aria-label="Filters" class="mb-4">
+          <div class="bg-ck-white dark:bg-ck-gray-800 rounded-ck-lg border border-ck-gray-200 dark:border-ck-gray-700 p-4 shadow-ck-sm flex flex-wrap items-center gap-3">
+            <span class="text-xs font-medium text-ck-gray-500 dark:text-ck-gray-400">Time range:</span>
+            <!-- Date range buttons (Button.outline group) -->
+            <div class="flex items-center" role="group" aria-label="Date range">
+              <button class="px-3 py-1.5 text-xs font-medium bg-ck-blue-500 text-ck-white rounded-l-ck-md border border-ck-blue-500 focus:outline-none focus:ring-2 focus:ring-ck-blue-500" aria-pressed="false">7D</button>
+              <button class="px-3 py-1.5 text-xs font-medium bg-ck-white dark:bg-ck-gray-700 text-ck-gray-700 dark:text-ck-gray-200 border border-ck-gray-200 dark:border-ck-gray-600 border-l-0 focus:outline-none focus:ring-2 focus:ring-ck-blue-500" aria-pressed="true">30D</button>
+              <button class="px-3 py-1.5 text-xs font-medium bg-ck-white dark:bg-ck-gray-700 text-ck-gray-700 dark:text-ck-gray-200 border border-ck-gray-200 dark:border-ck-gray-600 border-l-0 focus:outline-none focus:ring-2 focus:ring-ck-blue-500" aria-pressed="false">90D</button>
+              <button class="px-3 py-1.5 text-xs font-medium bg-ck-white dark:bg-ck-gray-700 text-ck-gray-700 dark:text-ck-gray-200 rounded-r-ck-md border border-ck-gray-200 dark:border-ck-gray-600 border-l-0 focus:outline-none focus:ring-2 focus:ring-ck-blue-500" aria-pressed="false">Custom</button>
+            </div>
+
+            <div class="w-px h-5 bg-ck-gray-200 dark:bg-ck-gray-700" aria-hidden="true"></div>
+
+            <!-- Metric dropdown (Select component) -->
+            <label class="text-xs font-medium text-ck-gray-500 dark:text-ck-gray-400" for="metricSelect">Metric:</label>
+            <select id="metricSelect" class="text-xs bg-ck-white dark:bg-ck-gray-700 border border-ck-gray-200 dark:border-ck-gray-600 text-ck-gray-700 dark:text-ck-gray-200 rounded-ck-md px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-ck-blue-500">
+              <option>Revenue</option>
+              <option>Active Users</option>
+              <option>Conversion Rate</option>
+              <option>Churn Rate</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- ===== ROW 4: Recent Events Table ===== -->
+        <section aria-label="Recent Events" class="mb-2">
+          <div class="bg-ck-white dark:bg-ck-gray-800 rounded-ck-lg border border-ck-gray-200 dark:border-ck-gray-700 shadow-ck-sm overflow-hidden">
+            <!-- Table header -->
+            <div class="px-5 py-3 border-b border-ck-gray-200 dark:border-ck-gray-700 flex items-center justify-between">
+              <h2 class="text-sm font-semibold text-ck-gray-800 dark:text-ck-gray-100">Recent Events</h2>
+              <button class="text-xs text-ck-blue-500 hover:text-ck-blue-500 hover:underline focus:outline-none focus:underline" aria-label="View all events in Reports">View all →</button>
+            </div>
+            <!-- Table (Table component) -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm" role="grid" aria-label="Recent events table">
+                <thead>
+                  <tr class="bg-ck-gray-50 dark:bg-ck-gray-900 border-b border-ck-gray-200 dark:border-ck-gray-700">
+                    <th class="px-5 py-3 text-left text-xs font-semibold text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide" scope="col">Date</th>
+                    <th class="px-5 py-3 text-left text-xs font-semibold text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide" scope="col">Event</th>
+                    <th class="px-5 py-3 text-left text-xs font-semibold text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide" scope="col">Metric</th>
+                    <th class="px-5 py-3 text-left text-xs font-semibold text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide" scope="col">Value</th>
+                    <th class="px-5 py-3 text-left text-xs font-semibold text-ck-gray-500 dark:text-ck-gray-400 uppercase tracking-wide" scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-ck-gray-100 dark:divide-ck-gray-700">
+                  <!-- Row 1 -->
+                  <tr class="hover:bg-ck-gray-50 dark:hover:bg-ck-gray-700 transition-colors">
+                    <td class="px-5 py-3 text-xs text-ck-gray-500 dark:text-ck-gray-400 whitespace-nowrap">2026-06-17</td>
+                    <td class="px-5 py-3 text-xs font-medium text-ck-gray-800 dark:text-ck-gray-100">Campaign Launch</td>
+                    <td class="px-5 py-3 text-xs text-ck-gray-600 dark:text-ck-gray-300">Revenue</td>
+                    <td class="px-5 py-3 text-xs font-semibold text-ck-gray-800 dark:text-ck-gray-100">$124K</td>
+                    <td class="px-5 py-3">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-green-50 text-ck-green-500 border border-ck-green-500" role="status">Success</span>
+                    </td>
+                  </tr>
+                  <!-- Row 2 -->
+                  <tr class="hover:bg-ck-gray-50 dark:hover:bg-ck-gray-700 transition-colors">
+                    <td class="px-5 py-3 text-xs text-ck-gray-500 dark:text-ck-gray-400 whitespace-nowrap">2026-06-16</td>
+                    <td class="px-5 py-3 text-xs font-medium text-ck-gray-800 dark:text-ck-gray-100">Threshold Alert</td>
+                    <td class="px-5 py-3 text-xs text-ck-gray-600 dark:text-ck-gray-300">Churn</td>
+                    <td class="px-5 py-3 text-xs font-semibold text-ck-gray-800 dark:text-ck-gray-100">2.4%</td>
+                    <td class="px-5 py-3">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-orange-50 text-ck-orange-500 border border-ck-orange-500" role="status">Warning</span>
+                    </td>
+                  </tr>
+                  <!-- Row 3 -->
+                  <tr class="hover:bg-ck-gray-50 dark:hover:bg-ck-gray-700 transition-colors">
+                    <td class="px-5 py-3 text-xs text-ck-gray-500 dark:text-ck-gray-400 whitespace-nowrap">2026-06-15</td>
+                    <td class="px-5 py-3 text-xs font-medium text-ck-gray-800 dark:text-ck-gray-100">User Spike Detected</td>
+                    <td class="px-5 py-3 text-xs text-ck-gray-600 dark:text-ck-gray-300">Active Users</td>
+                    <td class="px-5 py-3 text-xs font-semibold text-ck-gray-800 dark:text-ck-gray-100">+2,100</td>
+                    <td class="px-5 py-3">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-blue-50 text-ck-blue-500 border border-ck-blue-500" role="status">Info</span>
+                    </td>
+                  </tr>
+                  <!-- Row 4 -->
+                  <tr class="hover:bg-ck-gray-50 dark:hover:bg-ck-gray-700 transition-colors">
+                    <td class="px-5 py-3 text-xs text-ck-gray-500 dark:text-ck-gray-400 whitespace-nowrap">2026-06-14</td>
+                    <td class="px-5 py-3 text-xs font-medium text-ck-gray-800 dark:text-ck-gray-100">Conversion Drop</td>
+                    <td class="px-5 py-3 text-xs text-ck-gray-600 dark:text-ck-gray-300">Conversion Rate</td>
+                    <td class="px-5 py-3 text-xs font-semibold text-ck-gray-800 dark:text-ck-gray-100">3.21%</td>
+                    <td class="px-5 py-3">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-red-50 text-ck-red-500 border border-ck-red-500" role="status">Critical</span>
+                    </td>
+                  </tr>
+                  <!-- Row 5 -->
+                  <tr class="hover:bg-ck-gray-50 dark:hover:bg-ck-gray-700 transition-colors">
+                    <td class="px-5 py-3 text-xs text-ck-gray-500 dark:text-ck-gray-400 whitespace-nowrap">2026-06-13</td>
+                    <td class="px-5 py-3 text-xs font-medium text-ck-gray-800 dark:text-ck-gray-100">Revenue Record</td>
+                    <td class="px-5 py-3 text-xs text-ck-gray-600 dark:text-ck-gray-300">Revenue</td>
+                    <td class="px-5 py-3 text-xs font-semibold text-ck-gray-800 dark:text-ck-gray-100">$210K</td>
+                    <td class="px-5 py-3">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-ck-full text-xs font-medium bg-ck-green-50 text-ck-green-500 border border-ck-green-500" role="status">Success</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main><!-- /main -->
+    </div><!-- /main area -->
+  </div><!-- /layout flex -->
+
+  <script>
+    // Dark mode toggle — Switch compound behavior
+    function toggleDark() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      const btn = document.getElementById('darkModeToggle');
+      const icon = document.getElementById('darkIcon');
+      const label = document.getElementById('darkLabel');
+      btn.setAttribute('aria-checked', isDark ? 'true' : 'false');
+      icon.textContent = isDark ? '☀️' : '🌙';
+      label.textContent = isDark ? 'Light' : 'Dark';
+    }
+  </script>
+</body>
+</html>
