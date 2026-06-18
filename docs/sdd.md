@@ -8,8 +8,9 @@ shared kernel** (roadmap Phase 1) in detail. Feature-skill internals (Phases
 referenced here and gain detailed component sections in `§4` as they are
 implemented. Real-library ingestion (Phase 0 — integrate the organization's actual
 UI suite) is the next phase; it produces the Knowledge Pack data artifact via the
-extraction methodology and retires the mock, with **no change to the kernel's
-types or invariants** (hence no SDD version bump).
+extraction methodology and demotes the mock to an offline-CI fallback fixture,
+with **no change to the kernel's types or invariants** (hence no SDD version
+bump).
 
 ## Changelog
 
@@ -399,4 +400,5 @@ Each skill bundle mirrors `shared/schemas|elicitation|docs` into
   provenance is mandatory and unknown facts go to `coverage_report[].missing`
   (never invented — INV-1). The `KnowledgePack` consumer (§4.2) is unchanged:
   swapping the real pack for the mock requires no skill or kernel code change, and
-  the mock library (`reference-lib/`) is retired once the real pack is integrated.
+  the mock library (`reference-lib/`) is kept only as an offline-CI / dev fallback
+  fixture once the real pack is integrated.

@@ -182,7 +182,7 @@ company-ux-suite/
 ├── scripts/                   # sync_shared.py, new_concept.py
 ├── concepts/<id>/             # TRACKED baseline of record (planned, R1)
 ├── workspaces/<id>/           # EPHEMERAL throwaway output (gitignored)
-├── reference-lib/             # MOCK internal library — de-risking fixture, retired after Phase 0
+├── reference-lib/             # MOCK internal library — de-risking + offline-CI fallback fixture
 └── internal_ui_stack/         # READ-ONLY mount of the organization's actual UI suite (Phase 0; gitignored)
 ```
 

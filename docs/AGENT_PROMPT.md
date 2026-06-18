@@ -158,9 +158,10 @@ a local agentic session.
 - [ ] **Phase E — End-to-end pipeline proof.** Run a sample concept through
   designer → prototyper → builder against the real pack; confirm the spec
   validates, the prototype boots, and the build gates run.
-- [ ] **Phase F — Retire the mock.** Remove `reference-lib/` and
-  `knowledge-pack.mock-lib.json` (and update any references); if the test suite
-  depends on the mock pack, migrate those tests to a minimal local fixture.
+- [ ] **Phase F — Demote the mock.** Keep `reference-lib/` and
+  `knowledge-pack.mock-lib.json` as an offline-CI / dev **fallback** fixture (no
+  longer the default runtime source); make the real pack take precedence in
+  Knowledge Pack resolution; keep the mock-backed tests green.
 
 R1 remediation (its own lettered build list — `concepts/` split, schema 2.0 +
 `migrate.py`, gates, build freeze, escape hatch, sync hardening) follows as the
@@ -217,19 +218,21 @@ categories — always ask first:
 
 > This is the section to update between sessions.
 
-- **Completed:** Phases 1–4 at the **v1.0** baseline — the foundational shared
-  kernel (schemas, `ux_suite` lib, scripts, elicitation protocol, shared docs) and
-  all three `SKILL.md` bundles (designer, prototyper MF2 path, static builder),
-  built and validated **against the mock library**. (Confirm with `pytest` before
-  relying on this.)
+- **Built but needs review:** Phases 1–4 at the **v1.0** baseline — the
+  foundational shared kernel (schemas, `ux_suite` lib, scripts, elicitation
+  protocol, shared docs) and all three `SKILL.md` bundles (designer, prototyper
+  MF2 path, static builder), built and validated **against the mock library**.
+  They are marked *Needs review* in the roadmap and may need updates once the real
+  suite is ingested. (Confirm with `pytest` before relying on this.)
 - **Current phase:** **Phase 0 — integrate the organization's actual UI suite.**
   Run when `/internal_ui_stack` is mounted read-only in a local agentic session.
   Acceptance criteria: the emitted Knowledge Pack validates against
   `knowledge-pack.schema.json`; provenance is complete and unknowns are recorded
   in `coverage_report[].missing` (never invented); the designer → prototyper →
   builder pipeline runs end-to-end against the real pack with **no skill-code
-  change**; the mock library is retired. R1 remediation (Phase 5 — schema `2.0`,
-  `concepts/` split, gates) follows next.
+  change**; the mock is demoted to an offline-CI fallback (no longer the default
+  source). R1 remediation (Phase 5 — schema `2.0`, `concepts/` split, gates)
+  follows next.
 - **Next file:** Phase A — confirm the `/internal_ui_stack` mount and inventory it
   per `shared/docs/knowledge-pack-extraction.md`; then Phase B produces the real
   pack validated against `shared/schemas/knowledge-pack.schema.json`. Covered by
