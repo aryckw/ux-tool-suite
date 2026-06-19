@@ -204,7 +204,8 @@ following remain open candidates for a future package (R2):
   Tailwind preset) is yet consumed by mockup/prototype/build.
 - **`lang-core` anti-corruption layer (G14)** — the pre-1.0 generative runtime is
   not yet isolated behind a thin internal adapter.
-- **Mock-data contract (G15)**, **front-door intent classification (G16)**,
+- **Mock-data contract (G15)**, **front-door intent classification (G16 — now
+  addressed by the Phase 7 Conversational Web Front Door; see `docs/roadmap.md`)**,
   **keyboard/focus a11y verification beyond axe (G17)**, **id derivation &
   concurrency (G18)**, **ingested-context retention/classification (G19)**,
   **SBOM/license compliance on builds (G20)**, **failure taxonomy (G22)**,

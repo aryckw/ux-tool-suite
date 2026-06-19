@@ -54,6 +54,8 @@ The steps for taking a phase from selection to merge:
 | 5.5 | Spec Reconciliation — realign README, roadmap, SDD, and agent prompt | Planned | Run after R1 lands; bump SDD + agent-prompt versions together. |
 | 6 | v2.1 generative-accelerated prototyping (`lang-core` due-diligence spike, render-contract compiler, `generative_eligible` allowlist, capture gate) | Planned | Default fast prototype path; gated by §8 spike. Builder stays static-only. |
 | 6.5 | Spec Reconciliation — realign README, roadmap, SDD, and agent prompt | Planned | Run after the generative path lands. |
+| 7 | Conversational Web Front Door — chat web client + orchestration backend over the kernel/skills (**resolves G16**) | Planned | New orchestration + presentation subsystem (SDD §1.1, §4.7–4.11, INV-12…15). MVP runs against the designer mockup output; live preview depends on Phase 6; build-from-chat depends on Phase 0 + Phase 5 + a defined execution sandbox (G11). |
+| 7.5 | Spec Reconciliation — realign README, roadmap, SDD, and agent prompt | Planned | Run after the front door lands. |
 
 > Phase numbers are stable identifiers. Execution sequence is stated separately
 > below. Reconciliation phases use decimal identifiers so feature-phase numbers
@@ -71,7 +73,8 @@ The steps for taking a phase from selection to merge:
 Built so far (against the mock library; **needs review** after Phase 0):
 Phase 1 → Phase 2 → Phase 3 → Phase 4.
 
-Remaining: **Phase 0 → Phase 5 → Phase 6**, with a reconciliation phase after each.
+Remaining: **Phase 0 → Phase 5 → Phase 6 → Phase 7**, with a reconciliation phase
+after each.
 
 - The foundational kernel (Phase 1) preceded all feature skills because the
   Concept Spec and Knowledge Pack schemas plus the `ux_suite` library are the
@@ -89,6 +92,11 @@ Remaining: **Phase 0 → Phase 5 → Phase 6**, with a reconciliation phase afte
 - **R1 (Phase 5) precedes the generative path (Phase 6)** because Phase 6 depends
   on the 2.0 schema, the single `component_gaps[]` model, the `generative_eligible`
   allowlist, and the capture gate that R1 introduces.
+- **The Front Door (Phase 7) is last** because its full experience composes the
+  others: the MVP (7a/7b) needs only the designer (Phases 1–2), the live preview
+  (7c) needs the generative path (Phase 6), and build-from-chat (7d) needs the real
+  pack (Phase 0), the build freeze/gates (Phase 5), and a defined execution
+  sandbox (G11). It adds no contract — it orchestrates the existing pipeline.
 
 ## 5. Contract Definitions
 
@@ -210,6 +218,44 @@ detail in `docs/sdd.md §3`):
 - **Verification steps:** run the spike; exercise the render-contract compiler and
   `ComponentGapError`; confirm graduation drops all generative artifacts.
 
+### Phase 7 — Conversational Web Front Door
+- **Goal:** a chat web client + orchestration backend where a user describes a UI
+  in natural language and sees it rendered with the organization's own components,
+  iterating conversationally and promoting up the fidelity ladder on request. An
+  orchestration + presentation layer over the kernel and skills — no new contract.
+  Specified in SDD §1.1, §4.7–4.11, INV-12…15. **Resolves G16.**
+- **Sub-steps (lettered; never collide with phase numbers):**
+  - **7a — Orchestration kernel:** FastAPI `FrontDoor` service, `Session` model,
+    concept lifecycle over `ux_suite`, `AgentRunner` (one headless skill run), WS
+    streaming. *Depends: Phases 1–2.*
+  - **7b — Chat client MVP:** two-pane SPA; conversation + binding/gap/stage cards;
+    **mockup preview** (designer HTML/Tailwind, no model). *Depends: 7a.*
+  - **7c — Live generative preview:** wire the prototyper generative fast path into
+    the preview; near-instant re-render on binding edits. *Depends: Phase 6.*
+  - **7d — Stage promotion + build from chat:** "make it clickable" (MF2) and
+    "ship it" (static, gated build) as explicit gated actions with streamed gate
+    results. *Depends: Phase 0 + Phase 5 + G11 sandbox.*
+  - **7e — Intent classification (resolves G16):** robust turn routing
+    (`new_concept`/`refine`/`advance`/`answer`/`question`/`undo`/`unknown`),
+    confidence-gated disambiguation, quick-reply chips.
+  - **7f — Sessions/persistence/multi-concept:** concurrency lock (touches G18),
+    auth seam (out of scope for v1 single-tenant/local).
+- **Acceptance criteria:** typing a description bootstraps a concept and streams a
+  designer-authored mockup; refinements iterate at-stage without bumping `version`
+  (INV-12); gaps surface as cards writing a `component_gaps[]` decision (INV-5);
+  the live preview is prototype-loop only (INV-14); `advance → built` walks the
+  ladder one rung at a time (INV-4) and yields a static build with no model in the
+  bundle (INV-6); all concept mutation goes through `ux_suite` (INV-13); the
+  classifier proposes but never enforces gates (INV-15); expensive/destructive
+  intents require explicit confirmation.
+- **Completed items:** _(none — planned; SDD §1.1/§4.7–4.11 specified.)_
+- **Verification steps:** classifier eval set `(utterance, state) → IntentResult`
+  scored hardest on `advance→built` and `new vs refine` (an instance of G23);
+  end-to-end: a concept walks draft→built from chat; assert no
+  model/registration/`render_artifact` in the delivered build (INV-6).
+- **Out of scope (v1):** auth / multi-tenant isolation; an `undo` taxonomy entry is
+  optional for the first cut (restores a snapshot as a new version per INV-3/INV-12).
+
 ### Reconciliation Phase Template (applies to all X.5 phases)
 - **Goal:** realign the four canonical documents (README, roadmap, SDD, agent
   prompt) after a run of feature work.
@@ -221,7 +267,7 @@ detail in `docs/sdd.md §3`):
   than re-deriving these checks here.
 
 Phases 2.5 / 3.5 / 4.5 were satisfied by the initial generation of this canonical
-doc set (2026-06). Phases 0.5 / 5.5 / 6.5 are planned per the template above.
+doc set (2026-06). Phases 0.5 / 5.5 / 6.5 / 7.5 are planned per the template above.
 
 ## 7. Decisions and Open Questions
 
@@ -253,12 +299,24 @@ doc set (2026-06). Phases 0.5 / 5.5 / 6.5 are planned per the template above.
 - **Phases 1–4 are marked "Needs review"** — they were built and validated against
   the mock library and may need updating once the real suite is ingested in
   Phase 0.
+- **A Conversational Web Front Door is its own subsystem (Phase 7), not a skill**
+  — a chat web client + orchestration backend over the existing kernel/skills,
+  adding no new contract and no component knowledge. It is the concrete resolution
+  of G16. The within-stage **snapshot-cadence rule is locked** (INV-12): iterating
+  at a stage is unbounded and never bumps `version`; snapshots occur only on
+  `advance_stage` or an explicit user checkpoint. *Rationale:* the suite already
+  coordinates through one on-disk Concept Spec across stateless sessions; the front
+  door hosts those sessions behind a conversation and surfaces what the skills
+  write, rather than introducing a parallel source of truth.
 
 ### Open questions (gap register; R2 candidates)
-G11 CI/execution environment · G12 MF2 cross-remote state & screen→remote mapping
-· G13 single design-token artifact · G14 `lang-core` anti-corruption layer · G15
-mock-data contract · G16 front-door intent classification · G17 keyboard/focus
-a11y beyond axe · G18 id derivation & concurrency · G19 ingested-context
-retention/classification · G20 SBOM/license compliance on builds · G22 failure
-taxonomy · G23 machine-checkable per-skill acceptance · G25 over-library-capability
-behavior. See `files/ux-suite-GAP-ANALYSIS.md`.
+G11 CI/execution environment *(forced into scope by Phase 7d's agent sandbox)* ·
+G12 MF2 cross-remote state & screen→remote mapping · G13 single design-token
+artifact · G14 `lang-core` anti-corruption layer · G15 mock-data contract · G16
+front-door intent classification **→ addressed by Phase 7 (`IntentClassifier`)** ·
+G17 keyboard/focus a11y beyond axe · G18 id derivation & concurrency *(touched by
+Phase 7f's per-concept lock)* · G19 ingested-context retention/classification
+*(touched by Phase 7's untrusted-input handling)* · G20 SBOM/license compliance on
+builds · G22 failure taxonomy · G23 machine-checkable per-skill acceptance
+*(classifier eval set is an instance)* · G25 over-library-capability behavior.
+See `files/ux-suite-GAP-ANALYSIS.md`.

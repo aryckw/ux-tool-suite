@@ -1,6 +1,6 @@
 # company-ux-suite — Software Design Document
 
-**Version: 2.1**
+**Version: 2.2**
 **Status:** Covers the consolidated **v1.0 + v2.1 + R1** architecture and
 architectural invariants for the whole suite, and specifies the **foundational
 shared kernel** (roadmap Phase 1) in detail. Feature-skill internals (Phases
@@ -10,7 +10,9 @@ implemented. Real-library ingestion (Phase 0 — integrate the organization's ac
 UI suite) is the next phase; it produces the Knowledge Pack data artifact via the
 extraction methodology and demotes the mock to an offline-CI fallback fixture,
 with **no change to the kernel's types or invariants** (hence no SDD version
-bump).
+bump). The **Conversational Web Front Door** (roadmap Phase 7) is specified here
+in `§1.1`, `§4.7–4.11`, and invariants `INV-12…INV-15`; it is an orchestration +
+presentation subsystem over the existing kernel and skills, not a new contract.
 
 ## Changelog
 
@@ -18,6 +20,7 @@ bump).
 |---------|-------|
 | 1.0 | Initial specification — three Agent Skills over a shared kernel; static SVG → HTML/Tailwind → MF2 prototype → Dockerized, Playwright-gated build pipeline; one progressively-enriched Concept Spec. |
 | 2.1 | Consolidated baseline of record. Folds in the v2.1 generative-accelerated prototyping direction (OpenUI-Lang, `runtime_mode`, hard static/generative boundary) and the R1 remediation package (schema `2.0` + `migrate.py`, tracked `concepts/` split, single `component_gaps[]`, pack-drift/capture gates, `build_provenance`, escape hatch, `sync --check`). This is the technical contract going forward. |
+| 2.2 | Adds the **Conversational Web Front Door** subsystem (roadmap Phase 7): a chat web client + orchestration backend (`FrontDoor`, `IntentClassifier`, `AgentRunner`, `PreviewService`, `Session`) over the unchanged kernel and skills. Introduces invariants `INV-12…INV-15` (snapshot cadence; front-door-via-`ux_suite` only; chat preview is prototype-loop only; the classifier is a pure router) and locks the within-stage snapshot-cadence rule. No change to the Concept Spec / Knowledge Pack schemas. |
 
 ---
 
@@ -69,6 +72,55 @@ bump).
   prototype loop. **Playwright + axe-core** (D8) for the build gates.
 - **Canonical `shared/` synced into self-contained skill bundles** (D13) —
   reconciles Agent-Skills self-containment with a DRY shared kernel.
+
+### 1.1 Conversational Web Front Door subsystem (Phase 7)
+
+The Front Door is the human-friendly realization of the *Intent router* box: a
+chat web client where a user describes a UI in natural language and sees it
+rendered with the organization's own components, iterating conversationally. It
+is an **orchestration + presentation layer over the existing kernel and skills**
+— it adds no component knowledge and no new inter-skill contract. It is the
+concrete resolution of open gap **G16 (front-door intent classification)**.
+
+```
+  Browser  (chat column + sandboxed live-preview iframe)
+     │  WebSocket — turns ↑ ; tokens / progress / gate-results / preview-reload ↓
+  ┌──▼─────────────────────────────────────────────────────────┐
+  │ FrontDoor service (FastAPI, on top of ux_suite)             │
+  │   Session ←→ Concept (concepts/<id>/)                       │
+  │   IntentClassifier  — turn + state summary → IntentResult   │ (pure router)
+  │   AgentRunner       — invokes a SKILL.md bundle headless     │ (Agent SDK)
+  │   PreviewService    — mockup | generative prototype | build  │
+  │   mutates concept state ONLY via ux_suite (INV-2, INV-13)    │
+  └──┬───────────────────────────────────────┬──────────────────┘
+     ▼ (read-only)                            ▼ (the contract)
+  Knowledge Pack  (INV-1)            Concept Spec  (monotonic ladder, INV-3/4)
+     │                                         │
+     └──────────  designer · prototyper · builder  (unchanged) ──────────┘
+```
+
+**Rationale:** the suite already coordinates everything through one on-disk
+Concept Spec across stateless agentic sessions (INV-2); the Front Door just hosts
+those sessions behind a conversation instead of a developer's terminal, and
+surfaces what the skills write — stage, bindings, gaps — as structured chat. The
+generative prototype loop is already specified to *feel near-instant* (§6), which
+is the engine the live-preview pane needs.
+
+**Conversation ↔ Concept Spec mapping** (the crux; classified by the
+`IntentClassifier`, executed by `FrontDoor`):
+
+| Turn intent | Effect on the Concept Spec | Runs a skill agent? |
+|-------------|----------------------------|---------------------|
+| `new_concept` | bootstrap `concepts/<id>/`; designer authors intent/IA | yes (designer) |
+| `refine` | edit `composition`/`component_bindings`/`theming` at the current stage; log to `elicitation_log` | hybrid (deterministic edit vs. scoped skill run) |
+| `advance` | `advance_stage` one rung, gated by the kernel | yes (prototyper / builder) |
+| `answer` | append the answer to `elicitation_log` (`answered`), resume the paused flow | resumes flow |
+| `question` | read-only retrieval over spec/log/pack; no mutation | no |
+| `undo` | restore a `spec/history/v{N}.json` snapshot as a new version | no |
+| `unknown` | disambiguation question + quick-reply chips | no |
+
+Multiple `refine`/`answer`/`question` turns at one stage are unbounded — only an
+`advance` intent changes `fidelity_stage` (see INV-4, INV-12).
 
 ---
 
@@ -142,6 +194,36 @@ consolidates three locked baselines; each rule is binary.)
   `knowledge_pack_ref` are not repurposed. *Why:* protects a future integration
   seam from collisions.
 
+- **INV-12: Within-stage iteration is unbounded and does not bump `version`.** A
+  concept may take any number of refinement / answer / question turns at a given
+  `fidelity_stage`; `version` increments — and therefore a snapshot is written
+  (INV-3) — **only** on `advance_stage` or an explicit user checkpoint, never on a
+  per-edit basis. *Why:* iterative forming (especially at `draft`/`wireframe`/
+  `mockup`) is the normal mode; per-keystroke snapshots would bloat history and
+  dilute the auditable record to noise.
+
+- **INV-13: The Front Door mutates concept state only through `ux_suite`.** The
+  conversational backend reads and writes the Concept Spec exclusively via the
+  kernel (`ConceptSpec` / `Workspace`); the conversation transcript is
+  **non-canonical session metadata** and is never an inter-skill channel or a
+  source of truth. *Why:* preserves the single-contract guarantee (INV-2) — a
+  concept must be fully reconstructable from its spec + elicitation log alone.
+
+- **INV-14: The chat live preview is a prototype-loop surface only.** The preview
+  pane renders a mockup, a generative prototype, or a static build *for review*;
+  it is never itself a delivered build, and a generative preview never ships. A
+  delivered build is produced only by the builder's static, gated path (INV-6).
+  *Why:* the front door must not become a back door around the static/generative
+  boundary.
+
+- **INV-15: The `IntentClassifier` is a pure router.** It maps `(turn + read-only
+  state summary) → IntentResult`; it never enforces fidelity preconditions or
+  gates (those stay in `ux_suite` — INV-4/INV-5), never mutates the spec, never
+  holds canonical state, and never sources component knowledge (INV-1). It
+  *proposes* actions; the kernel *disposes*. *Why:* keeps gate enforcement and
+  component truth in one authoritative place, so a routing model can never skip a
+  rung, smuggle a component, or fake coverage.
+
 ---
 
 ## 3. Global Types and Contracts
@@ -159,6 +241,8 @@ consolidates three locked baselines; each rule is binary.)
 | `render_contract` / `ComponentGapError` — *Phase 6* | `shared/lib/ux_suite/render_contract.py` |
 | Elicitation entry shape (`stage/question/answer/status/timestamp`) | `shared/elicitation/elicitation-protocol.md` + `ConceptSpec.add_elicitation_entry` |
 | Generative eligibility allowlist — *Phase 5/6* | `shared/generative-allowlist.yaml` |
+| `IntentResult` (router output: `actions[]`, `confidence`, disambiguation) — *Phase 7* | `§4.8` (front-door service; not a Concept-Spec type) |
+| `Session` / transcript (non-canonical session metadata) — *Phase 7* | `§4.11` (front-door service) |
 
 > The JSON Schemas are the authoritative shape for the Concept Spec and Knowledge
 > Pack. Canonical source: the paths above. The synced copies under
@@ -264,6 +348,96 @@ consolidates three locked baselines; each rule is binary.)
 
 ---
 
+## 4B. Component Specifications — Conversational Web Front Door (Phase 7; planned)
+
+> This subsystem is an orchestration + presentation layer over the kernel and
+> skills. It introduces no Concept Spec / Knowledge Pack schema change. Built in
+> the sub-steps of roadmap Phase 7; specified here spec-first per `README §5`.
+
+### 4.7 `FrontDoor` service — `frontdoor/` (FastAPI)
+- **Purpose:** host conversational sessions; translate classified turns into
+  pipeline actions against one concept; stream progress to the client.
+- **Interface (intended):** WebSocket `/ws/session/{session_id}` (turns up;
+  tokens / tool-use progress / gate results / `preview-reload` down); REST
+  `POST /session` (create), `GET /session/{id}` (resume), `GET /concept/{id}/spec`
+  (read-only spec/log/pack projections for the UI).
+- **Behavior rules:** on each turn → `IntentClassifier` → dispatch: `new_concept`
+  scaffolds via `new_concept.py` + runs the designer (`AgentRunner`); `refine`
+  takes the hybrid path (deterministic edit via `ux_suite` vs. a scoped skill
+  run); `advance` calls `ConceptSpec.advance_stage` and surfaces any precondition/
+  gate failure verbatim; `answer` appends to `elicitation_log` and resumes;
+  `question` answers read-only; `undo` restores a snapshot as a new version.
+  Require explicit user confirmation before *expensive/destructive* intents —
+  `advance → built` (runs Docker/Playwright) and `new_concept` when one already
+  exists.
+- **Must NOT:** mutate concept state by any path other than `ux_suite` (INV-13);
+  hardcode component knowledge (INV-1); let the transcript become canonical state
+  (INV-13); enforce gates itself (the kernel does — INV-15); let pasted/ingested
+  text silently trigger a build or concept replacement (G19).
+
+### 4.8 `IntentClassifier` — `frontdoor/intent.py`
+- **Purpose:** map `(user turn + compact read-only state summary)` to a typed,
+  executable `IntentResult`. Pure router (INV-15).
+- **Interface (intended):** `classify(turn: str, state: StateSummary) ->
+  IntentResult`, where `StateSummary` carries `fidelity_stage`, `has_concept`,
+  `pending_question`, the screen/region list, and the available component names;
+  and `IntentResult` is `{ actions: [{ intent, refinement?, target_stage? }],
+  confidence, answers_pending_question, needs_disambiguation, clarifying_question,
+  rationale }`. `intent ∈ {new_concept, refine, advance, answer, question, undo,
+  unknown}`; `refinement.kind ∈ {theming, layout, binding_swap, add_region,
+  remove_region, content}` with a `deterministic` flag that selects the hybrid
+  path. Compound turns are an **ordered `actions[]`, capped at 3**.
+- **Behavior rules:** classification is **context-biased** — a `pending_question`
+  strongly favors `answer`; absence of a concept favors `new_concept`. A single
+  low-temp, structured Claude call (latest model); an optional regex pre-filter
+  may short-circuit unmistakable turns (`undo`, `ship it`). Below the confidence
+  threshold → set `needs_disambiguation` with a single chip-based
+  `clarifying_question` rather than acting.
+- **Must NOT:** enforce preconditions/gates, mutate the spec, hold canonical
+  state, or assert component existence/coverage (it may *propose* a binding target
+  from the supplied component list; existence and props are validated downstream —
+  INV-1/INV-5/INV-15).
+
+### 4.9 `AgentRunner` — `frontdoor/runner.py`
+- **Purpose:** invoke a `SKILL.md` bundle as a headless agentic run (Claude Agent
+  SDK), streaming progress, exactly as a Claude Code session would.
+- **Interface (intended):** `run(skill, concept_id, instruction, stream) ->
+  RunResult`; emits tool-use/progress events for the WebSocket.
+- **Behavior rules:** run in an isolated, ephemeral sandbox (the skills execute
+  `pnpm`/Docker/Playwright — this binds to open gap **G11**); the skill reads the
+  Knowledge Pack and reads/writes the Concept Spec; the runner conveys only the
+  spec delta + log, never out-of-band state (INV-2/INV-13).
+- **Must NOT:** carry inter-skill state outside the spec; expose secrets (env
+  only — §7); place canonical artifacts under `workspaces/` (INV-9).
+
+### 4.10 `PreviewService` — `frontdoor/preview.py`
+- **Purpose:** render the current concept into the live-preview iframe in one of
+  three modes against one spec.
+- **Interface (intended):** `render(concept_id, mode) -> PreviewHandle`, `mode ∈
+  {mockup, generative, build}`; `mockup` serves the designer's HTML/Tailwind
+  output (the MVP path, no model); `generative` recompiles the render contract and
+  hot-reloads (depends on Phase 6); `build` serves the builder's static artifact.
+- **Behavior rules:** sandboxed iframe (scoped origin, no ambient credentials);
+  generative rendering uses **mocked data only**; on a binding/composition change,
+  recompile + push `preview-reload` (near-instant, no per-concept rebuild — §6).
+- **Must NOT:** treat a generative preview as a delivered build (INV-14); ship a
+  model/registration/`render_artifact` in the `build` mode output (INV-6); render
+  an unregistered/ineligible component in `generative` mode (INV-7).
+
+### 4.11 `Session` / transcript — `frontdoor/session.py`
+- **Purpose:** bind a conversation to a concept and persist resumable session
+  metadata.
+- **Interface (intended):** `Session{ id, concept_id, status, created_at,
+  updated_at, transcript_ref }`; lightweight store (SQLite to start).
+- **Behavior rules:** one writer per concept (a lock — binds to open gap **G18**
+  id-derivation/concurrency); the transcript is reconstructable from the concept's
+  `elicitation_log`; v1 is single-tenant/local (auth + multi-tenant isolation are
+  a noted seam, out of scope).
+- **Must NOT:** be treated as canonical concept state (INV-13); outlive or
+  override the on-disk spec.
+
+---
+
 ## 5. Data Flow
 
 **Authoring (designer → prototyper → builder):**
@@ -284,6 +458,16 @@ consolidates three locked baselines; each rule is binary.)
 `component_gaps[]` or routed to the static path — never faked. Before a build may
 graduate, the effective composition is **captured back** into the canonical spec
 (`generative.captured == true`).
+
+**Conversational front door (Phase 7, local host):** a browser turn arrives over
+the WebSocket → `IntentClassifier` maps it (with a read-only state summary) to an
+`IntentResult` → `FrontDoor` dispatches: a deterministic `refine` edits the spec
+directly via `ux_suite`; anything needing design judgment, a `new_concept`, or an
+`advance` runs the owning skill via `AgentRunner`. Progress streams back; on any
+composition/binding change the `PreviewService` recompiles and pushes
+`preview-reload`. State changes flow through the Concept Spec only (INV-13); the
+transcript is reconstructable from `elicitation_log`. `advance → built` runs the
+builder's static gated path — no model reaches the build (INV-6/INV-14).
 
 **Build graduation (builder):** the builder consumes the *captured* canonical
 `composition`/`component_bindings` (never the `render_artifact`), writes frozen
@@ -311,6 +495,10 @@ verification is smoke-level only; rigorous gates belong to the build.
 - **The Concept Spec on disk is the only shared state.** Skills are stateless
   across sessions and coordinate exclusively through it (INV-2). The Knowledge
   Pack is read-only shared input.
+- **The Front Door conversation transcript is non-canonical session metadata**
+  (INV-13). It is a presentation/resume convenience reconstructable from the
+  concept's `elicitation_log`; it never carries inter-skill state and is never a
+  source of truth.
 - The `ux_suite` classes hold a single in-memory document reference and persist
   via `save`/`advance_stage`; there is no long-lived process state.
 

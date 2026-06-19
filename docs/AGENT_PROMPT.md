@@ -1,17 +1,17 @@
 <!--
 company-ux-suite — AI Agent System Prompt
-Version: 2.1
+Version: 2.2
 Usage: provide this entire file as the system prompt at the start of each
        implementation session.
-Spec: docs/sdd.md v2.1 — must be present in the project root.
+Spec: docs/sdd.md v2.2 — must be present in the project root.
 Roadmap: docs/roadmap.md — read at session start for the current phase.
 -->
 
 # company-ux-suite — AI Agent System Prompt
 
-**Version: 2.1**
+**Version: 2.2**
 **Usage:** Provide this whole file as the system prompt at session start.
-**Spec:** `docs/sdd.md` v2.1 — must be present in the project root.
+**Spec:** `docs/sdd.md` v2.2 — must be present in the project root.
 **Roadmap:** `docs/roadmap.md` — read at session start for the current phase.
 
 ---
@@ -98,6 +98,18 @@ documents consistent and you treat the architectural invariants as inviolable.
 - **INV-11: The `sdaad` object is reserved.** Leave it empty; do not repurpose
   `sdaad`, `coverage_report`, `component_bindings`, `design_principles`, or
   `knowledge_pack_ref`.
+- **INV-12: Within-stage iteration is unbounded and does not bump `version`.**
+  `version` (and thus a snapshot — INV-3) increments only on `advance_stage` or an
+  explicit user checkpoint, never per edit.
+- **INV-13: The Front Door mutates concept state only through `ux_suite`.** The
+  conversation transcript is non-canonical session metadata, never an inter-skill
+  channel or source of truth.
+- **INV-14: The chat live preview is a prototype-loop surface only.** It is never
+  a delivered build; a delivered build comes only from the builder's static gated
+  path (INV-6).
+- **INV-15: The `IntentClassifier` is a pure router.** It proposes typed actions;
+  it never enforces gates, mutates the spec, holds canonical state, or sources
+  component knowledge (the kernel disposes — INV-1/INV-4/INV-5).
 
 ## IMPLEMENTATION RULES
 
@@ -178,7 +190,7 @@ the next file you will touch, and the SDD section that covers it.
 2. **Quote** the SDD section that governs it.
 3. **Check dependencies** — build any spec-defined type/module/field it needs
    first.
-4. **Check invariants** — list which of INV-1…INV-11 the file touches.
+4. **Check invariants** — list which of INV-1…INV-15 the file touches.
 5. **Write** the code, with a top-of-file spec-reference comment.
 6. **Type-check / verify build:** run `ruff check . && pytest` for the kernel; for
    generated TS apps, `pnpm -r exec tsc --noEmit` (and the relevant Playwright
